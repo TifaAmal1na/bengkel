@@ -34,10 +34,12 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-light sidebar sidebar-light accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-                <img src="/img/logo.jpeg" style="width: 60%;">
+
+                <img src="/img/PTPALLOGO.jpg" style="width: 80%;">
+
             </a>
 
             <li class="nav-item">
