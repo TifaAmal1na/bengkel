@@ -8,6 +8,10 @@ use App\Http\Controllers\revisiGambarController;
 use App\Http\Controllers\toolsController;
 use App\Http\Controllers\workloadAnalysisController;
 use Illuminate\Support\Facades\Route;
+// chart
+use App\Http\Controllers\ProyekChartController;
+use App\Http\Controllers\PersonelChartController;
+use App\Http\Controllers\ToolsChartController;
 // use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
@@ -26,3 +30,8 @@ Route::resource('proyek', ProyekController::class);
 Route::resource('revisi_gambar', RevisiGambarController::class);
 Route::resource('tools', ToolsController::class);
 Route::resource('workload_analysis', WorkloadAnalysisController::class);
+
+// chart
+Route::get('/proyek', [ProyekChartController::class, 'index'])->name('proyek.chart');
+Route::get('/personel', [PersonelChartController::class, 'index'])->name('personel.chart');
+Route::get('/tools', [ToolsChartController::class, 'index'])->name('tools.chart');
