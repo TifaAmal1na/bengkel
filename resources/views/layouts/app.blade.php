@@ -34,32 +34,32 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-light sidebar sidebar-light accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-                <img src="/img/logo.jpg" style="width: 100%;">
+                <img src="/img/PTPALLOGO.jpg" style="width: 80%;">
             </a>
 
             <li class="nav-item">
-                <!-- <a class="nav-link" href="{{ route('dashboard') }}"> -->
+                <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>  
             </li>
 
             <li class="nav-item">
-                <!-- <a class="nav-link" href="{{route ('notifikasi.index')}}"> -->
+                {{-- <a class="nav-link" href="{{route ('notifikasi.index')}}"> --}}
                     <i class="fas fa-fw fa-user-check"></i>
                     <span>Data Notifikasi</span></a>
             </li>
 
              <li class="nav-item">
-                <!-- <a class="nav-link"  href="{{route ('pekerjaan.index')}}"> -->
+                {{-- <a class="nav-link"  href="{{route ('pekerjaan.index')}}"> --}}
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Data Pekerjaan</span></a>
             </li>
 
              <li class="nav-item">
-                <!-- <a class="nav-link" href="{{route ('personel')}}"> -->
+                {{-- <a class="nav-link" href="{{route ('personel.index')}}"> --}}
                     <i class="fas fa-fw fa-user-graduate"></i>
                     <span>Data Personel</span></a>
             </li>
@@ -71,19 +71,19 @@
             </li>
 
              <li class="nav-item">
-                <!-- <a class="nav-link" href="{{route ('revisigambar.index')}}"> -->
+                {{-- <a class="nav-link" href="{{route ('revisigambar.index')}}"> --}}
                     <i class="fas fa-fw fa-history"></i>
                     <span>Revisi Gambar</span></a>
             </li>
 
             <li class="nav-item">
-                <!-- <a class="nav-link" href="{{route ('tools.index')}}"> -->
+                {{-- <a class="nav-link" href="{{route ('tools.index')}}"> --}}
                     <i class="fas fa-fw fa-history"></i>
                     <span>Tools</span></a>
             </li>
 
             <li class="nav-item">
-                <!-- <a class="nav-link" href="{{route ('workloadAnalysis.index')}}"> -->
+                {{-- <a class="nav-link" href="{{route ('workloadAnalysis.index')}}"> --}}
                     <i class="fas fa-fw fa-history"></i>
                     <span>Workload Analysis</span></a>
             </li>
