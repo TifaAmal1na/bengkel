@@ -32,6 +32,6 @@ Route::resource('tools', ToolsController::class);
 Route::resource('workload_analysis', WorkloadAnalysisController::class);
 
 // chart
-Route::get('/proyek', [ProyekChartController::class, 'index'])->name('proyek.chart');
-Route::get('/personel', [PersonelChartController::class, 'index'])->name('personel.chart');
-Route::get('/tools', [ToolsChartController::class, 'index'])->name('tools.chart');
+Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('proyek.chart');
+Route::get('/ChartPersonel', [PersonelChartController::class, 'index'])->name('personel.chart');
+Route::get('/ChartTools', [ToolsChartController::class, 'index'])->name('tools.chart');
