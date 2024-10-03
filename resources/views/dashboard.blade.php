@@ -51,6 +51,16 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            <!-- Nav Item - Proyek -->
+            <li class="nav-item active">
+                <a class="nav-link" href="http://127.0.0.1:8000/proyek">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Proyek</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 Interface
