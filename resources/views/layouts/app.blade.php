@@ -49,19 +49,19 @@
             </li>
 
             <li class="nav-item">
-                {{-- <a class="nav-link" href="{{route ('notifikasi.index')}}"> --}}
+                <a class="nav-link" href="{{route ('notifikasi.index')}}">
                     <i class="fas fa-fw fa-user-check"></i>
                     <span>Data Notifikasi</span></a>
             </li>
 
              <li class="nav-item">
-                {{-- <a class="nav-link"  href="{{route ('pekerjaan.index')}}"> --}}
+                <a class="nav-link"  href="{{route ('pekerjaan.index')}}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Data Pekerjaan</span></a>
             </li>
 
              <li class="nav-item">
-                {{-- <a class="nav-link" href="{{route ('personel.index')}}"> --}}
+                <a class="nav-link" href="{{route ('personel.index')}}">
                     <i class="fas fa-fw fa-user-graduate"></i>
                     <span>Data Personel</span></a>
             </li>
@@ -73,19 +73,19 @@
             </li>
 
              <li class="nav-item">
-                {{-- <a class="nav-link" href="{{route ('revisigambar.index')}}"> --}}
+                <a class="nav-link" href="{{route ('revisi_gambar.index')}}">
                     <i class="fas fa-fw fa-history"></i>
                     <span>Revisi Gambar</span></a>
             </li>
 
             <li class="nav-item">
-                {{-- <a class="nav-link" href="{{route ('tools.index')}}"> --}}
+                <a class="nav-link" href="{{route ('tools.index')}}">
                     <i class="fas fa-fw fa-history"></i>
                     <span>Tools</span></a>
             </li>
 
             <li class="nav-item">
-                {{-- <a class="nav-link" href="{{route ('workloadAnalysis.index')}}"> --}}
+                <a class="nav-link" href="{{route ('workload_analysis.index')}}">
                     <i class="fas fa-fw fa-history"></i>
                     <span>Workload Analysis</span></a>
             </li>
