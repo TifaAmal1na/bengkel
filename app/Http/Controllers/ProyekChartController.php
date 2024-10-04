@@ -10,6 +10,6 @@ class ProyekChartController extends Controller
 {
     public function index(ProyekChart $chart)
     {
-        return view('proyek.chart', ['chart' => $chart->build()]);
+        return view('dashboard', ['chart' => $chart->build()]);
     }
 }
