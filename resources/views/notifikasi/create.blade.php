@@ -45,9 +45,9 @@
                         <div class="form-group">
                             <label for="prioritas">Prioritas:</label>
                             <select name="PRIORITAS" class="form-control" id="prioritas" required>
-                                <option value="low">Rendah</option>
-                                <option value="medium">Sedang</option>
-                                <option value="high">Tinggi</option>
+                                <option value="rendah">Rendah</option>
+                                <option value="sedang">Sedang</option>
+                                <option value="tinggi">Tinggi</option>
                             </select>
                         </div>
 

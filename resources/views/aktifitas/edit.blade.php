@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Edit Revisi Gambar</h1>
+    <h1>Edit Aktivitas</h1>
 
-    <form action="{{ route('revisi_gambar.update', $revisiGambar->ID_REVISI) }}" method="POST">
+    <form action="{{ route('aktivitas.update', $aktivitas->ID_AKTIVITAS) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -11,7 +11,7 @@
             <label for="ID_PEKERJAAN">Pekerjaan</label>
             <select name="ID_PEKERJAAN" id="ID_PEKERJAAN" class="form-control">
                 @foreach($pekerjaanList as $pekerjaan)
-                    <option value="{{ $pekerjaan->ID_PEKERJAAN }}" {{ $pekerjaan->ID_PEKERJAAN == $revisiGambar->ID_PEKERJAAN ? 'selected' : '' }}>
+                    <option value="{{ $pekerjaan->ID_PEKERJAAN }}" {{ $pekerjaan->ID_PEKERJAAN == $aktivitas->ID_PEKERJAAN ? 'selected' : '' }}>
                         {{ $pekerjaan->NAMA }}
                     </option>
                 @endforeach
@@ -20,12 +20,17 @@
 
         <div class="form-group">
             <label for="DESKRIPSI">Deskripsi</label>
-            <textarea name="DESKRIPSI" id="DESKRIPSI" class="form-control" required>{{ $revisiGambar->DESKRIPSI }}</textarea>
+            <textarea name="DESKRIPSI" id="DESKRIPSI" class="form-control" required>{{ $aktivitas->DESKRIPSI }}</textarea>
         </div>
 
         <div class="form-group">
             <label for="TANGGAL">Tanggal</label>
-            <input type="date" name="TANGGAL" id="TANGGAL" class="form-control" value="{{ $revisiGambar->TANGGAL }}" required>
+            <input type="date" name="TANGGAL" id="TANGGAL" class="form-control" value="{{ $aktivitas->TANGGAL }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="STATUS">Status</label>
+            <input type="text" name="STATUS" id="STATUS" class="form-control" value="{{ $aktivitas->STATUS }}" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Update</button>

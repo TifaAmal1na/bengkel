@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Tambah Revisi Gambar</h1>
+    <h1>Tambah Aktivitas</h1>
 
-    <form action="{{ route('revisi_gambar.store') }}" method="POST">
+    <form action="{{ route('aktivitas.store') }}" method="POST">
         @csrf
 
         <div class="form-group">
@@ -23,6 +23,11 @@
         <div class="form-group">
             <label for="TANGGAL">Tanggal</label>
             <input type="date" name="TANGGAL" id="TANGGAL" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="STATUS">Status</label>
+            <input type="text" name="STATUS" id="STATUS" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>

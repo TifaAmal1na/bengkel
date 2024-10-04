@@ -32,21 +32,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $notifikasi)
+                                @foreach ($notifikasi as $item)
                                 <tr>
-                                    <td>{{ $notifikasi->ID_NOTIFIKASI }}</td>
-                                    <td>{{ $notifikasi->ID_PROYEK }}</td>
-                                    <td>{{ $notifikasi->JUDUL }}</td>
-                                    <td>{{ $notifikasi->DESKRIPSI }}</td>
-                                    <td>{{ $notifikasi->TANGGAL }}</td>
-                                    <td>{{ $notifikasi->PRIORITAS }}</td>
+                                    <td>{{ $item->ID_NOTIFIKASI }}</td>
+                                    <td>{{ $item->ID_PROYEK }}</td>
+                                    <td>{{ $item->JUDUL }}</td>
+                                    <td>{{ $item->DESKRIPSI }}</td>
+                                    <td>{{ $item->TANGGAL }}</td>
+                                    <td>{{ $item->PRIORITAS }}</td>
                                     <td>
-                                        <form action="{{ route('notifikasi.destroy', $notifikasi->ID_NOTIFIKASI) }}" method="POST">
-                                            <a class="btn btn-primary" href="{{ route('notifikasi.edit', $notifikasi->ID_NOTIFIKASI) }}">Edit</a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                        <div class="btn-group" role="group" style="display:inline-block;">
+                                            <a class="btn btn-primary" href="{{ route('notifikasi.edit', $item->ID_NOTIFIKASI) }}">Edit</a>
+                                            <form action="{{ route('notifikasi.destroy', $item->ID_NOTIFIKASI) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?')">Delete</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

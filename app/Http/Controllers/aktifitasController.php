@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aktivitas;
+use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
 
 class aktifitasController extends Controller
@@ -11,7 +13,8 @@ class aktifitasController extends Controller
      */
     public function index()
     {
-        //
+        $aktivitas = Aktivitas::with('pekerjaan')->get();
+        return view('aktivitas.index', compact('aktivitas'));
     }
 
     /**
@@ -19,7 +22,8 @@ class aktifitasController extends Controller
      */
     public function create()
     {
-        //
+        $pekerjaanList = Pekerjaan::all(); // Mengambil semua pekerjaan
+        return view('aktivitas.create', compact('pekerjaanList'));
     }
 
     /**
@@ -27,7 +31,16 @@ class aktifitasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'ID_PEKERJAAN' => 'required|exists:pekerjaan,ID_PEKERJAAN',
+            'DESKRIPSI' => 'required|string',
+            'TANGGAL' => 'required|date',
+            'STATUS' => 'required|string|max:50',
+        ]);
+
+        Aktivitas::create($request->all());
+
+        return redirect()->route('aktivitas.index')->with('success', 'Aktivitas berhasil ditambahkan');
     }
 
     /**
@@ -43,7 +56,9 @@ class aktifitasController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $aktivitas = Aktivitas::findOrFail($id);
+        $pekerjaanList = Pekerjaan::all(); // Mengambil semua pekerjaan
+        return view('aktivitas.edit', compact('aktivitas', 'pekerjaanList'));
     }
 
     /**
@@ -51,7 +66,17 @@ class aktifitasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'ID_PEKERJAAN' => 'required|exists:pekerjaan,ID_PEKERJAAN',
+            'DESKRIPSI' => 'required|string',
+            'TANGGAL' => 'required|date',
+            'STATUS' => 'required|string|max:50',
+        ]);
+
+        $aktivitas = Aktivitas::findOrFail($id);
+        $aktivitas->update($request->all());
+
+        return redirect()->route('aktivitas.index')->with('success', 'Aktivitas berhasil diupdate');
     }
 
     /**
@@ -59,6 +84,9 @@ class aktifitasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $aktivitas = Aktivitas::findOrFail($id);
+        $aktivitas->delete();
+
+        return redirect()->route('aktivitas.index')->with('success', 'Aktivitas berhasil dihapus');
     }
 }

@@ -36,19 +36,22 @@ class notofikasiController extends Controller
     {
         // Validasi input dari form
         $request->validate([
-            'ID_PROYEK' => 'required|exists:proyek,id',
+            'ID_PROYEK' => 'required|exists:proyek,ID_PROYEK', // Pastikan ini sesuai
             'JUDUL' => 'required|string|max:255',
             'DESKRIPSI' => 'required',
-            'TANGGAL' => 'required|date',
+            'TANGGAL' => 'required|date_format:Y-m-d|date', // Validasi format tanggal
             'PRIORITAS' => 'required|in:rendah,sedang,tinggi',
-        ]);
-
+        ]);        
+    
+        // Cek data yang diterima
+        dd($request->all());
+    
         // Membuat notifikasi baru
         Notifikasi::create($request->all());
-
+    
         // Redirect setelah berhasil menyimpan
         return redirect()->route('notifikasi.index')->with('success', 'Notifikasi berhasil ditambahkan');
-    }
+    }       
 
     /**
      * Display the specified resource.
