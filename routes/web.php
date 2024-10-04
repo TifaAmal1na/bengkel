@@ -19,9 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function(){
-    return view ('dashboard');
-})->name('dashboard');
+Route::get('/dashboard', [ProyekChartController::class, 'index'])->name('dashboard');
+
 
 Route::resource('personel', personelController::class);
 Route::resource('aktifitas', AktifitasController::class);
@@ -33,6 +32,6 @@ Route::resource('tools', ToolsController::class);
 Route::resource('workload_analysis', WorkloadAnalysisController::class);
 
 // chart
-Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('proyek.chart');
+Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('dashboard');
 Route::get('/ChartPersonel', [PersonelChartController::class, 'index'])->name('personel.chart');
 Route::get('/ChartTools', [ToolsChartController::class, 'index'])->name('tools.chart');
