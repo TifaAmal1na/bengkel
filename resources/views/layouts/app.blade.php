@@ -38,7 +38,7 @@
 
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
 
-                <img src="/img/logoPal.png" style="width: 80%;">
+                <img src="/img/PalLogo.png" style="width: 80%;">
 
             </a>
 
