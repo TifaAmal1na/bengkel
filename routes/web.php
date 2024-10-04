@@ -3,6 +3,7 @@
 use App\Http\Controllers\aktifitasController;
 use App\Http\Controllers\notofikasiController;
 use App\Http\Controllers\pekerjaanController;
+use App\Http\Controllers\personelController;
 use App\Http\Controllers\proyekController;
 use App\Http\Controllers\revisiGambarController;
 use App\Http\Controllers\toolsController;
@@ -22,7 +23,7 @@ Route::get('/dashboard', function(){
     return view ('dashboard');
 })->name('dashboard');
 
-Route::get('/personel', [App\Http\Controllers\personelController::class, 'personel'])->name('personel');
+Route::resource('personel', personelController::class);
 Route::resource('aktifitas', AktifitasController::class);
 Route::resource('notifikasi', NotofikasiController::class);
 Route::resource('pekerjaan', PekerjaanController::class);
