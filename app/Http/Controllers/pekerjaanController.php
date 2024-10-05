@@ -60,13 +60,23 @@ class pekerjaanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
+     //history before
+    // public function edit(string $id)
+    // {
+    //     $pekerjaan = Pekerjaan::findOrFail($id);
+    //     $proyekList = Proyek::all();
+    //     $grafikList = Workload::all();
+    //     return view('pekerjaan.edit', compact('pekerjaan', 'proyekList', 'grafikList'));
+    // }
     public function edit(string $id)
-    {
-        $pekerjaan = Pekerjaan::findOrFail($id);
-        $proyekList = Proyek::all();
-        $grafikList = Workload::all();
-        return view('pekerjaan.edit', compact('pekerjaan', 'proyekList', 'grafikList'));
-    }
+{
+    $pekerjaan = Pekerjaan::findOrFail($id);
+    $proyekList = Proyek::all();
+    $workloadList = Workload::all(); // Ganti grafikList menjadi workloadList
+    return view('pekerjaan.edit', compact('pekerjaan', 'proyekList', 'workloadList')); // Kirimkan workloadList
+}
+
 
     /**
      * Update the specified resource in storage.
