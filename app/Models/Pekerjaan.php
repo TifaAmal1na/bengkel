@@ -29,8 +29,14 @@ class Pekerjaan extends Model
     }
 
     // Relasi ke tabel grafik
+    // public function grafik()
+    // {
+    //     return $this->belongsTo(Workload::class, 'ID_GRAFIK');
+    // }
+
     public function grafik()
-    {
-        return $this->belongsTo(Workload::class, 'ID_GRAFIK');
-    }
+{
+    return $this->belongsTo(Workload::class, 'ID_GRAFIK');
+}
+
 }

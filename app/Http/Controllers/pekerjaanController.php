@@ -36,7 +36,8 @@ class pekerjaanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'ID_GRAFIK' => 'required|exists:grafik,id',
+            // 'ID_GRAFIK' => 'required|exists:grafik,id',
+            'ID_GRAFIK' => 'required|exists:workload,id', // Change grafik to workload
             'ID_PROYEK' => 'required|exists:proyek,id',
             'NAMA' => 'required|string|max:255',
             'STATUS' => 'required|string|max:50',
@@ -84,7 +85,8 @@ class pekerjaanController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'ID_GRAFIK' => 'required|exists:grafik,id',
+            // 'ID_GRAFIK' => 'required|exists:grafik,id',
+            'ID_GRAFIK' => 'required|exists:workload,id', // Change grafik to workload
             'ID_PROYEK' => 'required|exists:proyek,id',
             'NAMA' => 'required|string|max:255',
             'STATUS' => 'required|string|max:50',
