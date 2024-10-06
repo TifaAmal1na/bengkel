@@ -13,7 +13,7 @@ class workloadAnalysisController extends Controller
     public function index()
     {
         $data = Workload::all(); // Mengambil semua data dari tabel workload_analysis
-        return view('workload.index', compact('data')); // Ganti dengan view yang sesuai
+        return view('workload_analysis.index', compact('data')); // Ganti dengan view yang sesuai
     }
 
     /**
@@ -21,7 +21,7 @@ class workloadAnalysisController extends Controller
      */
     public function create()
     {
-        return view('workload.create'); // Tampilkan form untuk menambah workload
+        return view('workload_analysis.create'); // Tampilkan form untuk menambah workload
     }
 
     /**
@@ -50,7 +50,7 @@ class workloadAnalysisController extends Controller
     public function show(string $id)
     {
         $workload = Workload::findOrFail($id);
-        return view('workload.show', compact('workload')); // Tampilkan detail workload
+        return view('workload_analysis.show', compact('workload')); // Tampilkan detail workload
     }
 
     /**
@@ -59,7 +59,7 @@ class workloadAnalysisController extends Controller
     public function edit(string $id)
     {
         $workload = Workload::findOrFail($id);
-        return view('workload.edit', compact('workload')); // Tampilkan form untuk edit workload
+        return view('workload_analysis.edit', compact('workload')); // Tampilkan form untuk edit workload
     }
 
     /**

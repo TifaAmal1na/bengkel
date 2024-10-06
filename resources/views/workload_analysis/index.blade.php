@@ -32,17 +32,17 @@
                             <tbody>
                                 @foreach ($data as $workload)
                                     <tr>
-                                        <td>{{ $workload->id_grafik }}</td>
-                                        <td>{{ $workload->standard }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($workload->tanggal)->format('d-m-Y') }}</td> <!-- Menggunakan Carbon untuk memformat tanggal -->
+                                        <td>{{ $workload->ID_GRAFIK }}</td>
+                                        <td>{{ $workload->STANDARD }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($workload->TANGGAL)->format('d-m-Y') }}</td> <!-- Menggunakan Carbon untuk memformat tanggal -->
                                         <td>
-                                            <a href="{{ route('workload_analysis.edit', $workload->id_grafik) }}" class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('workload_analysis.destroy', $workload->id_grafik) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus workload ini?');">Hapus</button>
-                                            </form>
-                                            <a href="{{ route('workload_analysis.show', $workload->id_grafik) }}" class="btn btn-info">Detail</a>
+                                        <a href="{{ route('workload_analysis.edit', ['workload_analysis' => $workload->ID_GRAFIK]) }}" class="btn btn-warning">Edit</a>
+                                        <form action="{{ route('workload_analysis.destroy', ['workload_analysis' => $workload->ID_GRAFIK]) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus workload ini?');">Hapus</button>
+                                        </form>
+                                        <a href="{{ route('workload_analysis.show', ['workload_analysis' => $workload->ID_GRAFIK]) }}" class="btn btn-info">Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach
