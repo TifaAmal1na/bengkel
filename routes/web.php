@@ -30,6 +30,10 @@ Route::resource('proyek', ProyekController::class);
 Route::resource('revisi_gambar', RevisiGambarController::class);
 Route::resource('tools', ToolsController::class);
 Route::resource('workload_analysis', WorkloadAnalysisController::class);
+Route::get('workload_analysis/{workload_analysis}/edit', [WorkloadAnalysisController::class, 'edit'])->name('workload_analysis.edit');
+Route::get('workload_analysis/{workload_analysis}/destroy', [WorkloadAnalysisController::class, 'destroy'])->name('workload_analysis.destroy');
+Route::get('workload_analysis/{workload_analysis}/show', [WorkloadAnalysisController::class, 'show'])->name('workload_analysis.show');
+
 
 // chart
 Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('dashboard');

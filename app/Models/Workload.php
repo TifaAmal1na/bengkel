@@ -10,11 +10,11 @@ class Workload extends Model
     use HasFactory;
 
     protected $table = 'workload_analysis';
-    protected $primaryKey = 'id_grafik';
+    protected $primaryKey = 'ID_GRAFIK';
     protected $fillable = [
-        'standard',
-        'tanggal',
-        'jumlah_pekerjaan',
+        'STANDARD',
+        'TANGGAL',
+        'JUMLAH_PEKERJAAN',
     ];
 
     // Relasi dengan model Proyek (one-to-many)
@@ -26,6 +26,6 @@ class Workload extends Model
     // Relasi dengan model Tools (many-to-many)
     public function tools()
     {
-        return $this->belongsToMany(Tools::class, 'menggunakan', 'id_grafik', 'id_tools');
+        return $this->belongsToMany(Tools::class, 'menggunakan', 'ID_GRAFIK', 'ID_TOOLS');
     }
 }
