@@ -20,12 +20,16 @@ class Workload extends Model
     // Relasi dengan model Proyek (one-to-many)
     public function proyek()
     {
-        return $this->hasMany(Proyek::class, 'id_proyek');
+        return $this->hasMany(Proyek::class, 'ID_PROYEK');
     }
 
     // Relasi dengan model Tools (many-to-many)
     public function tools()
     {
         return $this->belongsToMany(Tools::class, 'menggunakan', 'ID_GRAFIK', 'ID_TOOLS');
+    }
+
+    public function pekerjaan(){
+        return $this->hasMany(Pekerjaan::class, 'ID_PEKERJAAN');
     }
 }

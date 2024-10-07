@@ -24,18 +24,17 @@
                                 @endforeach
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label for="ID_GRAFIK">Workload:</label>
                             <select name="ID_GRAFIK" class="form-control" required>
                                 <option value="" disabled selected>Pilih Workload</option>
                                 @foreach($workloadList as $workload)
                                     <option value="{{ $workload->ID_GRAFIK }}" {{ $workload->ID_GRAFIK == $pekerjaan->ID_GRAFIK ? 'selected' : '' }}>
-                                        {{ $workload->STANDARD }}
+                                        {{ $workload->STANDARD }} <!-- Pastikan kolom yang ditampilkan sesuai -->
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div>                        
 
                         <div class="form-group">
                             <label for="NAMA">Nama Pekerjaan:</label>
@@ -44,7 +43,12 @@
 
                         <div class="form-group">
                             <label for="STATUS">Status:</label>
-                            <input type="text" name="STATUS" class="form-control" value="{{ $pekerjaan->STATUS }}" required>
+                            <select name="STATUS" class="form-control" required>
+                                <option value="aktif" {{ $pekerjaan->STATUS == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="menunggu" {{ $pekerjaan->STATUS == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
+                                <option value="selesai" {{ $pekerjaan->STATUS == 'Dalam Proses' ? 'selected' : '' }}>Dalam Proses</option>
+                                <option value="selesai" {{ $pekerjaan->STATUS == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -59,7 +63,7 @@
 
                         <div class="form-group">
                             <label for="JUMLAH">Jumlah:</label>
-                            <input type="number" name="JUMLAH" class="form-control" value="{{ $pekerjaan->JUMLAH }}" required>
+                            <input type="number" name="JUMLAH" class="form-control" value="{{ $pekerjaan->JUMLAH }}" required min="0">
                         </div>
 
                         <div class="form-group">

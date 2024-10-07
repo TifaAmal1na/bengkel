@@ -37,13 +37,13 @@ class pekerjaanController extends Controller
     {
         $request->validate([
             // 'ID_GRAFIK' => 'required|exists:grafik,id',
-            'ID_GRAFIK' => 'required|exists:workload,id', // Change grafik to workload
-            'ID_PROYEK' => 'required|exists:proyek,id',
+            'ID_GRAFIK' => 'required|exists:workload_analysis,ID_GRAFIK', // Change grafik to workload
+            'ID_PROYEK' => 'required|exists:proyek,ID_PROYEK',
             'NAMA' => 'required|string|max:255',
             'STATUS' => 'required|string|max:50',
             'KATEGORI' => 'required|string|max:100',
             'TANGGAL' => 'required|date',
-            'JUMLAH' => 'required|integer',
+            'JUMLAH' => 'required|integer', 
         ]);
 
         Pekerjaan::create($request->all());
@@ -62,21 +62,13 @@ class pekerjaanController extends Controller
      * Show the form for editing the specified resource.
      */
 
-     //history before
-    // public function edit(string $id)
-    // {
-    //     $pekerjaan = Pekerjaan::findOrFail($id);
-    //     $proyekList = Proyek::all();
-    //     $grafikList = Workload::all();
-    //     return view('pekerjaan.edit', compact('pekerjaan', 'proyekList', 'grafikList'));
-    // }
     public function edit(string $id)
-{
-    $pekerjaan = Pekerjaan::findOrFail($id);
-    $proyekList = Proyek::all();
-    $workloadList = Workload::all(); // Ganti grafikList menjadi workloadList
-    return view('pekerjaan.edit', compact('pekerjaan', 'proyekList', 'workloadList')); // Kirimkan workloadList
-}
+    {
+        $pekerjaan = Pekerjaan::findOrFail($id);
+        $proyekList = Proyek::all();
+        $workloadList = Workload::all(); // Ganti grafikList menjadi workloadList
+        return view('pekerjaan.edit', compact('pekerjaan', 'proyekList', 'workloadList')); // Kirimkan workloadList
+    }
 
 
     /**
@@ -86,13 +78,13 @@ class pekerjaanController extends Controller
     {
         $request->validate([
             // 'ID_GRAFIK' => 'required|exists:grafik,id',
-            'ID_GRAFIK' => 'required|exists:workload,id', // Change grafik to workload
-            'ID_PROYEK' => 'required|exists:proyek,id',
+            'ID_GRAFIK' => 'required|exists:workload_analysis,ID_GRAFIK', // Change grafik to workload
+            'ID_PROYEK' => 'required|exists:proyek,ID_PROYEK',
             'NAMA' => 'required|string|max:255',
             'STATUS' => 'required|string|max:50',
             'KATEGORI' => 'required|string|max:100',
             'TANGGAL' => 'required|date',
-            'JUMLAH' => 'required|integer',
+            'JUMLAH' => 'required|integer', 
         ]);
 
         $pekerjaan = Pekerjaan::findOrFail($id);

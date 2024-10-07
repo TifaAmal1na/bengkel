@@ -26,7 +26,7 @@
                             <label for="ID_GRAFIK">Workload:</label>
                             <select name="ID_GRAFIK" class="form-control" required>
                                 <option value="" disabled selected>Pilih Workload</option>
-                                @foreach($workloadList as $workload)
+                                @foreach($grafikList as $workload)
                                     <option value="{{ $workload->ID_GRAFIK }}">{{ $workload->STANDARD }}</option>
                                 @endforeach
                             </select>
@@ -36,12 +36,15 @@
                             <label for="NAMA">Nama Pekerjaan:</label>
                             <input type="text" name="NAMA" class="form-control" required>
                         </div>
-
                         <div class="form-group">
                             <label for="STATUS">Status:</label>
-                            <input type="text" name="STATUS" class="form-control" required>
+                            <select name="STATUS" class="form-control" required>
+                                <option value="aktif">Aktif</option>
+                                <option value="menunggu">Menunggu</option>
+                                <option value="selesai">Selesai</option>
+                                <option value="dalam proses">Dalam Proses</option>
+                            </select>
                         </div>
-
                         <div class="form-group">
                             <label for="KATEGORI">Kategori:</label>
                             <input type="text" name="KATEGORI" class="form-control" required>
