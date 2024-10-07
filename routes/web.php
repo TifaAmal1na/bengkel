@@ -16,7 +16,7 @@ use App\Http\Controllers\ToolsChartController;
 // use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('welcome');
 });
 
 Route::get('/dashboard', [ProyekChartController::class, 'index'])->name('dashboard');
@@ -35,16 +35,12 @@ Route::get('workload_analysis/{workload_analysis}/destroy', [WorkloadAnalysisCon
 Route::get('workload_analysis/{workload_analysis}/show', [WorkloadAnalysisController::class, 'show'])->name('workload_analysis.show');
 
 
-// Chart
+// chart
 Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('dashboard');
 Route::get('/ChartPersonel', [PersonelChartController::class, 'index'])->name('personel.chart');
 Route::get('/ChartTools', [ToolsChartController::class, 'index'])->name('tools.chart');
 
-
-// Auth
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
-
