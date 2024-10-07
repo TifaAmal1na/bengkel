@@ -25,8 +25,12 @@
 
                         <div class="form-group">
                             <label for="status">Status:</label>
-                            <input type="text" name="status" class="form-control" id="status" value="{{ $proyek->STATUS }}" required>
-                        </div>
+                            <select name="status" class="form-control" id="status" required>
+                                @foreach(App\Models\Proyek::getStatusOptions() as $status)
+                                    <option value="{{ $status }}" {{ $proyek->STATUS == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
+                                @endforeach
+                            </select>
+                        </div>                        
 
                         <div class="form-group">
                             <label for="jumlah_pekerja">Jumlah Pekerja:</label>

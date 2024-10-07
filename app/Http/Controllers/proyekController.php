@@ -32,18 +32,18 @@ class proyekController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'status' => 'required|string|max:50',
+            'status' => 'required|in:' . implode(',', Proyek::getStatusOptions()), 
             'jumlah_pekerja' => 'required|integer',
             'tanggal_mulai' => 'required|date',
         ]);
-
+    
         $data = new Proyek;
         $data->nama = $request->input('nama');
         $data->status = $request->input('status');
         $data->jumlah_pekerja = $request->input('jumlah_pekerja');
         $data->tanggal_mulai = $request->input('tanggal_mulai');
         $data->save();
-
+    
         return redirect()->route('proyek.index')->with('success', 'Proyek Berhasil Ditambahkan');
     }
 
@@ -72,18 +72,18 @@ class proyekController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'status' => 'required|string|max:50',
+            'status' => 'required|in:' . implode(',', Proyek::getStatusOptions()), // Gunakan enum
             'jumlah_pekerja' => 'required|integer',
             'tanggal_mulai' => 'required|date',
         ]);
-
+    
         $data = Proyek::findOrFail($id);
         $data->nama = $request->input('nama');
         $data->status = $request->input('status');
         $data->jumlah_pekerja = $request->input('jumlah_pekerja');
         $data->tanggal_mulai = $request->input('tanggal_mulai');
         $data->save();
-
+    
         return redirect()->route('proyek.index')->with('success', 'Proyek Berhasil Diperbarui');
     }
 
