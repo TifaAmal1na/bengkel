@@ -39,3 +39,8 @@ Route::get('workload_analysis/{workload_analysis}/show', [WorkloadAnalysisContro
 Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('dashboard');
 Route::get('/ChartPersonel', [PersonelChartController::class, 'index'])->name('personel.chart');
 Route::get('/ChartTools', [ToolsChartController::class, 'index'])->name('tools.chart');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
