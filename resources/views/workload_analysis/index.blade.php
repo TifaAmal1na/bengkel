@@ -35,6 +35,7 @@
                                         <td>{{ $workload->ID_GRAFIK }}</td>
                                         <td>{{ $workload->STANDARD }}</td>
                                         <td>{{ \Carbon\Carbon::parse($workload->TANGGAL)->format('d-m-Y') }}</td> <!-- Menggunakan Carbon untuk memformat tanggal -->
+                                        <td>{{ $workload->JUMLAH_PEKERJAAN }}</td>
                                         <td>
                                         <a href="{{ route('workload_analysis.edit', ['workload_analysis' => $workload->ID_GRAFIK]) }}" class="btn btn-warning">Edit</a>
                                         <form action="{{ route('workload_analysis.destroy', ['workload_analysis' => $workload->ID_GRAFIK]) }}" method="POST" style="display:inline;">
