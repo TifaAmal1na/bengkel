@@ -9,6 +9,8 @@ use App\Http\Controllers\revisiGambarController;
 use App\Http\Controllers\toolsController;
 use App\Http\Controllers\workloadAnalysisController;
 use Illuminate\Support\Facades\Route;
+// Auth
+use Illuminate\Support\Facades\Auth;
 // chart
 use App\Http\Controllers\ProyekChartController;
 use App\Http\Controllers\PersonelChartController;
@@ -16,7 +18,10 @@ use App\Http\Controllers\ToolsChartController;
 // use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect('/home'); // Or wherever you want to redirect logged-in users
+    }
+    return redirect('/login'); // Redirect to login if not authenticated
 });
 
 Route::get('/dashboard', [ProyekChartController::class, 'index'])->name('dashboard');
