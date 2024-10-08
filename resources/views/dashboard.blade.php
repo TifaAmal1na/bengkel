@@ -88,7 +88,7 @@
     {{-- chart --}}
 
     <h1 class="ml-6">Chart Proyek</h1>
-    <div class="container">
+    <div class="container"  style= "margin-left: -20px";>
     <div class="row justify-content-left">
         <div class="col-md-6">
             <div class="chart-container" style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; width: 100%;">
