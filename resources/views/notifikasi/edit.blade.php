@@ -47,9 +47,9 @@
                         <div class="form-group">
                             <label for="prioritas">Prioritas:</label>
                             <select name="PRIORITAS" class="form-control" id="prioritas" required>
-                                <option value="low" {{ $notifikasi->PRIORITAS == 'low' ? 'selected' : '' }}>Rendah</option>
-                                <option value="medium" {{ $notifikasi->PRIORITAS == 'medium' ? 'selected' : '' }}>Sedang</option>
-                                <option value="high" {{ $notifikasi->PRIORITAS == 'high' ? 'selected' : '' }}>Tinggi</option>
+                                <option value="rendah" {{ $notifikasi->PRIORITAS == 'rendah' ? 'selected' : '' }}>Rendah</option>
+                                <option value="sedang" {{ $notifikasi->PRIORITAS == 'sedang' ? 'selected' : '' }}>Sedang</option>
+                                <option value="tinggi" {{ $notifikasi->PRIORITAS == 'tinggi' ? 'selected' : '' }}>Tinggi</option>
                             </select>
                         </div>
 

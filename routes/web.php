@@ -28,10 +28,9 @@ Route::get('/', function () {
 
 // Routes that require authentication
 Route::middleware('auth')->group(function () {
-    // Route::get('/dashboard', action: [ProyekChartController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('personel', personelController::class);
+    Route::resource('personel', PersonelController::class);
     Route::resource('aktifitas', AktifitasController::class);
     Route::resource('notifikasi', NotofikasiController::class);
     Route::resource('pekerjaan', PekerjaanController::class);
@@ -39,12 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('revisi_gambar', RevisiGambarController::class);
     Route::resource('tools', ToolsController::class);
     Route::resource('workload_analysis', WorkloadAnalysisController::class);
-    Route::get('workload_analysis/{workload_analysis}/edit', [WorkloadAnalysisController::class, 'edit'])->name('workload_analysis.edit');
-    Route::get('workload_analysis/{workload_analysis}/destroy', [WorkloadAnalysisController::class, 'destroy'])->name('workload_analysis.destroy');
-    Route::get('workload_analysis/{workload_analysis}/show', [WorkloadAnalysisController::class, 'show'])->name('workload_analysis.show');
 
     // Charts
-    Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('dashboard');
+    Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('proyek.chart');
     Route::get('/ChartPersonel', [PersonelChartController::class, 'index'])->name('personel.chart');
     Route::get('/ChartTools', [ToolsChartController::class, 'index'])->name('tools.chart');
 });
