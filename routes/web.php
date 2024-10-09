@@ -42,11 +42,6 @@ Route::middleware('auth')->group(function () {
     Route::get('workload_analysis/{workload_analysis}/edit', [WorkloadAnalysisController::class, 'edit'])->name('workload_analysis.edit');
     Route::get('workload_analysis/{workload_analysis}/destroy', [WorkloadAnalysisController::class, 'destroy'])->name('workload_analysis.destroy');
     Route::get('workload_analysis/{workload_analysis}/show', [WorkloadAnalysisController::class, 'show'])->name('workload_analysis.show');
-
-    // Charts
-    Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('dashboard');
-    Route::get('/ChartPersonel', [PersonelChartController::class, 'index'])->name('personel.chart');
-    Route::get('/ChartTools', [ToolsChartController::class, 'index'])->name('tools.chart');
 });
 
 // Authentication routes
