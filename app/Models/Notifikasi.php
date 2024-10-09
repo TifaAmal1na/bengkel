@@ -12,6 +12,7 @@ class Notifikasi extends Model
     // Disable timestamps
     public $timestamps = false;
 
+
     protected $table = 'notifikasi'; // Nama tabel di database
 
     // Tentukan kolom yang menjadi primary key
