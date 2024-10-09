@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Notifikasi;
 use App\Models\Proyek;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class notofikasiController extends Controller
 {
@@ -44,7 +45,7 @@ class notofikasiController extends Controller
         ]);        
     
         // Cek data yang diterima
-        dd($request->all());
+        // dd($request->all()); <-- lek pengen diaktifno tak cek e gpt neh
     
         // Membuat notifikasi baru
         Notifikasi::create($request->all());
@@ -82,7 +83,8 @@ class notofikasiController extends Controller
     {
         // Validasi input dari form
         $request->validate([
-            'ID_PROYEK' => 'required|exists:proyek,id',
+            // 'ID_PROYEK' => 'required|exists:proyek,id',
+            'ID_PROYEK' => 'required|exists:proyek,ID_PROYEK',
             'JUDUL' => 'required|string|max:255',
             'DESKRIPSI' => 'required',
             'TANGGAL' => 'required|date',
@@ -91,7 +93,14 @@ class notofikasiController extends Controller
 
         // Mengupdate data notifikasi berdasarkan ID
         $notifikasi = Notifikasi::findOrFail($id);
+        
+        // Log the current state before the update
+        //Log::info('Notifikasi before update: ', $notifikasi->toArray());
+
         $notifikasi->update($request->all());
+
+        // Log the state after the update
+        //Log::info('Notifikasi after update: ', $notifikasi->fresh()->toArray());
 
         // Redirect setelah berhasil di-update
         return redirect()->route('notifikasi.index')->with('success', 'Notifikasi berhasil diupdate');
