@@ -24,7 +24,12 @@
 
                         <div class="form-group">
                             <label for="status">Status:</label>
-                            <input type="text" name="status" class="form-control" id="status" required>
+                            <select name="status" class="form-control" required>
+                                <option value="aktif">Aktif</option>
+                                <option value="menunggu">Menunggu</option>
+                                <option value="selesai">Selesai</option>
+                                <option value="dalam proses">Dalam Proses</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

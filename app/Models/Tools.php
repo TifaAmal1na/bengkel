@@ -15,6 +15,8 @@ class Tools extends Model
     // Tentukan kolom yang menjadi primary key
     protected $primaryKey = 'ID_TOOLS'; // Sesuaikan dengan nama kolom primary key Anda
 
+    public $timestamps = false;
+
     // Tentukan kolom yang bisa diisi massal
     protected $fillable = [
         'NAMA',

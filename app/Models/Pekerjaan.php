@@ -33,4 +33,8 @@ class Pekerjaan extends Model
         return $this->belongsTo(Workload::class, 'ID_GRAFIK');
     }
 
+    public function revisi(){
+        return $this->hasMany(Revisi::class, 'ID_REVISI');
+    }
+
 }

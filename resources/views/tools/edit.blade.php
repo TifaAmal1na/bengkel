@@ -25,9 +25,13 @@
 
                         <div class="form-group">
                             <label for="status">Status:</label>
-                            <input type="text" name="status" class="form-control" id="status" value="{{ old('status', $tool->STATUS) }}" required>
+                            <select name="status" class="form-control" required>
+                                <option value="Aktif" {{ $tool->STATUS == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="Tidak Aktif" {{ $tool->STATUS == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                                <option value="Dalam Perbaikan" {{ $tool->STATUS == 'Dalam Perbaikan' ? 'selected' : '' }}>Dalam Perbaikan</option>
+                            </select>
                         </div>
-
+                        
                         <div class="form-group">
                             <label for="tanggal">Tanggal:</label>
                             <input type="date" name="tanggal" class="form-control" id="tanggal" value="{{ old('tanggal', $tool->TANGGAL) }}" required>
