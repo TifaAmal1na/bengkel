@@ -44,7 +44,7 @@ class notofikasiController extends Controller
         ]);        
     
         // Cek data yang diterima
-        dd($request->all());
+        //dd($request->all());
     
         // Membuat notifikasi baru
         Notifikasi::create($request->all());

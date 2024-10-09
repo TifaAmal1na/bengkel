@@ -9,6 +9,9 @@ class Notifikasi extends Model
 {
     use HasFactory;
 
+    // Disable timestamps
+    public $timestamps = false;
+
     protected $table = 'notifikasi'; // Nama tabel di database
 
     // Tentukan kolom yang menjadi primary key
