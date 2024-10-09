@@ -85,22 +85,40 @@
         </div>
     </div>
 
-    {{-- chart --}}
-
+    {{-- Tampilkan Proyek Chart --}}
     <h1 class="ml-6">Chart Proyek</h1>
-    <div class="container"  style= "margin-left: -20px";>
-    <div class="row justify-content-left">
-        <div class="col-md-6">
-            <div class="chart-container" style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; width: 100%;">
-                {!! $chart->container() !!}
+    <div class="container" style= "margin-left: -20px";>
+        <div class="row justify-content-left">
+            <div class="col-md-6">
+                <div class="chart-container"
+                    style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; width: 100%;">
+                    {!! $proyekChart->container() !!}
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<script src="{{ $chart->cdn() }}"></script>
-{!! $chart->script() !!}
+        <script src="{{ $proyekChart->cdn() }}"></script>
+        {!! $proyekChart->script() !!}
 
-{{-- end chart --}}
-@endsection
+        {{-- Tampilkan Personel Chart --}}
+        <h1>Distribusi Jumlah Pekerja Berdasarkan Status Tim</h1>
+        <div class="container">
+            <div class="chart-container">
+                {!! $personelChart->container() !!} <!-- Variabel untuk chart personel -->
+            </div>
+        </div>
 
+        <script src="{{ $personelChart->cdn() }}"></script>
+        {!! $personelChart->script() !!}
+
+        {{-- Tampilkan Tools Chart --}}
+        <h1>Distribusi Tools Berdasarkan Status</h1>
+        <div class="container">
+            <div class="chart-container">
+                {!! $toolsChart->container() !!} <!-- Variabel untuk chart tools -->
+            </div>
+        </div>
+
+        <script src="{{ $toolsChart->cdn() }}"></script>
+        {!! $toolsChart->script() !!}
+    @endsection
