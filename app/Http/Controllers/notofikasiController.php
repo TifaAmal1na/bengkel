@@ -45,6 +45,7 @@ class notofikasiController extends Controller
         ]);        
     
         // Cek data yang diterima
+        //dd($request->all());
         // dd($request->all()); <-- lek pengen diaktifno tak cek e gpt neh
     
         // Membuat notifikasi baru

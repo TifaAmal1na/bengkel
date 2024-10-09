@@ -9,6 +9,9 @@ class Notifikasi extends Model
 {
     use HasFactory;
 
+    // Disable timestamps
+    public $timestamps = false;
+
     // Disable timestamps (created_at, updated_at)
     public $timestamps = false;
 

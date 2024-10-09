@@ -8,6 +8,7 @@ use App\Http\Controllers\proyekController;
 use App\Http\Controllers\revisiGambarController;
 use App\Http\Controllers\toolsController;
 use App\Http\Controllers\workloadAnalysisController;
+use App\Http\Controllers\dashboardController;
 use Illuminate\Support\Facades\Route;
 // Auth
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ Route::get('/', function () {
 
 // Routes that require authentication
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [ProyekChartController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', action: [ProyekChartController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('personel', personelController::class);
     Route::resource('aktifitas', AktifitasController::class);
