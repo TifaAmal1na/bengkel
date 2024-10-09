@@ -87,8 +87,8 @@
 
 {{-- chart --}}
 
-<h1 class="ml-6">Chart Proyek</h1>
-<div class="container" style="margin-left: -20px">
+    <h1 class="ml-6">Chart Proyek</h1>
+    <div class="container">
     <div class="row justify-content-left">
         <!-- Chart Pertama -->
         <div class="col-md-6">
