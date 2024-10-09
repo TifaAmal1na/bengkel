@@ -12,8 +12,6 @@ class Notifikasi extends Model
     // Disable timestamps
     public $timestamps = false;
 
-    // Disable timestamps (created_at, updated_at)
-    public $timestamps = false;
 
     protected $table = 'notifikasi'; // Nama tabel di database
 
