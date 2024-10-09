@@ -68,7 +68,7 @@ class notofikasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(String $id)
     {
         $notifikasi = Notifikasi::findOrFail($id);
         $proyekList = Proyek::all(); // Mengambil semua proyek dari database
@@ -80,11 +80,10 @@ class notofikasiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
         // Validasi input dari form
-        $request->validate([
-            // 'ID_PROYEK' => 'required|exists:proyek,id',
+        $validatedData = $request->validate([
             'ID_PROYEK' => 'required|exists:proyek,ID_PROYEK',
             'JUDUL' => 'required|string|max:255',
             'DESKRIPSI' => 'required',
@@ -94,18 +93,12 @@ class notofikasiController extends Controller
 
         // Mengupdate data notifikasi berdasarkan ID
         $notifikasi = Notifikasi::findOrFail($id);
-        
-        // Log the current state before the update
-        //Log::info('Notifikasi before update: ', $notifikasi->toArray());
-
-        $notifikasi->update($request->all());
-
-        // Log the state after the update
-        //Log::info('Notifikasi after update: ', $notifikasi->fresh()->toArray());
+        $notifikasi->update($validatedData);
 
         // Redirect setelah berhasil di-update
         return redirect()->route('notifikasi.index')->with('success', 'Notifikasi berhasil diupdate');
     }
+
 
     /**
      * Remove the specified resource from storage.
