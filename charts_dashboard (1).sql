@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2024 at 03:34 PM
+-- Generation Time: Oct 09, 2024 at 10:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -202,7 +202,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '0001_01_01_000002_create_jobs_table', 1),
 (7, '0001_01_01_000000_create_users_table', 1),
 (8, '0001_01_01_000001_create_cache_table', 1),
-(9, '0001_01_01_000002_create_jobs_table', 1);
+(9, '0001_01_01_000002_create_jobs_table', 1),
+(16, '2024_10_07_091030_add_timestamps_to_pekerjaan_table', 2),
+(17, '2024_10_07_091427_change_status_column_in_pekerjaan_table', 2),
+(18, '2024_10_07_095820_change_status_column_in_proyek_table', 2),
+(19, '2024_10_09_050410_change_status_column_in_tools_table', 3),
+(20, '2024_10_09_054951_change_status_column_in_personel_table', 4);
 
 -- --------------------------------------------------------
 
@@ -258,27 +263,30 @@ CREATE TABLE `pekerjaan` (
   `ID_GRAFIK` int(11) DEFAULT NULL,
   `ID_PROYEK` int(11) DEFAULT NULL,
   `NAMA` varchar(255) NOT NULL,
-  `STATUS` varchar(50) NOT NULL,
+  `STATUS` enum('Selesai','Dalam Proses','Aktif','Menunggu') NOT NULL DEFAULT 'Aktif',
   `KATEGORI` varchar(100) NOT NULL,
   `TANGGAL` date NOT NULL,
-  `JUMLAH` int(11) NOT NULL
+  `JUMLAH` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pekerjaan`
 --
 
-INSERT INTO `pekerjaan` (`ID_PEKERJAAN`, `ID_GRAFIK`, `ID_PROYEK`, `NAMA`, `STATUS`, `KATEGORI`, `TANGGAL`, `JUMLAH`) VALUES
-(1, 1, 1, 'Pengumpulan Data', 'Selesai', 'Analisis', '2024-09-01', 5),
-(2, 2, 1, 'Desain Sistem', 'Dalam Proses', 'Pengembangan', '2024-09-05', 3),
-(3, 3, 2, 'Uji Coba Prototipe', 'Menunggu', 'Pengujian', '2024-09-10', 7),
-(4, 4, 3, 'Implementasi Fitur', 'Selesai', 'Pengembangan', '2024-09-15', 4),
-(5, 5, 4, 'Dokumentasi', 'Dalam Proses', 'Dokumentasi', '2024-09-20', 2),
-(6, 6, 5, 'Review Kode', 'Aktif', 'Pengembangan', '2024-09-25', 6),
-(7, 7, 6, 'Integrasi Sistem', 'Selesai', 'Integrasi', '2024-09-28', 8),
-(8, 8, 7, 'Pemeliharaan Sistem', 'Aktif', 'Pemeliharaan', '2024-10-01', 5),
-(9, 9, 8, 'Evaluasi Proyek', 'Menunggu', 'Analisis', '2024-10-03', 3),
-(10, 10, 9, 'Pengiriman Laporan', 'Selesai', 'Dokumentasi', '2024-10-04', 4);
+INSERT INTO `pekerjaan` (`ID_PEKERJAAN`, `ID_GRAFIK`, `ID_PROYEK`, `NAMA`, `STATUS`, `KATEGORI`, `TANGGAL`, `JUMLAH`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Pengumpulan Data', 'Selesai', 'Analisis', '2024-09-01', 5, NULL, NULL),
+(2, 2, 1, 'Desain Sistem', 'Dalam Proses', 'Pengembangan', '2024-09-05', 3, NULL, NULL),
+(3, 3, 2, 'Uji Coba Prototipe', 'Menunggu', 'Pengujian', '2024-09-10', 7, NULL, NULL),
+(4, 4, 3, 'Implementasi Fitur', 'Selesai', 'Pengembangan', '2024-09-15', 4, NULL, NULL),
+(5, 5, 4, 'Dokumentasi', 'Dalam Proses', 'Dokumentasi', '2024-09-20', 2, NULL, NULL),
+(6, 6, 5, 'Review Kode', 'Aktif', 'Pengembangan', '2024-09-25', 6, NULL, NULL),
+(7, 7, 6, 'Integrasi Sistem', 'Selesai', 'Integrasi', '2024-09-28', 8, NULL, NULL),
+(8, 8, 7, 'Pemeliharaan Sistem', 'Aktif', 'Pemeliharaan', '2024-10-01', 5, NULL, NULL),
+(9, 9, 8, 'Evaluasi Proyek', 'Menunggu', 'Analisis', '2024-10-03', 3, NULL, NULL),
+(10, 10, 9, 'Pengiriman Laporan', 'Selesai', 'Dokumentasi', '2024-10-04', 4, NULL, NULL),
+(13, 5, 5, 'tifa cantik jelita', 'Selesai', 'Analisis', '2004-09-09', 4, '2024-10-08 23:15:56', '2024-10-08 23:15:56');
 
 -- --------------------------------------------------------
 
@@ -289,7 +297,7 @@ INSERT INTO `pekerjaan` (`ID_PEKERJAAN`, `ID_GRAFIK`, `ID_PROYEK`, `NAMA`, `STAT
 CREATE TABLE `personel` (
   `ID_PERSONEL` int(11) NOT NULL,
   `NAMA` varchar(255) NOT NULL,
-  `STATUS` varchar(50) NOT NULL,
+  `STATUS` enum('Aktif','Tidak Aktif','Dalam Perbaikan') NOT NULL,
   `JUMLAH_PEKERJA` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -318,7 +326,7 @@ INSERT INTO `personel` (`ID_PERSONEL`, `NAMA`, `STATUS`, `JUMLAH_PEKERJA`) VALUE
 CREATE TABLE `proyek` (
   `ID_PROYEK` int(11) NOT NULL,
   `NAMA` varchar(255) NOT NULL,
-  `STATUS` varchar(50) NOT NULL,
+  `STATUS` enum('aktif','menunggu','dalam proses','selesai') NOT NULL,
   `JUMLAH_PEKERJA` int(11) NOT NULL,
   `TANGGAL_MULAI` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -328,17 +336,16 @@ CREATE TABLE `proyek` (
 --
 
 INSERT INTO `proyek` (`ID_PROYEK`, `NAMA`, `STATUS`, `JUMLAH_PEKERJA`, `TANGGAL_MULAI`) VALUES
-(1, 'Proyek Alpha', 'Aktif', 15, '2024-09-01'),
-(2, 'Proyek Beta', 'Selesai', 10, '2024-08-15'),
-(3, 'Proyek Gamma', 'Dalam Proses', 8, '2024-09-10'),
-(4, 'Proyek Delta', 'Menunggu', 12, '2024-09-20'),
-(5, 'Proyek Epsilon', 'Aktif', 14, '2024-09-25'),
-(6, 'Proyek Zeta', 'Selesai', 9, '2024-07-30'),
-(7, 'Proyek Eta', 'Dalam Proses', 11, '2024-09-28'),
-(8, 'Proyek Theta', 'Menunggu', 13, '2024-10-01'),
-(9, 'Proyek Iota', 'Aktif', 16, '2024-08-05'),
-(10, 'Proyek Kappa', 'Selesai', 7, '2024-06-12'),
-(11, 'fdfdf', 'aktif', 1, '2024-10-16');
+(1, 'Proyek Alpha', 'aktif', 15, '2024-09-01'),
+(2, 'Proyek Beta', 'selesai', 10, '2024-08-15'),
+(3, 'Proyek Gamma', 'dalam proses', 8, '2024-09-10'),
+(4, 'Proyek Delta', 'menunggu', 12, '2024-09-20'),
+(5, 'Proyek Epsilon', 'aktif', 14, '2024-09-25'),
+(6, 'Proyek Zeta', 'selesai', 9, '2024-07-30'),
+(7, 'Proyek Eta', 'dalam proses', 11, '2024-09-28'),
+(8, 'Proyek Theta', 'menunggu', 13, '2024-10-01'),
+(9, 'Proyek Iota', 'aktif', 16, '2024-08-05'),
+(10, 'Proyek Kappa', 'selesai', 7, '2024-06-12');
 
 -- --------------------------------------------------------
 
@@ -389,8 +396,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('DRdvHJT9PEb2t4yyq4VFNeGyPPrycfB5NJTZfiBE', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQnVnWlFUNVhEQzBkVG43V1ZoZUo2Z1RKTFFSMWwzazNpdlByZ0RwbSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm95ZWsiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1727860419),
-('GBi15EHsri6DtMMv8xsTXy7cHK5q7JFKtgAYjHxr', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQXU5V3V5SlZ5QzBpaUZyRWVKUTF1QUJreXFXNEN4Uk5kRWpYbUhMUyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm95ZWsiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1727874554);
+('1KksRJy4mjX1OalOeFUOeWpsKdFwtUTcpGAli7zH', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRDVsd0Q2Wnk3Y2JvN2dvc0NvZTNHcWF1NXlTMlE2Q1QzcWZvNU9VVSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ha3RpZml0YXMiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTcyODQ0OTkzOTt9fQ==', 1728461681),
+('fBG9FgvG8e3rJsLCHrMvgeW4Q6ellfW1ibz2fj6Q', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOGpBeVNUUm5va1kxQ0JEbzRsMGpTQ0tCbkxRSVljWmxMWGE2ODUzUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wZWtlcmphYW4iO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1728445969);
 
 -- --------------------------------------------------------
 
@@ -401,7 +408,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 CREATE TABLE `tools` (
   `ID_TOOLS` int(11) NOT NULL,
   `NAMA` varchar(255) NOT NULL,
-  `STATUS` varchar(50) NOT NULL,
+  `STATUS` enum('Aktif','Tidak Aktif','Dalam Perbaikan') NOT NULL,
   `TANGGAL` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -414,7 +421,7 @@ INSERT INTO `tools` (`ID_TOOLS`, `NAMA`, `STATUS`, `TANGGAL`) VALUES
 (2, 'Git', 'Aktif', '2024-09-26'),
 (3, 'Postman', 'Tidak Aktif', '2024-09-27'),
 (4, 'Docker', 'Aktif', '2024-09-28'),
-(5, 'Jenkins', 'Dalam Perbaikan', '2024-09-29'),
+(5, 'Jenkins', 'Tidak Aktif', '2024-09-29'),
 (6, 'Kubernetes', 'Aktif', '2024-09-30'),
 (7, 'Nginx', 'Tidak Aktif', '2024-10-01'),
 (8, 'MySQL Workbench', 'Aktif', '2024-10-02'),
@@ -437,6 +444,13 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'tifa', 'tfaamalina01@gmail.com', NULL, '$2y$12$yxdfb7Y/N2f9meSFYb1scO2tIvd4BhHpeEI1nMyZ9UbaszwLePcSC', NULL, '2024-10-08 18:59:39', '2024-10-08 18:59:39');
 
 -- --------------------------------------------------------
 
@@ -625,7 +639,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `notifikasi`
@@ -637,37 +651,37 @@ ALTER TABLE `notifikasi`
 -- AUTO_INCREMENT for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
-  MODIFY `ID_PEKERJAAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_PEKERJAAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `personel`
 --
 ALTER TABLE `personel`
-  MODIFY `ID_PERSONEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_PERSONEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `proyek`
 --
 ALTER TABLE `proyek`
-  MODIFY `ID_PROYEK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_PROYEK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `revisi_gambar`
 --
 ALTER TABLE `revisi_gambar`
-  MODIFY `ID_REVISI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_REVISI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `ID_TOOLS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_TOOLS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `workload_analysis`
