@@ -29,8 +29,14 @@
 
                         <div class="form-group">
                             <label for="status">Status:</label>
-                            <input type="text" name="STATUS" class="form-control" id="status" required>
+                            <select name="STATUS" class="form-control" id="status" required>
+                                <option value="" disabled selected>Pilih Status</option> 
+                                <option value="Aktif">Aktif</option>
+                                <option value="Tidak Aktif">Tidak Aktif</option>
+                                <option value="Dalam Perbaikan">Dalam Perbaikan</option>
+                            </select>
                         </div>
+                        
 
                         <div class="form-group">
                             <label for="jumlah_pekerja">Jumlah Pekerja:</label>

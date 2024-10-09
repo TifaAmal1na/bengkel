@@ -12,6 +12,8 @@ class Revisi extends Model
     protected $table = 'revisi_gambar'; // Nama tabel di database
     protected $primaryKey = 'ID_REVISI'; // Primary key
 
+    public $timestamps = false;
+
     protected $fillable = [
         'ID_PEKERJAAN',
         'DESKRIPSI',

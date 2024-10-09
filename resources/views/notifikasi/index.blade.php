@@ -23,7 +23,7 @@
                             <thead>
                                 <tr>
                                     <th>ID Notifikasi</th>
-                                    <th>ID Proyek</th>
+                                    <th>Nama Proyek</th>
                                     <th>Judul</th>
                                     <th>Deskripsi</th>
                                     <th>Tanggal</th>
@@ -35,7 +35,7 @@
                                 @foreach ($notifikasi as $item)
                                 <tr>
                                     <td>{{ $item->ID_NOTIFIKASI }}</td>
-                                    <td>{{ $item->ID_PROYEK }}</td>
+                                    <td>{{ $item->Proyek->NAMA }}</td>
                                     <td>{{ $item->JUDUL }}</td>
                                     <td>{{ $item->DESKRIPSI }}</td>
                                     <td>{{ $item->TANGGAL }}</td>

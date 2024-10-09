@@ -30,8 +30,14 @@
 
                         <div class="form-group">
                             <label for="status">Status:</label>
-                            <input type="text" name="STATUS" class="form-control" id="status" value="{{ $personel->STATUS }}" required>
+                            <select name="STATUS" class="form-control" id="status" required>
+                                <option value="" disabled>Pilih Status</option>
+                                <option value="Aktif" {{ $personel->STATUS == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="Tidak Aktif" {{ $personel->STATUS == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                                <option value="Dalam Perbaikan" {{ $personel->STATUS == 'Dalam Perbaikan' ? 'selected' : '' }}>Dalam Perbaikan</option>
+                            </select>
                         </div>
+                        
 
                         <div class="form-group">
                             <label for="jumlah_pekerja">Jumlah Pekerja:</label>

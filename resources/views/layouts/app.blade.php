@@ -9,18 +9,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>PAL BENGKEL</title>
+    <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
+
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-        <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
     <!-- Gawe ndandani icon ora muncul, iki hapus en soale ngelek" i komen e -->
-     
-    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">  
+
+    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
 
     <!-- Custom styles for this template -->
@@ -44,51 +46,51 @@
                 <img src="/img/PALTransparan.png" style="width: 100%;">
 
             </a>
-                
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>  
+                    <span>Dashboard</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route ('notifikasi.index')}}">
+                <a class="nav-link" href="{{ route('notifikasi.index') }}">
                     <i class="fas fa-star"></i>
                     <span>Data Notifikasi</span></a>
             </li>
 
-             <li class="nav-item">
-                <a class="nav-link"  href="{{route ('pekerjaan.index')}}">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('pekerjaan.index') }}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Data Pekerjaan</span></a>
             </li>
 
-             <li class="nav-item">
-                <a class="nav-link" href="{{route ('personel.index')}}">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('personel.index') }}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Data Personel</span></a>
             </li>
 
-             <li class="nav-item">
-                <a class="nav-link" href="{{route ('proyek.index')}}">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('proyek.index') }}">
                     <i class="fas fa-fw fa-file-archive"></i>
                     <span>Data Proyek</span></a>
             </li>
 
-             <li class="nav-item">
-                <a class="nav-link" href="{{route ('revisi_gambar.index')}}">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('revisi_gambar.index') }}">
                     <i class="fas fa-images"></i>
                     <span>Revisi Gambar</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route ('tools.index')}}">
+                <a class="nav-link" href="{{ route('tools.index') }}">
                     <i class="fas fa-tools"></i>
                     <span>Tools</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route ('workload_analysis.index')}}">
+                <a class="nav-link" href="{{ route('workload_analysis.index') }}">
                     <i class="fas fa-industry"></i>
                     <span>Workload Analysis</span></a>
             </li>
@@ -278,8 +280,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -297,7 +298,8 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -352,10 +354,12 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); 
+                    <a class="btn btn-primary" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">Logout</a>
                 </div>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf
+                </form>
             </div>
         </div>
     </div>
