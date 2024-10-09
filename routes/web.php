@@ -17,35 +17,41 @@ use App\Http\Controllers\PersonelChartController;
 use App\Http\Controllers\ToolsChartController;
 // use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
+// Protect routes using auth middleware to ensure login is required
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect('/home'); // Or wherever you want to redirect logged-in users
+        return redirect('/home'); // Redirect to home if authenticated
     }
     return redirect('/login'); // Redirect to login if not authenticated
 });
 
-Route::get('/dashboard', [ProyekChartController::class, 'index'])->name('dashboard');
+// Routes that require authentication
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [ProyekChartController::class, 'index'])->name('dashboard');
 
+    Route::resource('personel', personelController::class);
+    Route::resource('aktifitas', AktifitasController::class);
+    Route::resource('notifikasi', NotofikasiController::class);
+    Route::resource('pekerjaan', PekerjaanController::class);
+    Route::resource('proyek', ProyekController::class);
+    Route::resource('revisi_gambar', RevisiGambarController::class);
+    Route::resource('tools', ToolsController::class);
+    Route::resource('workload_analysis', WorkloadAnalysisController::class);
+    Route::get('workload_analysis/{workload_analysis}/edit', [WorkloadAnalysisController::class, 'edit'])->name('workload_analysis.edit');
+    Route::get('workload_analysis/{workload_analysis}/destroy', [WorkloadAnalysisController::class, 'destroy'])->name('workload_analysis.destroy');
+    Route::get('workload_analysis/{workload_analysis}/show', [WorkloadAnalysisController::class, 'show'])->name('workload_analysis.show');
 
-Route::resource('personel', personelController::class);
-Route::resource('aktifitas', AktifitasController::class);
-Route::resource('notifikasi', NotofikasiController::class);
-Route::resource('pekerjaan', PekerjaanController::class);
-Route::resource('proyek', ProyekController::class);
-Route::resource('revisi_gambar', RevisiGambarController::class);
-Route::resource('tools', ToolsController::class);
-Route::resource('workload_analysis', WorkloadAnalysisController::class);
-Route::get('workload_analysis/{workload_analysis}/edit', [WorkloadAnalysisController::class, 'edit'])->name('workload_analysis.edit');
-Route::get('workload_analysis/{workload_analysis}/destroy', [WorkloadAnalysisController::class, 'destroy'])->name('workload_analysis.destroy');
-Route::get('workload_analysis/{workload_analysis}/show', [WorkloadAnalysisController::class, 'show'])->name('workload_analysis.show');
+    // Charts
+    Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('dashboard');
+    Route::get('/ChartPersonel', [PersonelChartController::class, 'index'])->name('personel.chart');
+    Route::get('/ChartTools', [ToolsChartController::class, 'index'])->name('tools.chart');
+});
 
-
-// chart
-Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('dashboard');
-Route::get('/ChartPersonel', [PersonelChartController::class, 'index'])->name('personel.chart');
-Route::get('/ChartTools', [ToolsChartController::class, 'index'])->name('tools.chart');
-
+// Authentication routes
 Auth::routes();
 
+// Home route after login
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Logout route
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
