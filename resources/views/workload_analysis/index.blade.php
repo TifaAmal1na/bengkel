@@ -8,7 +8,7 @@
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
                     <div class="m-0 font-weight-bold text-primary">Workload Analysis</div>
                     <div>
-                        <a href="{{ route('workload_analysis.create') }}" class="btn btn-primary">Tambah Workload</a>
+                        <a href="{{ route('workload_analysis.create') }}" class="btn btn-primary">ADD</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -37,13 +37,13 @@
                                         <td>{{ \Carbon\Carbon::parse($workload->TANGGAL)->format('d-m-Y') }}</td> <!-- Menggunakan Carbon untuk memformat tanggal -->
                                         <td>{{ $workload->JUMLAH_PEKERJAAN }}</td>
                                         <td>
-                                        <a href="{{ route('workload_analysis.edit', ['workload_analysis' => $workload->ID_GRAFIK]) }}" class="btn btn-warning">Edit</a>
+                                        <a href="{{ route('workload_analysis.edit', ['workload_analysis' => $workload->ID_GRAFIK]) }}" class="btn btn-primary">Edit</a>
                                         <form action="{{ route('workload_analysis.destroy', ['workload_analysis' => $workload->ID_GRAFIK]) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus workload ini?');">Hapus</button>
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus workload ini?');">Delete</button>
                                         </form>
-                                        <a href="{{ route('workload_analysis.show', ['workload_analysis' => $workload->ID_GRAFIK]) }}" class="btn btn-info">Detail</a>
+                                        <a href="{{ route('workload_analysis.show', ['workload_analysis' => $workload->ID_GRAFIK]) }}" class="btn btn-warning">Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach

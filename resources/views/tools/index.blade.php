@@ -8,7 +8,7 @@
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
                     <h1 class="m-0 font-weight-bold text-primary">Daftar Tools</h1>
                     <div>
-                        <a href="{{ route('tools.create') }}" class="btn btn-primary">Tambah Tool</a>
+                        <a href="{{ route('tools.create') }}" class="btn btn-primary">ADD</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -42,11 +42,11 @@
                                             <td>{{ $tool->STATUS }}</td>
                                             <td>{{ \Carbon\Carbon::parse($tool->TANGGAL)->format('d-m-Y') }}</td> <!-- Menggunakan Carbon untuk format tanggal -->
                                             <td>
-                                                <a href="{{ route('tools.edit', $tool->ID_TOOLS) }}" class="btn btn-warning">Edit</a>
+                                                <a href="{{ route('tools.edit', $tool->ID_TOOLS) }}" class="btn btn-primary">Edit</a>
                                                 <form action="{{ route('tools.destroy', $tool->ID_TOOLS) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus tool ini?');">Hapus</button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus tool ini?');">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
