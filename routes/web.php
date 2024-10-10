@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('personel', PersonelController::class);
-    Route::resource('aktifitas', AktifitasController::class);
+    Route::resource('aktivitas', AktifitasController::class);
     Route::resource('notifikasi', NotofikasiController::class);
     Route::resource('pekerjaan', PekerjaanController::class);
     Route::resource('proyek', ProyekController::class);

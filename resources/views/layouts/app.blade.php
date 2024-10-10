@@ -64,6 +64,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('aktivitas.index') }}">
+                    <i class="fas fa-fw fa-user-alt"></i>
+                    <span>Data Aktivitas</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('pekerjaan.index') }}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Data Pekerjaan</span></a>
