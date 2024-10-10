@@ -48,3 +48,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Logout route
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+//workload route
+Route::resource('workload_analysis', WorkloadAnalysisController::class)
+    ->parameters(['workload_analysis' => 'workload_analysis']);
+
+

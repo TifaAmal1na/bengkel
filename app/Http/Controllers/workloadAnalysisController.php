@@ -59,7 +59,7 @@ class workloadAnalysisController extends Controller
     public function edit(string $id)
     {
         $workload = Workload::findOrFail($id);
-        return view('workload_analysis.edit', compact('workload')); // Tampilkan form untuk edit workload
+        return view('workload_analysis.edit', compact('workload'));
     }
 
     /**

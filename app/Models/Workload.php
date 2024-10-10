@@ -32,4 +32,11 @@ class Workload extends Model
     public function pekerjaan(){
         return $this->hasMany(Pekerjaan::class, 'ID_PEKERJAAN');
     }
+
+    public function getRouteKeyName()
+{
+    return 'ID_GRAFIK';
+}
+
+
 }
