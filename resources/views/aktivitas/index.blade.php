@@ -36,7 +36,7 @@
                                     <td>{{ $akt->pekerjaan->NAMA }}</td>
                                     <td>{{ $akt->DESKRIPSI }}</td>
                                     <td>{{ $akt->TANGGAL }}</td>
-                                    <td>{{ $akt->tanggal_selesai }}</td>
+                                    <td>{{ $akt->TANGGAL_SELESAI }}</td>
                                     <td>{{ $akt->STATUS }}</td>
                                     
                                     <td>

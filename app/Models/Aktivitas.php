@@ -18,6 +18,7 @@ class Aktivitas extends Model
         'ID_PEKERJAAN',
         'DESKRIPSI',
         'TANGGAL',
+        'TANGGAL_SELESAI',
         'STATUS'
     ];
 
