@@ -38,16 +38,13 @@
                                     <td>{{ $akt->TANGGAL }}</td>
                                     <td>{{ $akt->TANGGAL_SELESAI }}</td>
                                     <td>{{ $akt->STATUS }}</td>
-                                    
                                     <td>
-                                        <div class="btn-group" role="group" style="display:inline-block;">
+                                            <form action="{{ route('aktivitas.destroy', $akt->ID_AKTIVITAS) }}" method="POST">
                                             <a class="btn btn-primary" href="{{ route('aktivitas.edit', $akt->ID_AKTIVITAS) }}">Edit</a>
-                                            <form action="{{ route('aktivitas.destroy', $akt->ID_AKTIVITAS) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus aktivitas ini?')">Delete</button>
                                             </form>
-                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

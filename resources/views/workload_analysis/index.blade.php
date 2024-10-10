@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col mt-2 mb-2">
             <div class="card">
-                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <div class="card-header py-3">
                     <div class="m-0 font-weight-bold text-primary">Workload Analysis</div>
-                    <div>
-                        <a href="{{ route('workload_analysis.create') }}" class="btn btn-primary">ADD</a>
+                    <div class="float-right">
+                        <a href="{{ route('workload_analysis.create') }}" class="btn btn-sm btn-primary shadow-sm">ADD</a>
                     </div>
                 </div>
                 <div class="card-body">

@@ -43,7 +43,7 @@
                                             <a class="btn btn-primary" href="{{ route('proyek.edit', $proyek->ID_PROYEK) }}">Edit</a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
