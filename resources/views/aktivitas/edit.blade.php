@@ -24,14 +24,25 @@
         </div>
 
         <div class="form-group">
-            <label for="TANGGAL">Tanggal</label>
+            <label for="TANGGAL">Tanggal Mulai</label>
             <input type="date" name="TANGGAL" id="TANGGAL" class="form-control" value="{{ $aktivitas->TANGGAL }}" required>
         </div>
 
         <div class="form-group">
-            <label for="STATUS">Status</label>
-            <input type="text" name="STATUS" id="STATUS" class="form-control" value="{{ $aktivitas->STATUS }}" required>
+            <label for="TANGGAL">Tanggal Selesai</label>
+            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control" value="{{ $aktivitas->tanggal_selesai }}" required>
         </div>
+
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select name="STATUS" class="form-control" id="status" required>
+                <option value="" disabled>Pilih Status</option> 
+                <option value="Aktif" {{ $aktivitas->STATUS == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                <option value="Tidak Aktif" {{ $aktivitas->STATUS == 'Tidak Aktif' ? 'selected' : '' }}>Menunggu</option>
+                <option value="Dalam Perbaikan" {{ $aktivitas->STATUS == 'Dalam Perbaikan' ? 'selected' : '' }}>Dalam Proses</option>
+                <option value="Selesai" {{ $aktivitas->STATUS == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+            </select>
+        </div>        
 
         <button type="submit" class="btn btn-primary">Update</button>
     </form>

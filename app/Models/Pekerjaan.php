@@ -12,6 +12,8 @@ class Pekerjaan extends Model
     protected $table = 'pekerjaan'; // Nama tabel di database
     protected $primaryKey = 'ID_PEKERJAAN'; // Primary key
 
+    public $timestamps = false;
+
     protected $fillable = [
         'ID_GRAFIK',
         'ID_PROYEK',

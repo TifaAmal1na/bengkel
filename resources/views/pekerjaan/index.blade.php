@@ -27,7 +27,8 @@
                                     <th>Nama Proyek</th>
                                     <th>Status</th>
                                     <th>Kategori</th>
-                                    <th>Tanggal</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Tanggal Selesai</th>
                                     <th>Jumlah</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -41,6 +42,7 @@
                                         <td>{{ $p->STATUS }}</td>
                                         <td>{{ $p->KATEGORI }}</td>
                                         <td>{{ $p->TANGGAL }}</td>
+                                        <td>{{ $p->date_end }}</td>
                                         <td>{{ $p->JUMLAH }}</td>
                                         <td>
                                             <form action="{{ route('pekerjaan.destroy', $p->ID_PEKERJAAN) }}" method="POST">

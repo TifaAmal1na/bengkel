@@ -21,13 +21,24 @@
         </div>
 
         <div class="form-group">
-            <label for="TANGGAL">Tanggal</label>
+            <label for="TANGGAL">Tanggal Mulai</label>
             <input type="date" name="TANGGAL" id="TANGGAL" class="form-control" required>
         </div>
 
         <div class="form-group">
-            <label for="STATUS">Status</label>
-            <input type="text" name="STATUS" id="STATUS" class="form-control" required>
+            <label for="TANGGAL">Tanggal Selesai</label>
+            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select name="STATUS" class="form-control" id="status" required>
+                <option value="" disabled selected>Pilih Status</option> 
+                <option value="Aktif">Aktif</option>
+                <option value="Tidak Aktif">Menunggu</option>
+                <option value="Dalam Perbaikan">Dalam Proses</option>
+                <option value="Dalam Perbaikan">Selesai</option>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2024 at 10:21 AM
+-- Generation Time: Oct 10, 2024 at 06:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,24 +32,25 @@ CREATE TABLE `aktivitas` (
   `ID_PEKERJAAN` int(11) DEFAULT NULL,
   `DESKRIPSI` text NOT NULL,
   `TANGGAL` date NOT NULL,
-  `STATUS` varchar(50) NOT NULL
+  `tanggal_selesai` date DEFAULT NULL,
+  `STATUS` enum('Selesai','Dalam Proses','Aktif','Menunggu') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `aktivitas`
 --
 
-INSERT INTO `aktivitas` (`ID_AKTIVITAS`, `ID_PEKERJAAN`, `DESKRIPSI`, `TANGGAL`, `STATUS`) VALUES
-(1, 1, 'Mengumpulkan data untuk analisis', '2024-09-01', 'Selesai'),
-(2, 2, 'Mendesain struktur sistem', '2024-09-02', 'Dalam Proses'),
-(3, 3, 'Menjalankan pengujian awal', '2024-09-03', 'Selesai'),
-(4, 4, 'Menyusun dokumentasi proyek', '2024-09-04', 'Selesai'),
-(5, 1, 'Mengadakan rapat tim', '2024-09-05', 'Aktif'),
-(6, 5, 'Mereview hasil pekerjaan', '2024-09-06', 'Menunggu'),
-(7, 2, 'Menyiapkan presentasi', '2024-09-07', 'Aktif'),
-(8, 3, 'Melakukan analisis risiko', '2024-09-08', 'Selesai'),
-(9, 4, 'Evaluasi hasil proyek', '2024-09-09', 'Aktif'),
-(10, 5, 'Menentukan langkah selanjutnya', '2024-09-10', 'Selesai');
+INSERT INTO `aktivitas` (`ID_AKTIVITAS`, `ID_PEKERJAAN`, `DESKRIPSI`, `TANGGAL`, `tanggal_selesai`, `STATUS`) VALUES
+(1, 1, 'Mengumpulkan data untuk analisis', '2024-09-01', '2024-10-10', 'Selesai'),
+(2, 2, 'Mendesain struktur sistem', '2024-09-08', '2024-10-10', 'Dalam Proses'),
+(3, 3, 'Menjalankan pengujian awal', '2024-09-03', NULL, 'Selesai'),
+(4, 4, 'Menyusun dokumentasi proyek', '2024-09-04', NULL, 'Selesai'),
+(5, 1, 'Mengadakan rapat tim', '2024-09-05', NULL, 'Aktif'),
+(6, 5, 'Mereview hasil pekerjaan', '2024-09-06', NULL, 'Menunggu'),
+(7, 2, 'Menyiapkan presentasi', '2024-09-07', NULL, 'Aktif'),
+(8, 3, 'Melakukan analisis risiko', '2024-09-08', NULL, 'Selesai'),
+(9, 4, 'Evaluasi hasil proyek', '2024-09-09', NULL, 'Aktif'),
+(10, 5, 'Menentukan langkah selanjutnya', '2024-09-10', NULL, 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -266,27 +267,26 @@ CREATE TABLE `pekerjaan` (
   `STATUS` enum('Selesai','Dalam Proses','Aktif','Menunggu') NOT NULL DEFAULT 'Aktif',
   `KATEGORI` varchar(100) NOT NULL,
   `TANGGAL` date NOT NULL,
-  `JUMLAH` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `date_end` date NOT NULL,
+  `JUMLAH` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pekerjaan`
 --
 
-INSERT INTO `pekerjaan` (`ID_PEKERJAAN`, `ID_GRAFIK`, `ID_PROYEK`, `NAMA`, `STATUS`, `KATEGORI`, `TANGGAL`, `JUMLAH`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Pengumpulan Data', 'Selesai', 'Analisis', '2024-09-01', 5, NULL, NULL),
-(2, 2, 1, 'Desain Sistem', 'Dalam Proses', 'Pengembangan', '2024-09-05', 3, NULL, NULL),
-(3, 3, 2, 'Uji Coba Prototipe', 'Menunggu', 'Pengujian', '2024-09-10', 7, NULL, NULL),
-(4, 4, 3, 'Implementasi Fitur', 'Selesai', 'Pengembangan', '2024-09-15', 4, NULL, NULL),
-(5, 5, 4, 'Dokumentasi', 'Dalam Proses', 'Dokumentasi', '2024-09-20', 2, NULL, NULL),
-(6, 6, 5, 'Review Kode', 'Aktif', 'Pengembangan', '2024-09-25', 6, NULL, NULL),
-(7, 7, 6, 'Integrasi Sistem', 'Selesai', 'Integrasi', '2024-09-28', 8, NULL, NULL),
-(8, 8, 7, 'Pemeliharaan Sistem', 'Aktif', 'Pemeliharaan', '2024-10-01', 5, NULL, NULL),
-(9, 9, 8, 'Evaluasi Proyek', 'Menunggu', 'Analisis', '2024-10-03', 3, NULL, NULL),
-(10, 10, 9, 'Pengiriman Laporan', 'Selesai', 'Dokumentasi', '2024-10-04', 4, NULL, NULL),
-(13, 5, 5, 'tifa cantik jelita', 'Selesai', 'Analisis', '2004-09-09', 4, '2024-10-08 23:15:56', '2024-10-08 23:15:56');
+INSERT INTO `pekerjaan` (`ID_PEKERJAAN`, `ID_GRAFIK`, `ID_PROYEK`, `NAMA`, `STATUS`, `KATEGORI`, `TANGGAL`, `date_end`, `JUMLAH`) VALUES
+(1, 1, 1, 'Pengumpulan Data', 'Selesai', 'Analisis', '2024-09-01', '0000-00-00', 5),
+(2, 2, 1, 'Desain Sistem', 'Dalam Proses', 'Pengembangan', '2024-09-05', '0000-00-00', 3),
+(3, 3, 2, 'Uji Coba Prototipe', 'Menunggu', 'Pengujian', '2024-09-10', '0000-00-00', 7),
+(4, 4, 3, 'Implementasi Fitur', 'Selesai', 'Pengembangan', '2024-09-15', '0000-00-00', 4),
+(5, 5, 4, 'Dokumentasi', 'Dalam Proses', 'Dokumentasi', '2024-09-20', '0000-00-00', 2),
+(6, 6, 5, 'Review Kode', 'Aktif', 'Pengembangan', '2024-09-25', '0000-00-00', 6),
+(7, 7, 6, 'Integrasi Sistem', 'Selesai', 'Integrasi', '2024-09-28', '0000-00-00', 8),
+(8, 8, 7, 'Pemeliharaan Sistem', 'Aktif', 'Pemeliharaan', '2024-10-01', '0000-00-00', 5),
+(9, 9, 8, 'Evaluasi Proyek', 'Menunggu', 'Analisis', '2024-10-03', '0000-00-00', 3),
+(10, 10, 9, 'Pengiriman Laporan', 'Selesai', 'Dokumentasi', '2024-10-04', '0000-00-00', 4),
+(13, 5, 5, 'tifa cantik jelita', 'Selesai', 'Analisis', '2004-09-09', '0000-00-00', 4);
 
 -- --------------------------------------------------------
 
@@ -396,8 +396,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('1KksRJy4mjX1OalOeFUOeWpsKdFwtUTcpGAli7zH', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRDVsd0Q2Wnk3Y2JvN2dvc0NvZTNHcWF1NXlTMlE2Q1QzcWZvNU9VVSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ha3RpZml0YXMiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTcyODQ0OTkzOTt9fQ==', 1728461681),
-('fBG9FgvG8e3rJsLCHrMvgeW4Q6ellfW1ibz2fj6Q', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOGpBeVNUUm5va1kxQ0JEbzRsMGpTQ0tCbkxRSVljWmxMWGE2ODUzUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wZWtlcmphYW4iO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1728445969);
+('1KksRJy4mjX1OalOeFUOeWpsKdFwtUTcpGAli7zH', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRDVsd0Q2Wnk3Y2JvN2dvc0NvZTNHcWF1NXlTMlE2Q1QzcWZvNU9VVSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9yZXZpc2lfZ2FtYmFyIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3Mjg0NDk5Mzk7fX0=', 1728464048),
+('48lROI5RXVqlEZjLuCYWnEqO0st7LtFPuLkSHZ2a', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiSjVVejJUb1U4ZG94YkF3eENoVWZBZm5CWWFQTktYbEJPS1I4Nkp2QyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjMxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcGVrZXJqYWFuIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3Mjg1MjQ1NDk7fX0=', 1728530753);
 
 -- --------------------------------------------------------
 
@@ -417,9 +417,9 @@ CREATE TABLE `tools` (
 --
 
 INSERT INTO `tools` (`ID_TOOLS`, `NAMA`, `STATUS`, `TANGGAL`) VALUES
-(1, 'Visual Studio Code', 'Aktif', '2024-09-25'),
-(2, 'Git', 'Aktif', '2024-09-26'),
-(3, 'Postman', 'Tidak Aktif', '2024-09-27'),
+(1, 'Multimeter', 'Aktif', '2024-09-25'),
+(2, 'Soldering Iron', 'Aktif', '2024-09-26'),
+(3, 'Oscilloscope', 'Tidak Aktif', '2024-09-27'),
 (4, 'Docker', 'Aktif', '2024-09-28'),
 (5, 'Jenkins', 'Tidak Aktif', '2024-09-29'),
 (6, 'Kubernetes', 'Aktif', '2024-09-30'),
@@ -470,16 +470,16 @@ CREATE TABLE `workload_analysis` (
 --
 
 INSERT INTO `workload_analysis` (`ID_GRAFIK`, `STANDARD`, `TANGGAL`, `JUMLAH_PEKERJAAN`) VALUES
-(1, 75.5, '2024-09-25', 8),
-(2, 80, '2024-09-26', 10),
-(3, 70.2, '2024-09-27', 6),
-(4, 85.3, '2024-09-28', 12),
-(5, 78.4, '2024-09-29', 9),
-(6, 88.7, '2024-09-30', 13),
-(7, 90, '2024-10-01', 14),
-(8, 82.1, '2024-10-02', 11),
-(9, 76.3, '2024-10-03', 8),
-(10, 79.9, '2024-10-04', 9);
+(1, 5, '2024-09-25', 8),
+(2, 6, '2024-09-26', 10),
+(3, 7, '2024-09-27', 6),
+(4, 6, '2024-09-28', 12),
+(5, 7, '2024-09-29', 9),
+(6, 6, '2024-09-30', 13),
+(7, 5, '2024-10-01', 14),
+(8, 7, '2024-10-02', 11),
+(9, 5, '2024-10-03', 8),
+(10, 6, '2024-10-04', 9);
 
 --
 -- Indexes for dumped tables

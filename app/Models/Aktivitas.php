@@ -12,6 +12,8 @@ class Aktivitas extends Model
     protected $table = 'aktivitas'; // Nama tabel di database
     protected $primaryKey = 'ID_AKTIVITAS'; // Primary key
 
+    public $timestamps = false;
+
     protected $fillable = [
         'ID_PEKERJAAN',
         'DESKRIPSI',
