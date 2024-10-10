@@ -35,7 +35,8 @@ class aktifitasController extends Controller
             'ID_PEKERJAAN' => 'required|exists:pekerjaan,ID_PEKERJAAN',
             'DESKRIPSI' => 'required|string',
             'TANGGAL' => 'required|date',
-            'STATUS' => 'required|string|max:50',
+            //'STATUS' => 'required|string|max:50',
+            'STATUS' => 'required|string|in:Selesai,Dalam Proses,Aktif,Menunggu',
         ]);
 
         Aktivitas::create($request->all());
@@ -70,7 +71,8 @@ class aktifitasController extends Controller
             'ID_PEKERJAAN' => 'required|exists:pekerjaan,ID_PEKERJAAN',
             'DESKRIPSI' => 'required|string',
             'TANGGAL' => 'required|date',
-            'STATUS' => 'required|string|max:50',
+            //'STATUS' => 'required|string|max:50',
+            'STATUS' => 'required|string|in:Selesai,Dalam Proses,Aktif,Menunggu',
         ]);
 
         $aktivitas = Aktivitas::findOrFail($id);
