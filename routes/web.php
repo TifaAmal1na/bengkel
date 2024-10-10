@@ -38,11 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('revisi_gambar', RevisiGambarController::class);
     Route::resource('tools', ToolsController::class);
     Route::resource('workload_analysis', WorkloadAnalysisController::class);
-
-    // Charts
-    Route::get('/ChartProyek', [ProyekChartController::class, 'index'])->name('proyek.chart');
-    Route::get('/ChartPersonel', [PersonelChartController::class, 'index'])->name('personel.chart');
-    Route::get('/ChartTools', [ToolsChartController::class, 'index'])->name('tools.chart');
 });
 
 // Authentication routes
