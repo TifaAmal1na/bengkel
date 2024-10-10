@@ -30,7 +30,7 @@
 
         <div class="form-group">
             <label for="TANGGAL">Tanggal Selesai</label>
-            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control" value="{{ $aktivitas->tanggal_selesai }}" required>
+            <input type="date" name="TANGGAL_SELESAI" id="TANGGAL_SELESAI" class="form-control" value="{{ $aktivitas->TANGGAL_SELESAI }}" required>
         </div>
 
         <div class="form-group">

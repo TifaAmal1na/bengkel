@@ -27,7 +27,7 @@
 
         <div class="form-group">
             <label for="TANGGAL">Tanggal Selesai</label>
-            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control" required>
+            <input type="date" name="TANGGAL_SELESAI" id="TANGGAL_SELESAI" class="form-control" required>
         </div>
 
         <div class="form-group">
