@@ -62,6 +62,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="TANGGAL_SELESAI">Tanggal Selesai:</label>
+                            <input type="date" name="TANGGAL_SELESAI" class="form-control" value="{{ $pekerjaan->TANGGAL_SELESAI }}" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="JUMLAH">Jumlah:</label>
                             <input type="number" name="JUMLAH" class="form-control" value="{{ $pekerjaan->JUMLAH }}" required min="0">
                         </div>
