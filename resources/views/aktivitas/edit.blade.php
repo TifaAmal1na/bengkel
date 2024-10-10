@@ -38,8 +38,11 @@
             <select name="STATUS" class="form-control" id="status" required>
                 <option value="" disabled>Pilih Status</option> 
                 <option value="Aktif" {{ $aktivitas->STATUS == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                <!--
                 <option value="Tidak Aktif" {{ $aktivitas->STATUS == 'Tidak Aktif' ? 'selected' : '' }}>Menunggu</option>
-                <option value="Dalam Perbaikan" {{ $aktivitas->STATUS == 'Dalam Perbaikan' ? 'selected' : '' }}>Dalam Proses</option>
+                <option value="Dalam Perbaikan" {{ $aktivitas->STATUS == 'Dalam Perbaikan' ? 'selected' : '' }}>Dalam Proses</option> -->
+                <option value="Menunggu" {{ $aktivitas->STATUS == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
+                <option value="Dalam Proses" {{ $aktivitas->STATUS == 'Dalam Proses' ? 'selected' : '' }}>Dalam Proses</option>
                 <option value="Selesai" {{ $aktivitas->STATUS == 'Selesai' ? 'selected' : '' }}>Selesai</option>
             </select>
         </div>        

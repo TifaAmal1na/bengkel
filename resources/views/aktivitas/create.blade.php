@@ -35,9 +35,12 @@
             <select name="STATUS" class="form-control" id="status" required>
                 <option value="" disabled selected>Pilih Status</option> 
                 <option value="Aktif">Aktif</option>
-                <option value="Tidak Aktif">Menunggu</option>
-                <option value="Dalam Perbaikan">Dalam Proses</option>
-                <option value="Dalam Perbaikan">Selesai</option>
+                <!-- <option value="Tidak Aktif">Menunggu</option> -->
+                <option value="Menunggu">Menunggu</option>
+                <!-- <option value="Dalam Perbaikan">Dalam Proses</option> -->
+                <option value="Dalam Proses">Dalam Proses</option>
+                <!-- <option value="Dalam Perbaikan">Selesai</option> -->
+                <option value="Selesai">Selesai</option>
             </select>
         </div>
 
