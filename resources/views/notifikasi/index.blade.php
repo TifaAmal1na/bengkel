@@ -41,12 +41,14 @@
                                     <td>{{ $item->TANGGAL }}</td>
                                     <td>{{ $item->PRIORITAS }}</td>
                                     <td>
-                                        <form action="{{ route('notifikasi.destroy', $item->ID_NOTIFIKASI) }}" method="POST">
-                                        <a class="btn btn-primary" href="{{ route('notifikasi.edit', $item->ID_NOTIFIKASI) }}">Edit</a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?')">Delete</button>
-                                        </form>
+                                        <div class="d-flex">
+                                            <a class="btn btn-primary mr-1" href="{{ route('notifikasi.edit', $item->ID_NOTIFIKASI) }}">Edit</a>
+                                            <form action="{{ route('notifikasi.destroy', $item->ID_NOTIFIKASI) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?')">Delete</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

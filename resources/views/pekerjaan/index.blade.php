@@ -45,12 +45,14 @@
                                         <td>{{ $p->TANGGAL_SELESAI }}</td>
                                         <td>{{ $p->JUMLAH }}</td>
                                         <td>
-                                            <form action="{{ route('pekerjaan.destroy', $p->ID_PEKERJAAN) }}" method="POST">
-                                                <a class="btn btn-primary" href="{{ route('pekerjaan.edit', $p->ID_PEKERJAAN) }}">Edit</a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
+                                            <div class="d-flex">
+                                            <a class="btn btn-primary mr-1" href="{{ route('pekerjaan.edit', $p->ID_PEKERJAAN) }}">Edit</a>
+                                                <form action="{{ route('pekerjaan.destroy', $p->ID_PEKERJAAN) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
