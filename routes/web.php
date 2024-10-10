@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\aktifitasController;
+use App\Http\Controllers\GaugeController;
 use App\Http\Controllers\notofikasiController;
 use App\Http\Controllers\pekerjaanController;
 use App\Http\Controllers\personelController;
@@ -52,5 +53,9 @@ Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logou
 //workload route
 Route::resource('workload_analysis', WorkloadAnalysisController::class)
     ->parameters(['workload_analysis' => 'workload_analysis']);
+
+
+//Gauge route
+Route::get('/gauge', [GaugeController::class, 'index'])->name('gauge.index');
 
 
