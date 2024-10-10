@@ -39,12 +39,14 @@
                                     <td>{{ $akt->TANGGAL_SELESAI }}</td>
                                     <td>{{ $akt->STATUS }}</td>
                                     <td>
+                                        <div class="d-flex">
+                                        <a class="btn btn-primary mr-1" href="{{ route('aktivitas.edit', $akt->ID_AKTIVITAS) }}">Edit</a>
                                             <form action="{{ route('aktivitas.destroy', $akt->ID_AKTIVITAS) }}" method="POST">
-                                            <a class="btn btn-primary" href="{{ route('aktivitas.edit', $akt->ID_AKTIVITAS) }}">Edit</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus aktivitas ini?')">Delete</button>
                                             </form>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
