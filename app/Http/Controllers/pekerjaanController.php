@@ -43,6 +43,7 @@ class pekerjaanController extends Controller
             'STATUS' => 'required|string|max:50',
             'KATEGORI' => 'required|string|max:100',
             'TANGGAL' => 'required|date',
+            'TANGGAL_SELESAI' => 'required|date',
             'JUMLAH' => 'required|integer', 
         ]);
 
@@ -84,6 +85,7 @@ class pekerjaanController extends Controller
             'STATUS' => 'required|string|max:50',
             'KATEGORI' => 'required|string|max:100',
             'TANGGAL' => 'required|date',
+            'TANGGAL_SELESAI' => 'required|date',
             'JUMLAH' => 'required|integer', 
         ]);
 

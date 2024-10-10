@@ -42,7 +42,7 @@
                                         <td>{{ $p->STATUS }}</td>
                                         <td>{{ $p->KATEGORI }}</td>
                                         <td>{{ $p->TANGGAL }}</td>
-                                        <td>{{ $p->date_end }}</td>
+                                        <td>{{ $p->TANGGAL_SELESAI }}</td>
                                         <td>{{ $p->JUMLAH }}</td>
                                         <td>
                                             <form action="{{ route('pekerjaan.destroy', $p->ID_PEKERJAAN) }}" method="POST">

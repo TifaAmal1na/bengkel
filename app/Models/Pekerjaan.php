@@ -21,6 +21,7 @@ class Pekerjaan extends Model
         'STATUS',
         'KATEGORI',
         'TANGGAL',
+        'TANGGAL_SELESAI',
         'JUMLAH'
     ];
 
