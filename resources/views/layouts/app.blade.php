@@ -25,7 +25,6 @@
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
     <!-- Gawe ndandani icon ora muncul, iki hapus en soale ngelek" i komen e -->
-
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
 

@@ -9,8 +9,9 @@ class Workload extends Model
 {
     use HasFactory;
 
-    protected $table = 'workload_analysis';
-    protected $primaryKey = 'ID_GRAFIK';
+    protected $table = 'workload_analysis'; // Table name
+    protected $primaryKey = 'ID_GRAFIK';    // Primary key
+    public $timestamps = false;  // Disable timestamps as they do not exist in the table
     protected $fillable = [
         'STANDARD',
         'TANGGAL',
