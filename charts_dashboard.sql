@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2024 at 06:00 AM
+-- Generation Time: Oct 11, 2024 at 10:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -297,7 +297,7 @@ INSERT INTO `pekerjaan` (`ID_PEKERJAAN`, `ID_GRAFIK`, `ID_PROYEK`, `NAMA`, `STAT
 CREATE TABLE `personel` (
   `ID_PERSONEL` int(11) NOT NULL,
   `NAMA` varchar(255) NOT NULL,
-  `STATUS` enum('Aktif','Tidak Aktif','Dalam Perbaikan') NOT NULL,
+  `STATUS` enum('Aktif','Tidak Aktif') NOT NULL,
   `JUMLAH_PEKERJA` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -312,7 +312,7 @@ INSERT INTO `personel` (`ID_PERSONEL`, `NAMA`, `STATUS`, `JUMLAH_PEKERJA`) VALUE
 (4, 'Tim D', 'Aktif', 7),
 (5, 'Tim E', 'Tidak Aktif', 10),
 (6, 'Tim F', 'Aktif', 4),
-(7, 'Tim G', 'Dalam Perbaikan', 9),
+(7, 'Tim G', 'Aktif', 9),
 (8, 'Tim H', 'Aktif', 12),
 (9, 'Tim I', 'Tidak Aktif', 5),
 (10, 'Tim J', 'Aktif', 11);
@@ -396,8 +396,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('1KksRJy4mjX1OalOeFUOeWpsKdFwtUTcpGAli7zH', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRDVsd0Q2Wnk3Y2JvN2dvc0NvZTNHcWF1NXlTMlE2Q1QzcWZvNU9VVSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9yZXZpc2lfZ2FtYmFyIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3Mjg0NDk5Mzk7fX0=', 1728464048),
-('48lROI5RXVqlEZjLuCYWnEqO0st7LtFPuLkSHZ2a', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiSjVVejJUb1U4ZG94YkF3eENoVWZBZm5CWWFQTktYbEJPS1I4Nkp2QyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjMxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcGVrZXJqYWFuIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3Mjg1MjQ1NDk7fX0=', 1728530753);
+('qYhYhehYfH5xaxRdOf0Ggx56hvIzisrRwsH3Pv6g', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMEtwRE9PRmozNTVUemxLT3lPd0RjRzhKUkRQSVg2a09kSGxmSEZDRCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTcyODYxOTcwMTt9fQ==', 1728633538);
 
 -- --------------------------------------------------------
 
@@ -408,7 +407,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 CREATE TABLE `tools` (
   `ID_TOOLS` int(11) NOT NULL,
   `NAMA` varchar(255) NOT NULL,
-  `STATUS` enum('Aktif','Tidak Aktif','Dalam Perbaikan') NOT NULL,
+  `STATUS` enum('Aktif','Perlu Kalibrasi') NOT NULL,
   `TANGGAL` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -419,14 +418,15 @@ CREATE TABLE `tools` (
 INSERT INTO `tools` (`ID_TOOLS`, `NAMA`, `STATUS`, `TANGGAL`) VALUES
 (1, 'Multimeter', 'Aktif', '2024-09-25'),
 (2, 'Soldering Iron', 'Aktif', '2024-09-26'),
-(3, 'Oscilloscope', 'Tidak Aktif', '2024-09-27'),
+(3, 'Oscilloscope', 'Perlu Kalibrasi', '2024-09-27'),
 (4, 'Docker', 'Aktif', '2024-09-28'),
-(5, 'Jenkins', 'Tidak Aktif', '2024-09-29'),
+(5, 'Jenkins', 'Perlu Kalibrasi', '2024-09-29'),
 (6, 'Kubernetes', 'Aktif', '2024-09-30'),
-(7, 'Nginx', 'Tidak Aktif', '2024-10-01'),
+(7, 'Nginx', 'Perlu Kalibrasi', '2024-10-01'),
 (8, 'MySQL Workbench', 'Aktif', '2024-10-02'),
 (9, 'Slack', 'Aktif', '2024-10-03'),
-(10, 'Terraform', 'Aktif', '2024-10-04');
+(10, 'Terraform', 'Aktif', '2024-10-04'),
+(12, 'Visual Studio Code hah', 'Aktif', '2024-06-01');
 
 -- --------------------------------------------------------
 
@@ -645,7 +645,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
@@ -675,7 +675,7 @@ ALTER TABLE `revisi_gambar`
 -- AUTO_INCREMENT for table `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `ID_TOOLS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_TOOLS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -687,7 +687,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `workload_analysis`
 --
 ALTER TABLE `workload_analysis`
-  MODIFY `ID_GRAFIK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_GRAFIK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

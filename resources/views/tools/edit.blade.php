@@ -27,8 +27,7 @@
                             <label for="status">Status:</label>
                             <select name="status" class="form-control" required>
                                 <option value="Aktif" {{ $tool->STATUS == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="Tidak Aktif" {{ $tool->STATUS == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
-                                <option value="Dalam Perbaikan" {{ $tool->STATUS == 'Dalam Perbaikan' ? 'selected' : '' }}>Dalam Perbaikan</option>
+                                <option value="Perlu Kalibrasi" {{ $tool->STATUS == 'Perlu Kalibrasi' ? 'selected' : '' }}>Perlu Kalibrasi</option>
                             </select>
                         </div>
                         

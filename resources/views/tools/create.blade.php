@@ -26,9 +26,7 @@
                             <label for="status">Status:</label>
                             <select name="status" class="form-control" required>
                                 <option value="aktif">Aktif</option>
-                                <option value="menunggu">Menunggu</option>
-                                <option value="selesai">Selesai</option>
-                                <option value="dalam proses">Dalam Proses</option>
+                                <option value="Perlu Kalibrasi">Perlu Kalibrasi</option>
                             </select>
                         </div>
 

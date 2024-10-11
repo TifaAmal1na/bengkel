@@ -8,6 +8,7 @@ use App\Models\Workload;
 use App\Models\Pekerjaan;
 use App\Models\Tools;
 use App\Models\User;
+use App\Models\Personel;
 use App\Charts\ProyekChart;
 use App\Charts\PersonelChart;
 use App\Charts\ToolsChart;
@@ -19,11 +20,11 @@ class dashboardController extends Controller
     {
         // Mengambil jumlah data dari masing-masing model
         $aktifProyek = Proyek::where('status', 'Aktif')->count();
-        $proyek = Proyek::count(); 
-        $workload = Workload::count(); 
+        $aktifPersonel = Personel::where('status', 'Aktif')->count();
+        $kalibrarionTools = Tools::where('status', 'Perlu Kalibrasi')->count();
         $user = User::count(); 
-        $pekerjaan = Pekerjaan::count();
-        $tools = Tools::count();
+        $aktifTools = Tools::where('status', 'Aktif')->count();
+        $workload = Workload::count(); // sementara
 
         // Membuat semua chart dan mengirimkannya ke view
         return view('dashboard', [
@@ -32,11 +33,11 @@ class dashboardController extends Controller
             'toolsChart' => $toolsChart->build(),
             'workloadChart' => $workloadChart->build(),
             'aktifProyek' => $aktifProyek,
-            'proyek' => $proyek,
-            'workload' => $workload,
+            'aktifPersonel' => $aktifPersonel,
+            'kalibrarionTools' => $kalibrarionTools,
             'user' => $user,
-            'pekerjaan' => $pekerjaan,
-            'tools' => $tools,
+            'aktifTools' => $aktifTools,
+            'workload' => $workload,
         ]);
     }
 }
