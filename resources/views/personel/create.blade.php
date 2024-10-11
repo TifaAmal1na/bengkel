@@ -33,7 +33,6 @@
                                 <option value="" disabled selected>Pilih Status</option> 
                                 <option value="Aktif">Aktif</option>
                                 <option value="Tidak Aktif">Tidak Aktif</option>
-                                <option value="Dalam Perbaikan">Dalam Perbaikan</option>
                             </select>
                         </div>
                         

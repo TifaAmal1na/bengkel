@@ -34,7 +34,6 @@
                                 <option value="" disabled>Pilih Status</option>
                                 <option value="Aktif" {{ $personel->STATUS == 'Aktif' ? 'selected' : '' }}>Aktif</option>
                                 <option value="Tidak Aktif" {{ $personel->STATUS == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
-                                <option value="Dalam Perbaikan" {{ $personel->STATUS == 'Dalam Perbaikan' ? 'selected' : '' }}>Dalam Perbaikan</option>
                             </select>
                         </div>
                         
