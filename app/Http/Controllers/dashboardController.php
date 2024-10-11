@@ -13,6 +13,7 @@ use App\Charts\ProyekChart;
 use App\Charts\PersonelChart;
 use App\Charts\ToolsChart;
 use App\Charts\WorkloadChart;
+use Illuminate\Support\Facades\DB;
 
 class dashboardController extends Controller
 {
@@ -24,7 +25,10 @@ class dashboardController extends Controller
         $kalibrarionTools = Tools::where('status', 'Perlu Kalibrasi')->count();
         $user = User::count(); 
         $aktifTools = Tools::where('status', 'Aktif')->count();
-        $workload = Workload::count(); // sementara
+        $totalPekerjaanAktif = DB::table('pekerjaan')
+            ->leftJoin('workload_analysis', 'workload_analysis.tanggal', '=', 'pekerjaan.tanggal')
+            ->where('pekerjaan.status', 'Aktif')
+            ->count('pekerjaan.id_pekerjaan');
 
         // Membuat semua chart dan mengirimkannya ke view
         return view('dashboard', [
@@ -37,7 +41,7 @@ class dashboardController extends Controller
             'kalibrarionTools' => $kalibrarionTools,
             'user' => $user,
             'aktifTools' => $aktifTools,
-            'workload' => $workload,
+            'totalPekerjaanAktif' => $totalPekerjaanAktif,
         ]);
     }
 }
