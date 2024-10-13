@@ -35,13 +35,15 @@
                                         <td>{{ $revisi->DESKRIPSI }}</td>
                                         <td>{{ $revisi->TANGGAL }}</td>
                                         <td>
-                                            <a href="{{ route('revisi_gambar.edit', $revisi->ID_REVISI) }}" class="btn btn-primary">Edit</a>
-                                            <form action="{{ route('revisi_gambar.destroy', $revisi->ID_REVISI) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus revisi ini?')">Delete</button>
-                                            </form>
-                                        </td>
+                                            <div class="d-flex">
+                                                <a class="btn btn-primary mr-1" href="{{ route('revisi_gambar.edit', $revisi->ID_REVISI) }}">Edit</a>
+                                                <form action="{{ route('revisi_gambar.destroy', $revisi->ID_REVISI) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus revisi gambar ini?')">Delete</button>
+                                                </form>
+                                            </div>
+                                        </td> 
                                     </tr>
                                 @endforeach
                             </tbody>
