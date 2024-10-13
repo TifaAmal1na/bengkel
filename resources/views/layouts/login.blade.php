@@ -72,7 +72,7 @@
                         </a>
                         
                         <!-- Centered Title -->
-                        <h3 style="color:darkblue; font-family:'Courier New', Courier, monospace">PT PAL Indonesia</h3>
+                        <h3 style="color:darkblue; font-family:'Roboto', sans-serif">Bengkel PAL - Web Based App BETA</h3>
                     </div>
                 </nav>
                 <!-- End of Topbar -->
