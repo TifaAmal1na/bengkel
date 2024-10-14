@@ -43,7 +43,10 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus workload ini?');">Delete</button>
                                         </form>
-                                        <a href="{{ route('workload_analysis.show', ['workload_analysis' => $workload->ID_GRAFIK]) }}" class="btn btn-warning">Detail</a>
+                                        
+                                        <!-- Button Detail hilang File masih ada -->
+                                        <!-- <a href="{{ route('workload_analysis.show', ['workload_analysis' => $workload->ID_GRAFIK]) }}" class="btn btn-warning">Detail</a> -->
+
                                         </td>
                                     </tr>
                                 @endforeach
