@@ -24,6 +24,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nama Pekerjaan</th>
+                                    <th>Standard</th>
                                     <th>Nama Proyek</th>
                                     <th>Status</th>
                                     <th>Kategori</th>
@@ -38,6 +39,7 @@
                                     <tr>
                                         <td>{{ $p->ID_PEKERJAAN }}</td>
                                         <td>{{ $p->NAMA }}</td>
+                                        <td>{{ $p->grafik->STANDARD ?? 'Tidak Ada Standard' }}</td>
                                         <td>{{ $p->proyek->NAMA ?? 'Tidak Ada Proyek' }}</td>
                                         <td>{{ $p->STATUS }}</td>
                                         <td>{{ $p->KATEGORI }}</td>
