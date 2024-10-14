@@ -13,17 +13,19 @@ use App\Charts\ProyekChart;
 use App\Charts\PersonelChart;
 use App\Charts\ToolsChart;
 use App\Charts\WorkloadChart;
+use App\Charts\PekerjaanChart;
+
 use Illuminate\Support\Facades\DB;
 
 class dashboardController extends Controller
 {
-    public function index(ProyekChart $proyekChart, PersonelChart $personelChart, ToolsChart $toolsChart, WorkloadChart $workloadChart)
+    public function index(ProyekChart $proyekChart, PersonelChart $personelChart, ToolsChart $toolsChart, WorkloadChart $workloadChart, PekerjaanChart $pekerjaanChart)
     {
         // Mengambil jumlah data dari masing-masing model
         $aktifProyek = Proyek::where('status', 'Aktif')->count();
         $aktifPersonel = Personel::where('status', 'Aktif')->count();
         $kalibrarionTools = Tools::where('status', 'Perlu Kalibrasi')->count();
-        $user = User::count(); 
+        $user = User::count();
         $aktifTools = Tools::where('status', 'Aktif')->count();
         $totalPekerjaanAktif = DB::table('pekerjaan')
             ->leftJoin('workload_analysis', 'workload_analysis.tanggal', '=', 'pekerjaan.tanggal')
@@ -42,6 +44,7 @@ class dashboardController extends Controller
             'user' => $user,
             'aktifTools' => $aktifTools,
             'totalPekerjaanAktif' => $totalPekerjaanAktif,
+            'pekerjaanChart' => $pekerjaanChart->build(),
         ]);
     }
 }
