@@ -88,7 +88,7 @@
             <footer class="sticky-footer bg-white" style="padding: 18px;">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2024</span>
+                        <span>PT PAL &copy; Bengkel 2024</span>
                     </div>
                 </div>
             </footer>

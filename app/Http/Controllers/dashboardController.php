@@ -32,6 +32,12 @@ class dashboardController extends Controller
             ->where('pekerjaan.status', 'Aktif')
             ->count('pekerjaan.id_pekerjaan');
 
+        // Mengambil notifikasi terbaru (limit 5)
+        $notifications = DB::table('notifikasi')
+            ->orderBy('TANGGAL', 'DESC')
+            ->limit(5)
+            ->get();
+
         // Membuat semua chart dan mengirimkannya ke view
         return view('dashboard', [
             'proyekChart' => $proyekChart->build(),
@@ -45,6 +51,7 @@ class dashboardController extends Controller
             'aktifTools' => $aktifTools,
             'totalPekerjaanAktif' => $totalPekerjaanAktif,
             'pekerjaanChart' => $pekerjaanChart->build(),
+            'notifications' => $notifications,  // Pass notifications to the view
         ]);
     }
 }

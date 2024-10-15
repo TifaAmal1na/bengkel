@@ -149,6 +149,24 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-12">
+            
+    <h5>Latest Notifications</h5>
+    <ul class="list-group mb-4">
+        @foreach ($notifications as $notification)
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ $notification->JUDUL }}</strong><br>
+                    <small>{{ $notification->DESKRIPSI }}</small><br>
+                    <small><i>{{ $notification->TANGGAL }}</i></small>
+                </div>
+                <span class="badge badge-primary badge-pill">{{ $notification->PRIORITAS }}</span>
+            </li>
+        @endforeach
+    </ul>
+</div>
+
             <script src="{{ $proyekChart->cdn() }}"></script>
             {!! $proyekChart->script() !!}
 
