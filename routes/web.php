@@ -58,4 +58,8 @@ Route::resource('workload_analysis', WorkloadAnalysisController::class)
 //Gauge route
 Route::get('/gauge', [GaugeController::class, 'index'])->name('gauge.index');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+
 

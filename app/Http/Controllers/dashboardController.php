@@ -14,6 +14,7 @@ use App\Charts\PersonelChart;
 use App\Charts\ToolsChart;
 use App\Charts\WorkloadChart;
 use App\Charts\PekerjaanChart;
+use App\Models\Revisi; // Include the Revisi model
 
 use Illuminate\Support\Facades\DB;
 
@@ -32,10 +33,16 @@ class dashboardController extends Controller
             ->where('pekerjaan.status', 'Aktif')
             ->count('pekerjaan.id_pekerjaan');
 
-        // Mengambil notifikasi terbaru (limit 5)
+        // Notifikasi
         $notifications = DB::table('notifikasi')
             ->orderBy('TANGGAL', 'DESC')
-            ->limit(5)
+            ->limit(3)
+            ->get();
+
+        // Revisi Gambar 
+        $latestRevisions = Revisi::with('pekerjaan')
+            ->orderBy('TANGGAL', 'DESC')
+            ->limit(3)
             ->get();
 
         // Membuat semua chart dan mengirimkannya ke view
@@ -52,6 +59,7 @@ class dashboardController extends Controller
             'totalPekerjaanAktif' => $totalPekerjaanAktif,
             'pekerjaanChart' => $pekerjaanChart->build(),
             'notifications' => $notifications,  // Pass notifications to the view
+            'latestRevisions' => $latestRevisions,  // Pass latest revisions to the view
         ]);
     }
 }

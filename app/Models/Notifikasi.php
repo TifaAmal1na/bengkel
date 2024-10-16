@@ -12,13 +12,10 @@ class Notifikasi extends Model
     // Disable timestamps
     public $timestamps = false;
 
+    protected $table = 'notifikasi'; 
 
-    protected $table = 'notifikasi'; // Nama tabel di database
+    protected $primaryKey = 'ID_NOTIFIKASI'; 
 
-    // Tentukan kolom yang menjadi primary key
-    protected $primaryKey = 'ID_NOTIFIKASI'; // Sesuaikan dengan nama kolom primary key Anda
-
-    // Tentukan kolom yang bisa diisi massal
     protected $fillable = [
         'ID_PROYEK',
         'JUDUL',

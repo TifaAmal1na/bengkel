@@ -164,6 +164,22 @@
         </ul>
        </div>
 
+       <div class="col-md-6 clearfix">
+    <h5>Latest Revisions</h5>
+    <ul class="list-group mb-4">
+        @foreach ($latestRevisions as $revision)
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{ $revision->pekerjaan->proyek->NAMA ??  'No Project' }}</strong><br>
+                <small>{{ $revision->DESKRIPSI }}</small><br>
+                <small><i>{{ $revision->TANGGAL }}</i></small>
+            </div>
+        </li>
+        @endforeach
+    </ul>
+</div>
+
+
             <script src="{{ $proyekChart->cdn() }}"></script>
             {!! $proyekChart->script() !!}
 
