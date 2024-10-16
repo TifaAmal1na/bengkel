@@ -9,12 +9,13 @@ use App\Models\Pekerjaan;
 use App\Models\Tools;
 use App\Models\User;
 use App\Models\Personel;
+use App\Models\Revisi;
+use App\Models\Aktivitas; // Include the Aktivitas model
 use App\Charts\ProyekChart;
 use App\Charts\PersonelChart;
 use App\Charts\ToolsChart;
 use App\Charts\WorkloadChart;
 use App\Charts\PekerjaanChart;
-use App\Models\Revisi; // Include the Revisi model
 
 use Illuminate\Support\Facades\DB;
 
@@ -45,6 +46,12 @@ class dashboardController extends Controller
             ->limit(3)
             ->get();
 
+        // Aktivitas Terbaru
+        $latestActivities = Aktivitas::with('pekerjaan')
+            ->orderBy('TANGGAL', 'DESC')
+            ->limit(3)
+            ->get();
+
         // Membuat semua chart dan mengirimkannya ke view
         return view('dashboard', [
             'proyekChart' => $proyekChart->build(),
@@ -60,6 +67,7 @@ class dashboardController extends Controller
             'pekerjaanChart' => $pekerjaanChart->build(),
             'notifications' => $notifications,  // Pass notifications to the view
             'latestRevisions' => $latestRevisions,  // Pass latest revisions to the view
+            'latestActivities' => $latestActivities,  // Pass latest activities to the view
         ]);
     }
 }

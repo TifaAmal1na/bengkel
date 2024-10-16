@@ -179,6 +179,31 @@
     </ul>
 </div>
 
+<div class="card">
+    <div class="card-header">
+        <h5>Latest Activities</h5>
+    </div>
+    <div class="card-body">
+        @if ($latestActivities->isEmpty())
+            <p>No activities found.</p>
+        @else
+            <ul class="list-group">
+                @foreach ($latestActivities as $activity)
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="activity">
+                            <h5 style="margin: 0;">{{ $activity->pekerjaan->NAMA }}</h5> <!-- Menampilkan nama pekerjaan -->
+                            <p style="margin: 0;">{{ $activity->DESKRIPSI }}</p> <!-- Menampilkan deskripsi aktivitas -->
+                                                    <span class="badge badge-primary badge-pill" style="font-size: 0.9rem;">
+                            <small>Status: {{ $activity->STATUS }}</small> <!-- Menampilkan status aktivitas -->
+                                                        {{ $activity->PRIORITAS }}
+                        </span>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
+</div>
 
             <script src="{{ $proyekChart->cdn() }}"></script>
             {!! $proyekChart->script() !!}
