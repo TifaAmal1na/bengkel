@@ -170,7 +170,7 @@
         @foreach ($latestRevisions as $revision)
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-                <strong>{{ $revision->pekerjaan->proyek->NAMA ??  'No Project' }}</strong><br>
+                <strong>{{ $revision->pekerjaan->NAMA ??  'No Project' }}</strong><br>
                 <small>{{ $revision->DESKRIPSI }}</small><br>
                 <small><i>{{ $revision->TANGGAL }}</i></small>
             </div>
