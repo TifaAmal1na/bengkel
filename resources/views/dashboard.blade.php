@@ -141,20 +141,17 @@
                         {!! $toolsChart->container() !!}
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <h1>Dashboard Pekerjaan</h1>
-
-                    <div id="pekerjaan-chart">
+                <div class="col-md-6 clearfix">
+                    <div id="pekerjaan-chart"
+                        style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; height: 500px; width: 100%; margin-top: 20px;">
                         {!! $pekerjaanChart->container() !!}
                     </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
+                </div>                
             
-    <h5>Latest Notifications</h5>
-    <ul class="list-group mb-4">
-        @foreach ($notifications as $notification)
+            <div class="col-md-6 clearfix">
+            <h5>Latest Notifications</h5>
+            <ul class="list-group mb-4">
+             @foreach ($notifications as $notification)
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div>
                     <strong>{{ $notification->JUDUL }}</strong><br>
@@ -163,9 +160,9 @@
                 </div>
                 <span class="badge badge-primary badge-pill">{{ $notification->PRIORITAS }}</span>
             </li>
-        @endforeach
-    </ul>
-</div>
+          @endforeach
+        </ul>
+       </div>
 
             <script src="{{ $proyekChart->cdn() }}"></script>
             {!! $proyekChart->script() !!}
