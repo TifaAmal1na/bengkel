@@ -54,12 +54,14 @@ Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logou
 Route::resource('workload_analysis', WorkloadAnalysisController::class)
     ->parameters(['workload_analysis' => 'workload_analysis']);
 
-
-//Gauge route
-Route::get('/gauge', [GaugeController::class, 'index'])->name('gauge.index');
-
+Route::get('/gauge', [GaugeController::class, 'index'])->name('gauge');
+    
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+use App\Http\Controllers\ProfileController;
 
-
-
+// Profile routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});

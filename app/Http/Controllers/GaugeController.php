@@ -2,25 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Workload;
-use App\Models\Pekerjaan; // Add this model
 use Illuminate\Http\Request;
+use App\Models\Pekerjaan;
+use App\Models\Workload;
 
 class GaugeController extends Controller
 {
-    /**
-     * Display the gauge chart.
-     */
     public function index()
     {
-        // Fetch data from both tables
-        $workloadData = Workload::all();
-        $pekerjaanData = Pekerjaan::all();
+        // Total number of pekerjaan
+        $totalPekerjaan = Pekerjaan::count();
+        
+        // Get completed pekerjaan count
+        $completedPekerjaan = Pekerjaan::where('STATUS', 'Selesai')->count();
 
-        // Example calculation: Sum of `JUMLAH` from pekerjaan and average `STANDARD` from workload_analysis
-        $totalJumlah = $pekerjaanData->sum('JUMLAH');
-        $averageStandard = $workloadData->avg('STANDARD');
+        // Get the latest workload analysis data
+        $latestWorkload = Workload::orderBy('TANGGAL', 'desc')->first();
+        $workloadStandard = $latestWorkload->STANDARD ?? 0; // Fallback to 0 if null
+        $workloadCount = $latestWorkload->JUMLAH_PEKERJAAN ?? 0; // Fallback to 0 if null
+        
+        // Avoid division by zero and calculate completion percentage
+        $completionPercentage = ($totalPekerjaan > 0) ? ($completedPekerjaan / $totalPekerjaan) * 100 : 0;
 
-        return view('gauge', compact('totalJumlah', 'averageStandard'));
+        // Determine health status
+        $healthStatus = 'Critical'; // Default status
+        
+        if ($completionPercentage > 70 && $workloadCount < $workloadStandard) {
+            $healthStatus = 'Good';
+        } elseif ($completionPercentage > 40) {
+            $healthStatus = 'Moderate';
+        }
+
+        // Return view with calculated data
+        return view('dashboard.gauge', compact('completionPercentage', 'workloadCount', 'healthStatus'));
     }
 }

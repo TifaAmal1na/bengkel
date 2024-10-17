@@ -10,13 +10,12 @@ use App\Models\Tools;
 use App\Models\User;
 use App\Models\Personel;
 use App\Models\Revisi;
-use App\Models\Aktivitas; // Include the Aktivitas model
+use App\Models\Aktivitas; 
 use App\Charts\ProyekChart;
 use App\Charts\PersonelChart;
 use App\Charts\ToolsChart;
 use App\Charts\WorkloadChart;
 use App\Charts\PekerjaanChart;
-
 use Illuminate\Support\Facades\DB;
 
 class dashboardController extends Controller
@@ -52,6 +51,31 @@ class dashboardController extends Controller
             ->limit(3)
             ->get();
 
+        // Gauge data for health status
+        $totalPekerjaan = Pekerjaan::count();
+        $completedPekerjaan = Pekerjaan::where('STATUS', 'Selesai')->count();
+        
+        $latestWorkload = Workload::orderBy('TANGGAL', 'desc')->first();
+        $workloadStandard = $latestWorkload->STANDARD ?? 0; // Default to 0 if no workload found
+        $workloadCount = $latestWorkload->JUMLAH_PEKERJAAN ?? 0; // Default to 0 if no workload found
+
+        $completionPercentage = ($totalPekerjaan > 0) ? ($completedPekerjaan / $totalPekerjaan) * 100 : 0;
+        $healthStatus = 'Critical';
+
+        if ($completionPercentage > 70 && $workloadCount < $workloadStandard) {
+            $healthStatus = 'Good';
+        } elseif ($completionPercentage > 40 && $completionPercentage <= 70) {
+            $healthStatus = 'Moderate';
+        }
+
+        // Set gauge data based on health status
+        $gaugeData = match ($healthStatus) {
+            'Good' => 100,
+            'Moderate' => 50,
+            'Critical' => 0,
+            default => 0,
+        };
+
         // Membuat semua chart dan mengirimkannya ke view
         return view('dashboard', [
             'proyekChart' => $proyekChart->build(),
@@ -65,9 +89,13 @@ class dashboardController extends Controller
             'aktifTools' => $aktifTools,
             'totalPekerjaanAktif' => $totalPekerjaanAktif,
             'pekerjaanChart' => $pekerjaanChart->build(),
-            'notifications' => $notifications,  // Pass notifications to the view
-            'latestRevisions' => $latestRevisions,  // Pass latest revisions to the view
-            'latestActivities' => $latestActivities,  // Pass latest activities to the view
+            'notifications' => $notifications,
+            'latestRevisions' => $latestRevisions,
+            'latestActivities' => $latestActivities,
+            'completionPercentage' => $completionPercentage,
+            'workloadCount' => $workloadCount,
+            'healthStatus' => $healthStatus,
+            'gaugeData' => $gaugeData, // Pass gauge data to the view
         ]);
     }
 }
