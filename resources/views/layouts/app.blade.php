@@ -50,18 +50,6 @@
             background-color: rgba(128, 128, 128, 0.8); /* Contoh efek hover */
         }
 
-        /* Gaya untuk lingkaran di sekitar tombol */
-        .circle-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(128, 128, 128, 0.5); /* Warna latar belakang lingkaran yang abu-abu */
-            border-radius: 50%; /* Bulatkan lingkaran */
-            z-index: -1; /* Agar lingkaran di belakang tombol */
-        }
-
         .demo {
             display: flex;
             justify-content: center;
