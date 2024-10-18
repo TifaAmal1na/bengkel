@@ -147,63 +147,74 @@
                         {!! $pekerjaanChart->container() !!}
                     </div>
                 </div>
-
-                <div class="col-md-6 clearfix">
-                    <h5>Latest Notifications</h5>
-                    <ul class="list-group mb-4">
-                        @foreach ($notifications as $notification)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>{{ $notification->JUDUL }}</strong><br>
-                                    <small>{{ $notification->DESKRIPSI }}</small><br>
-                                    <small><i>{{ $notification->TANGGAL }}</i></small>
-                                </div>
-                                <span class="badge badge-primary badge-pill">{{ $notification->PRIORITAS }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                <div class="col-md-6 clearfix">
-                    <h5>Latest Revisions</h5>
-                    <ul class="list-group mb-4">
-                        @foreach ($latestRevisions as $revision)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>{{ $revision->pekerjaan->NAMA ?? 'No Project' }}</strong><br>
-                                    <small>{{ $revision->DESKRIPSI }}</small><br>
-                                    <small><i>{{ $revision->TANGGAL }}</i></small>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Latest Activities</h5>
+                
+                <div class="row mt-4"> <!-- Tambahkan margin-top yang lebih besar -->
+                    <!-- Latest Notifications Column -->
+                    <div class="col-md-6 mb-4">
+                        <h5>Latest Notifications</h5>
+                        <ul class="list-group">
+                            @foreach ($notifications as $notification)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>{{ $notification->JUDUL }}</strong><br>
+                                        <small>{{ $notification->DESKRIPSI }}</small><br>
+                                        <small><i>{{ $notification->TANGGAL }}</i></small>
+                                    </div>
+                                    <span class="badge {{ $notification->PRIORITAS == 'High' ? 'badge-danger' : 'badge-primary' }} badge-pill">
+                                        {{ $notification->PRIORITAS }}
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
-                    <div class="card-body">
-                        @if ($latestActivities->isEmpty())
-                            <p>No activities found.</p>
-                        @else
-                            <ul class="list-group">
-                                @foreach ($latestActivities as $activity)
-                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                        <div class="activity">
-                                            <h5 style="margin: 0;">{{ $activity->pekerjaan->NAMA }}</h5>
-                                            <p style="margin: 0;">{{ $activity->DESKRIPSI }}</p>
-                                            <span class="badge badge-primary badge-pill" style="font-size: 0.9rem;">
-                                                <small>Status: {{ $activity->STATUS }}</small> {{ $activity->PRIORITAS }}
-                                            </span>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
+                
+                    <!-- Latest Revisions Column -->
+                    <div class="col-md-6 mb-4">
+                        <h5>Latest Revisions</h5>
+                        <ul class="list-group">
+                            @foreach ($latestRevisions as $revision)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>{{ $revision->pekerjaan->NAMA ?? 'No Project' }}</strong><br>
+                                        <small>{{ $revision->DESKRIPSI }}</small><br>
+                                        <small><i>{{ $revision->TANGGAL }}</i></small>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
-
+                
+                <div class="row mt-5"> <!-- Tambahkan margin-top lagi di sini -->
+                    <!-- Latest Activities Column -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Latest Activities</h5>
+                            </div>
+                            <div class="card-body">
+                                @if ($latestActivities->isEmpty())
+                                    <p>No activities found.</p>
+                                @else
+                                    <ul class="list-group">
+                                        @foreach ($latestActivities as $activity)
+                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                <div class="activity">
+                                                    <h5 style="margin: 0;">{{ $activity->pekerjaan->NAMA }}</h5>
+                                                    <p style="margin: 0;">{{ $activity->DESKRIPSI }}</p>
+                                                    <span class="badge badge-primary badge-pill" style="font-size: 0.9rem;">
+                                                        <small>Status: {{ $activity->STATUS }}</small> {{ $activity->PRIORITAS }}
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Include Gauge Script -->
                 <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
                 <script>
