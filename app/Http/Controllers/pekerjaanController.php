@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pekerjaan;
 use App\Models\Proyek;
 use App\Models\Workload;
+use App\Models\Aktivitas; // Import the Aktivitas model
 use Illuminate\Http\Request;
 
 class pekerjaanController extends Controller
@@ -100,7 +101,13 @@ class pekerjaanController extends Controller
     public function destroy(string $id)
     {
         $pekerjaan = Pekerjaan::findOrFail($id);
+        
+        // Delete related records in aktivitas table
+        Aktivitas::where('ID_PEKERJAAN', $id)->delete();
+
+        // Now delete pekerjaan
         $pekerjaan->delete();
+        
         return redirect()->route('pekerjaan.index')->with('success', 'Pekerjaan berhasil dihapus');
     }
 }
