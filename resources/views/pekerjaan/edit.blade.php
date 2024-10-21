@@ -6,7 +6,7 @@
         <div class="col mt-2 mb-2">
             <div class="card">
                 <div class="card-header py-3">
-                    <h4 class="m-0 font-weight-bold text-primary">Edit Pekerjaan</h4>
+                    <div class="m-0 font-weight-bold text-primary">Edit Pekerjaan</div>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('pekerjaan.update', $pekerjaan->ID_PEKERJAAN) }}">
@@ -73,6 +73,7 @@
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
+                            <button class="btn btn-warning" onclick="window.history.back()">Kembali</button>
                         </div>
                     </form>
                 </div>

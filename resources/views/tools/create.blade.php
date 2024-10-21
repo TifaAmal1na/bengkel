@@ -36,7 +36,8 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Kirim</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button class="btn btn-warning" onclick="window.history.back()">Kembali</button>
                         </div>
                     </form>
                 </div>
