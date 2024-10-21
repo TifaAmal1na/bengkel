@@ -17,18 +17,23 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        // Validate the profile update fields
+        // Validate and update the user's profile
         $request->validate([
             'name' => 'required|string|max:255',
-            'password' => 'nullable|string|min:8|confirmed', // password field is optional, must be at least 8 characters, and must be confirmed
+            'old_password' => 'nullable|string|min:8', // Validate old password if provided
+            'password' => 'nullable|string|min:8|confirmed', // Validate new password if provided
         ]);
 
-        // Update the user's profile
         $user = Auth::user();
         $user->name = $request->name;
 
-        // Update the password if provided
+        // Check if the user wants to change the password
         if ($request->filled('password')) {
+            // Verify the old password
+            if (!Hash::check($request->old_password, $user->password)) {
+                return back()->withErrors(['old_password' => 'The old password is incorrect.']);
+            }
+            // Set the new password
             $user->password = Hash::make($request->password);
         }
 
