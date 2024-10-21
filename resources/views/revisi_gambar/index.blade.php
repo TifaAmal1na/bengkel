@@ -31,7 +31,8 @@
                                 @foreach($revisiGambar as $revisi)
                                     <tr>
                                         <td>{{ $revisi->ID_REVISI }}</td>
-                                        <td>{{ $revisi->pekerjaan->NAMA }}</td>
+                                        <td>{{ $revisi->pekerjaan ? $revisi->pekerjaan->NAMA : 'No Pekerjaan' }}</td>
+
                                         <td>{{ $revisi->DESKRIPSI }}</td>
                                         <td>{{ $revisi->TANGGAL }}</td>
                                         <td>
