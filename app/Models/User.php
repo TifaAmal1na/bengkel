@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPasswordCustom;
+use Illuminate\Support\Carbon;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,12 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public function updateLoginTimestamp()
+    {
+        $this->last_login = Carbon::now();
+        $this->save();
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -55,4 +62,6 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordCustom($token));
     }
+
+    
 }

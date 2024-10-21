@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Import Auth facade
+use Carbon\Carbon; // For managing timestamps
 
 class LoginController extends Controller
 {
@@ -16,6 +18,14 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    // Override the 'authenticated' method to update the last_login field after successful login
+    protected function authenticated(Request $request, $user)
+    {
+        // Update the last_login field with the current timestamp
+        $user->last_login = Carbon::now();
+        $user->save();
     }
 
     // Add this method to specify that we will use 'name' instead of 'email'
