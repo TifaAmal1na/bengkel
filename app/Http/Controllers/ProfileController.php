@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -16,15 +17,21 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        // Validate and update the user's profile
+        // Validate the profile update fields
         $request->validate([
             'name' => 'required|string|max:255',
-            // add other validation rules as needed
+            'password' => 'nullable|string|min:8|confirmed', // password field is optional, must be at least 8 characters, and must be confirmed
         ]);
 
+        // Update the user's profile
         $user = Auth::user();
         $user->name = $request->name;
-        // Update other fields as needed
+
+        // Update the password if provided
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
         $user->save();
 
         return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
