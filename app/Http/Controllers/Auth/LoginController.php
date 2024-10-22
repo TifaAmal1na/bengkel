@@ -24,8 +24,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         // Update the last_login field with the current timestamp
-        $user->last_login = Carbon::now();
-        $user->save();
+        $user->update(['last_login' => Carbon::now()]); // Cleaner way to update
     }
 
     // Add this method to specify that we will use 'name' instead of 'email'
