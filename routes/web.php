@@ -27,11 +27,10 @@ Route::get('/', function () {
     return redirect('/login'); // Redirect to login if not authenticated
 });
 
-// Default route, no login required for dashboard
-Route::get('/', [dashboardController::class, 'index'])->name('dashboard');
-
 // Routes that require authentication
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('personel', PersonelController::class);
     Route::resource('aktivitas', AktifitasController::class);
     Route::resource('notifikasi', NotofikasiController::class);
