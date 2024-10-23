@@ -8,32 +8,46 @@ use App\Models\Workload;
 
 class GaugeController extends Controller
 {
-    public function index()
-    {
-        // Total number of pekerjaan
-        $totalPekerjaan = Pekerjaan::count();
-        
-        // Get completed pekerjaan count
-        $completedPekerjaan = Pekerjaan::where('STATUS', 'Selesai')->count();
+public function index()
+{
+    // Ambil semua pekerjaan yang statusnya "Selesai"
+    $completedPekerjaan = Pekerjaan::where('STATUS', 'Selesai')->get();
 
-        // Get the latest workload analysis data
-        $latestWorkload = Workload::orderBy('TANGGAL', 'desc')->first();
-        $workloadStandard = $latestWorkload->STANDARD ?? 0; // Fallback to 0 if null
-        $workloadCount = $latestWorkload->JUMLAH_PEKERJAAN ?? 0; // Fallback to 0 if null
-        
-        // Avoid division by zero and calculate completion percentage
-        $completionPercentage = ($totalPekerjaan > 0) ? ($completedPekerjaan / $totalPekerjaan) * 100 : 0;
+    // Ambil workload analysis terbaru berdasarkan tanggal
+    $latestWorkloads = Workload::orderBy('TANGGAL', 'desc')->get();
 
-        // Determine health status
-        $healthStatus = 'Critical'; // Default status
-        
-        if ($completionPercentage > 70 && $workloadCount < $workloadStandard) {
-            $healthStatus = 'Good';
-        } elseif ($completionPercentage > 40) {
-            $healthStatus = 'Moderate';
+    // Inisialisasi variabel untuk menghitung standar total dan pekerjaan
+    $totalStandard = 0;
+    $totalWorkload = 0;
+    $completedCount = $completedPekerjaan->count();
+
+    // Looping untuk menghitung nilai standar dari workload yang terkait dengan pekerjaan selesai
+    foreach ($completedPekerjaan as $pekerjaan) {
+        $workload = $latestWorkloads->where('ID_GRAFIK', $pekerjaan->ID_GRAFIK)->first();
+        if ($workload) {
+            $totalStandard += $workload->STANDARD;
+            $totalWorkload += $workload->JUMLAH_PEKERJAAN;
         }
+    }
 
-        // Return view with calculated data
-        return view('dashboard.gauge', compact('completionPercentage', 'workloadCount', 'healthStatus'));
+    // Menghitung rata-rata standard workload jika ada pekerjaan selesai
+    $averageStandard = ($completedCount > 0) ? ($totalStandard / $completedCount) : 0;
+
+    // Menghitung persentase penyelesaian pekerjaan
+    $completionPercentage = Pekerjaan::where('STATUS', 'Selesai')->count() / Pekerjaan::count() * 100;
+
+    // Menentukan status kesehatan gauge berdasarkan nilai standard dan persentase pekerjaan selesai
+    $healthStatus = 'Critical'; // Status default
+    if ($completionPercentage > 70 && $averageStandard >= 5) {
+        $healthStatus = 'Good';
+    } elseif ($completionPercentage > 40) {
+        $healthStatus = 'Moderate';
+    }
+
+    // Menghitung total jumlah workload (misalkan sebagai contoh, ini diambil dari total workload yang dihitung sebelumnya)
+    $totalJumlah = $totalWorkload;
+
+    // Return view dengan data yang sudah dihitung
+    return view('gauge', compact('completionPercentage', 'averageStandard', 'healthStatus', 'totalJumlah'));
     }
 }
