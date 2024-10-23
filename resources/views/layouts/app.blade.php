@@ -26,55 +26,47 @@
     <script src="https://cdn.jsdelivr.net/npm/gauge.js@1.3.7/dist/gauge.min.js"></script>
 
     <style>
-        /* Tambahkan gaya untuk sidebar ketika toggled */
+        /* Sidebar styles */
         #accordionSidebar.toggled {
-            width: 80px; /* Lebar sidebar saat dikompresi */
-            overflow: hidden; /* Sembunyikan isi yang lebih dari lebar */
+            width: 80px;
+            overflow: hidden;
         }
-
-        /* Ubah gaya tombol toggle untuk menghapus border */
         #toggleSidebar {
-            outline: none; /* Hapus border saat tombol diklik */
-            color: #ffffff; /* Ubah warna teks tombol */
-            background-color: transparent; /* Ubah warna latar belakang tombol menjadi transparan */
-            border-radius: 50%; /* Membuat tombol bulat */
-            width: 30px; /* Ukuran tombol lebih kecil */
-            height: 30px; /* Ukuran tombol lebih kecil */
-            display: flex; /* Menggunakan flex untuk centering */
-            align-items: center; /* Vertikal centering */
-            justify-content: center; /* Horizontal centering */
-            position: relative; /* Posisi relatif untuk lingkaran */
+            outline: none;
+            color: #ffffff;
+            background-color: transparent;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
         .arrow:hover {
-            background-color: rgba(128, 128, 128, 0.8); /* Contoh efek hover */
+            background-color: rgba(128, 128, 128, 0.8);
         }
-
         .demo {
             display: flex;
             justify-content: center;
-            margin-top: 20px; /* Sesuaikan margin sesuai kebutuhan */
+            margin-top: 20px;
         }
-
         .arrow svg {
-            width: 15px; /* Ukuran ikon lebih kecil */
-            height: 15px; /* Ukuran ikon lebih kecil */
-            transition: transform 0.3s; /* Efek transisi saat rotasi */
+            width: 15px;
+            height: 15px;
+            transition: transform 0.3s;
         }
-
-        /* Gaya untuk memutar ikon */
         .rotated {
-            transform: rotate(180deg); /* Memutar ikon 180 derajat */
+            transform: rotate(180deg);
         }
     </style>
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
+        <!-- Conditional Sidebar -->
+        @auth
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
@@ -86,49 +78,41 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('notifikasi.index') }}">
                     <i class="fas fa-star"></i>
                     <span>Data Notifikasi</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('aktivitas.index') }}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Data Aktivitas</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('pekerjaan.index') }}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Data Pekerjaan</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('personel.index') }}">
                     <i class="fas fa-fw fa-user-alt"></i>
                     <span>Data Personel</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('proyek.index') }}">
                     <i class="fas fa-fw fa-file-archive"></i>
                     <span>Data Proyek</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('revisi_gambar.index') }}">
                     <i class="fas fa-images"></i>
                     <span>Revisi Gambar</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('tools.index') }}">
                     <i class="fas fa-tools"></i>
                     <span>Tools</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('workload_analysis.index') }}">
                     <i class="fas fa-industry"></i>
@@ -139,15 +123,15 @@
             <li class="nav-item">
                 <div class="demo">
                     <button class="arrow" id="toggleSidebar" href="javascript:void(0);">
-                        <div class="circle-background"></div> <!-- Lingkaran di sekitar tombol -->
+                        <div class="circle-background"></div>
                         <svg viewBox="0 0 24 24">
                             <path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H2v2h14.17l-5.59 5.59L12 20l8-8-8-8z"></path>
                         </svg>
                     </button>
                 </div>
             </li>
-
         </ul>
+        @endauth
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -158,8 +142,6 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
                     <form class="form-inline">
                         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                             <i class="fa fa-bars"></i>
@@ -168,16 +150,17 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+
+                        @auth
+                        <!-- If the user is logged in, show the user dropdown -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if(Auth::check())
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                                @endif
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile Settings
@@ -189,8 +172,16 @@
                                 </a>
                             </div>
                         </li>
-                    </ul>
+                        @endauth
 
+                        @guest
+                        <!-- If the user is not logged in, show the login button -->
+                        <li class="nav-item">
+                            <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                        </li>
+                        @endguest
+
+                    </ul>
                 </nav>
                 <!-- End of Topbar -->
 
@@ -199,7 +190,6 @@
                     @yield('content')
                 </div>
                 <!-- End of Page Content -->
-
             </div>
             <!-- End of Main Content -->
 
@@ -219,7 +209,6 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -238,8 +227,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
@@ -249,23 +237,26 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
-    <script>
-        // Script untuk toggle sidebar
-        document.getElementById('toggleSidebar').addEventListener('click', function () {
-            var sidebar = document.getElementById('accordionSidebar');
-            var arrow = this.querySelector('svg');
+    <!-- Page level plugins -->
+    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-            sidebar.classList.toggle('toggled'); // Toggle class 'toggled' pada sidebar
-            arrow.classList.toggle('rotated'); // Toggle class 'rotated' pada ikon panah
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
+
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
+            document.getElementById('accordionSidebar').classList.toggle('toggled');
+            this.querySelector('svg').classList.toggle('rotated');
         });
     </script>
 </body>
