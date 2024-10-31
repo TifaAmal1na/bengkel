@@ -18,62 +18,77 @@
                             <select name="ID_PROYEK" class="form-control" required>
                                 <option value="" disabled selected>Pilih Proyek</option>
                                 @foreach($proyekList as $proyek)
-                                    <option value="{{ $proyek->ID_PROYEK }}" {{ $proyek->ID_PROYEK == $pekerjaan->ID_PROYEK ? 'selected' : '' }}>
+                                    <option value="{{ $proyek->ID_PROYEK }}" {{ old('ID_PROYEK', $pekerjaan->ID_PROYEK) == $proyek->ID_PROYEK ? 'selected' : '' }}>
                                         {{ $proyek->NAMA }}
                                     </option>
                                 @endforeach
                             </select>
+                            @error('ID_PROYEK')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
+
                         <div class="form-group">
-                            <label for="ID_GRAFIK">Workload:</label>
+                            <label for="ID_GRAFIK">Standard:</label>
                             <select name="ID_GRAFIK" class="form-control" required>
-                                <option value="" disabled selected>Pilih Workload</option>
-                                @foreach($workloadList as $workload)
-                                    <option value="{{ $workload->ID_GRAFIK }}" {{ $workload->ID_GRAFIK == $pekerjaan->ID_GRAFIK ? 'selected' : '' }}>
-                                        {{ $workload->STANDARD }} <!-- Pastikan kolom yang ditampilkan sesuai -->
+                                <option value="" disabled selected>Pilih Standard</option>
+                                @foreach($workloadList as $standard)
+                                    <option value="{{ $standard->ID_GRAFIK }}" {{ old('ID_GRAFIK', $pekerjaan->ID_GRAFIK) == $standard->ID_GRAFIK ? 'selected' : '' }}>
+                                        {{ $standard->STANDARD }}
                                     </option>
                                 @endforeach
                             </select>
-                        </div>                        
+                            @error('ID_GRAFIK')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="NAMA">Nama Pekerjaan:</label>
-                            <input type="text" name="NAMA" class="form-control" value="{{ $pekerjaan->NAMA }}" required>
+                            <input type="text" name="NAMA" class="form-control" value="{{ old('NAMA', $pekerjaan->NAMA) }}" required>
+                            @error('NAMA')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="STATUS">Status:</label>
                             <select name="STATUS" class="form-control" required>
-                                <option value="aktif" {{ $pekerjaan->STATUS == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="menunggu" {{ $pekerjaan->STATUS == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
-                                <option value="selesai" {{ $pekerjaan->STATUS == 'Dalam Proses' ? 'selected' : '' }}>Dalam Proses</option>
-                                <option value="selesai" {{ $pekerjaan->STATUS == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                                <option value="dalam proses" {{ old('STATUS', $pekerjaan->STATUS) == 'dalam proses' ? 'selected' : '' }}>Dalam Proses</option>
+                                <option value="selesai" {{ old('STATUS', $pekerjaan->STATUS) == 'selesai' ? 'selected' : '' }}>Selesai</option>
                             </select>
+                            @error('STATUS')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="KATEGORI">Kategori:</label>
-                            <input type="text" name="KATEGORI" class="form-control" value="{{ $pekerjaan->KATEGORI }}" required>
+                            <input type="text" name="KATEGORI" class="form-control" value="{{ old('KATEGORI', $pekerjaan->KATEGORI) }}" required>
+                            @error('KATEGORI')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="TANGGAL">Tanggal:</label>
-                            <input type="date" name="TANGGAL" class="form-control" value="{{ $pekerjaan->TANGGAL }}" required>
+                            <label for="TANGGAL_MULAI">Tanggal Mulai:</label>
+                            <input type="date" name="tanggal_mulai" class="form-control" value="{{ old('tanggal_mulai', $pekerjaan->TANGGAL_MULAI) }}" required>
+                            @error('tanggal_mulai')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="TANGGAL_SELESAI">Tanggal Selesai:</label>
-                            <input type="date" name="TANGGAL_SELESAI" class="form-control" value="{{ $pekerjaan->TANGGAL_SELESAI }}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="JUMLAH">Jumlah:</label>
-                            <input type="number" name="JUMLAH" class="form-control" value="{{ $pekerjaan->JUMLAH }}" required min="0">
+                            <input type="date" name="tanggal_selesai" class="form-control" value="{{ old('tanggal_selesai', $pekerjaan->TANGGAL_SELESAI) }}" required>
+                            @error('tanggal_selesai')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
-                            <button class="btn btn-warning" onclick="window.history.back()">Kembali</button>
+                            <a href="{{ route('pekerjaan.index') }}" class="btn btn-warning">Kembali</a>
                         </div>
                     </form>
                 </div>

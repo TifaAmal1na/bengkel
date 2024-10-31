@@ -30,7 +30,6 @@
                                     <th>Kategori</th>
                                     <th>Tanggal Mulai</th>
                                     <th>Tanggal Selesai</th>
-                                    <th>Jumlah</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -43,9 +42,8 @@
                                         <td>{{ $p->proyek->NAMA ?? 'Tidak Ada Proyek' }}</td>
                                         <td>{{ $p->STATUS }}</td>
                                         <td>{{ $p->KATEGORI }}</td>
-                                        <td>{{ $p->TANGGAL }}</td>
+                                        <td>{{ $p->TANGGAL_MULAI }}</td>
                                         <td>{{ $p->TANGGAL_SELESAI }}</td>
-                                        <td>{{ $p->JUMLAH }}</td>
                                         <td>
                                             <div class="d-flex">
                                             <a class="btn btn-primary mr-1" href="{{ route('pekerjaan.edit', $p->ID_PEKERJAAN) }}">Edit</a>

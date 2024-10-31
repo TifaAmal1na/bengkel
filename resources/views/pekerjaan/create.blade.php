@@ -23,11 +23,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="ID_GRAFIK">Workload:</label>
+                            <label for="ID_GRAFIK">Standard:</label>
                             <select name="ID_GRAFIK" class="form-control" required>
-                                <option value="" disabled selected>Pilih Workload</option>
-                                @foreach($grafikList as $workload)
-                                    <option value="{{ $workload->ID_GRAFIK }}">{{ $workload->STANDARD }}</option>
+                                <option value="" disabled selected>Pilih Standard</option>
+                                @foreach($grafikList as $standard)
+                                    <option value="{{ $standard->ID_GRAFIK }}">{{ $standard->STANDARD }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -39,8 +39,7 @@
                         <div class="form-group">
                             <label for="STATUS">Status:</label>
                             <select name="STATUS" class="form-control" required>
-                                <option value="aktif">Aktif</option>
-                                <option value="menunggu">Menunggu</option>
+                                <option value="" disabled selected>Pilih Status</option>
                                 <option value="selesai">Selesai</option>
                                 <option value="dalam proses">Dalam Proses</option>
                             </select>
@@ -51,23 +50,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="TANGGAL">Tanggal:</label>
-                            <input type="date" name="TANGGAL" class="form-control" required>
+                            <label for="TANGGAL_MULAI">Tanggal Mulai:</label>
+                            <input type="date" name="tanggal_mulai" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label for="TANGGAL_SELESAI">Tanggal Selesai:</label>
-                            <input type="date" name="TANGGAL_SELESAI" class="form-control" required>
+                            <input type="date" name="tanggal_selesai" class="form-control" required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="JUMLAH">Jumlah:</label>
-                            <input type="number" name="JUMLAH" class="form-control" required>
-                        </div>
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <button class="btn btn-warning" onclick="window.history.back()">Kembali</button>
+                            {{-- <button class="btn btn-warning" onclick="window.history.back()">Kembali</button> --}}
+                            <a href="{{ route('pekerjaan.index') }}" class="btn btn-warning">Kembali</a>
                         </div>
                     </form>
                 </div>

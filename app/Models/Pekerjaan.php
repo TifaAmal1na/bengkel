@@ -20,9 +20,8 @@ class Pekerjaan extends Model
         'NAMA',
         'STATUS',
         'KATEGORI',
-        'TANGGAL',
-        'TANGGAL_SELESAI',
-        'JUMLAH'
+        'TANGGAL_MULAI',
+        'TANGGAL_SELESAI'
     ];
 
     // Relasi ke tabel proyek
@@ -33,7 +32,7 @@ class Pekerjaan extends Model
 
 
     public function grafik(){
-        return $this->belongsTo(Workload::class, 'ID_GRAFIK');
+        return $this->belongsTo(Standard::class, 'ID_GRAFIK');
     }
 
     public function revisi(){
