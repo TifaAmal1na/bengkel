@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Okt 2024 pada 04.31
--- Versi server: 10.4.27-MariaDB
--- Versi PHP: 8.2.24
+-- Generation Time: Oct 31, 2024 at 06:28 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aktivitas`
+-- Table structure for table `aktivitas`
 --
 
 CREATE TABLE `aktivitas` (
@@ -32,30 +32,30 @@ CREATE TABLE `aktivitas` (
   `ID_PEKERJAAN` int(11) DEFAULT NULL,
   `DESKRIPSI` text NOT NULL,
   `TANGGAL` date NOT NULL,
-  `tanggal_selesai` date DEFAULT NULL,
-  `STATUS` enum('Selesai','Dalam Proses','Aktif','Menunggu') DEFAULT NULL
+  `TANGGAL_SELESAI` date DEFAULT NULL,
+  `STATUS` enum('Selesai','Dalam Proses') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `aktivitas`
+-- Dumping data for table `aktivitas`
 --
 
-INSERT INTO `aktivitas` (`ID_AKTIVITAS`, `ID_PEKERJAAN`, `DESKRIPSI`, `TANGGAL`, `tanggal_selesai`, `STATUS`) VALUES
-(1, 1, 'Mengumpulkan data untuk analisis', '2024-09-01', '2024-10-10', 'Selesai'),
-(2, 2, 'Mendesain struktur sistem', '2024-09-08', '2024-10-10', 'Dalam Proses'),
-(3, 3, 'Menjalankan pengujian awal', '2024-09-03', NULL, 'Selesai'),
-(4, 4, 'Menyusun dokumentasi proyek', '2024-09-04', NULL, 'Selesai'),
-(5, 1, 'Mengadakan rapat tim', '2024-09-05', NULL, 'Aktif'),
-(6, 5, 'Mereview hasil pekerjaan', '2024-09-06', NULL, 'Menunggu'),
-(7, 2, 'Menyiapkan presentasi', '2024-09-07', NULL, 'Aktif'),
-(8, 3, 'Melakukan analisis risiko', '2024-09-08', NULL, 'Selesai'),
-(9, 4, 'Evaluasi hasil proyek', '2024-09-09', NULL, 'Aktif'),
-(10, 5, 'Menentukan langkah selanjutnya', '2024-09-10', NULL, 'Selesai');
+INSERT INTO `aktivitas` (`ID_AKTIVITAS`, `ID_PEKERJAAN`, `DESKRIPSI`, `TANGGAL`, `TANGGAL_SELESAI`, `STATUS`) VALUES
+(1, 1, 'Mengumpulkan data untuk analisis', '2024-01-01', '2024-01-31', 'Selesai'),
+(2, 2, 'Mendesain struktur sistem', '2024-02-01', '2024-02-29', 'Dalam Proses'),
+(3, 3, 'Menjalankan pengujian awal', '2024-03-01', '2024-03-31', 'Selesai'),
+(4, 4, 'Menyusun dokumentasi proyek', '2024-04-01', '0000-00-00', 'Selesai'),
+(5, 1, 'Mengadakan rapat tim', '2024-05-01', '2024-05-31', ''),
+(6, 5, 'Mereview hasil pekerjaan', '2024-06-01', '2024-06-30', ''),
+(7, 2, 'Menyiapkan presentasi', '2024-07-01', '2024-07-31', ''),
+(8, 3, 'Melakukan analisis risiko', '2024-08-01', '2024-08-31', 'Selesai'),
+(9, 4, 'Evaluasi hasil proyek', '2024-09-01', '2024-09-30', ''),
+(10, 5, 'Menentukan langkah selanjutnya', '2024-10-01', '2024-10-31', 'Selesai');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `cache`
+-- Table structure for table `cache`
 --
 
 CREATE TABLE `cache` (
@@ -64,10 +64,20 @@ CREATE TABLE `cache` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('tfaamalina01@gmail.com|127.0.0.1', 'i:2;', 1730338678),
+('tfaamalina01@gmail.com|127.0.0.1:timer', 'i:1730338678;', 1730338678),
+('tifa01@gmail.com|127.0.0.1', 'i:2;', 1730351358),
+('tifa01@gmail.com|127.0.0.1:timer', 'i:1730351358;', 1730351358);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `cache_locks`
+-- Table structure for table `cache_locks`
 --
 
 CREATE TABLE `cache_locks` (
@@ -79,7 +89,7 @@ CREATE TABLE `cache_locks` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `dikerjakan`
+-- Table structure for table `dikerjakan`
 --
 
 CREATE TABLE `dikerjakan` (
@@ -88,7 +98,7 @@ CREATE TABLE `dikerjakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `dikerjakan`
+-- Dumping data for table `dikerjakan`
 --
 
 INSERT INTO `dikerjakan` (`ID_PERSONEL`, `ID_PEKERJAAN`) VALUES
@@ -106,7 +116,7 @@ INSERT INTO `dikerjakan` (`ID_PERSONEL`, `ID_PEKERJAAN`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -122,7 +132,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jobs`
+-- Table structure for table `jobs`
 --
 
 CREATE TABLE `jobs` (
@@ -138,7 +148,7 @@ CREATE TABLE `jobs` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `job_batches`
+-- Table structure for table `job_batches`
 --
 
 CREATE TABLE `job_batches` (
@@ -157,7 +167,7 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menggunakan`
+-- Table structure for table `menggunakan`
 --
 
 CREATE TABLE `menggunakan` (
@@ -166,7 +176,7 @@ CREATE TABLE `menggunakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `menggunakan`
+-- Dumping data for table `menggunakan`
 --
 
 INSERT INTO `menggunakan` (`ID_PEKERJAAN`, `ID_TOOLS`) VALUES
@@ -184,7 +194,7 @@ INSERT INTO `menggunakan` (`ID_PEKERJAAN`, `ID_TOOLS`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -194,7 +204,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -216,7 +226,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `notifications`
+-- Table structure for table `notifications`
 --
 
 CREATE TABLE `notifications` (
@@ -230,7 +240,7 @@ CREATE TABLE `notifications` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `notifikasi`
+-- Table structure for table `notifikasi`
 --
 
 CREATE TABLE `notifikasi` (
@@ -243,7 +253,7 @@ CREATE TABLE `notifikasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `notifikasi`
+-- Dumping data for table `notifikasi`
 --
 
 INSERT INTO `notifikasi` (`ID_NOTIFIKASI`, `ID_PROYEK`, `JUDUL`, `DESKRIPSI`, `TANGGAL`, `PRIORITAS`) VALUES
@@ -261,7 +271,7 @@ INSERT INTO `notifikasi` (`ID_NOTIFIKASI`, `ID_PROYEK`, `JUDUL`, `DESKRIPSI`, `T
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `password_reset_tokens`
+-- Table structure for table `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
@@ -273,7 +283,7 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pekerjaan`
+-- Table structure for table `pekerjaan`
 --
 
 CREATE TABLE `pekerjaan` (
@@ -281,34 +291,32 @@ CREATE TABLE `pekerjaan` (
   `ID_GRAFIK` int(11) DEFAULT NULL,
   `ID_PROYEK` int(11) DEFAULT NULL,
   `NAMA` varchar(255) NOT NULL,
-  `STATUS` enum('Selesai','Dalam Proses','Aktif','Menunggu') NOT NULL DEFAULT 'Aktif',
+  `STATUS` enum('Selesai','Dalam Proses') NOT NULL DEFAULT 'Dalam Proses',
   `KATEGORI` varchar(100) NOT NULL,
   `TANGGAL` date NOT NULL,
-  `date_end` date NOT NULL,
-  `JUMLAH` int(11) NOT NULL
+  `date_end` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `pekerjaan`
+-- Dumping data for table `pekerjaan`
 --
 
-INSERT INTO `pekerjaan` (`ID_PEKERJAAN`, `ID_GRAFIK`, `ID_PROYEK`, `NAMA`, `STATUS`, `KATEGORI`, `TANGGAL`, `date_end`, `JUMLAH`) VALUES
-(1, 1, 1, 'Pengumpulan Data', 'Selesai', 'Analisis', '2024-09-01', '0000-00-00', 5),
-(2, 2, 1, 'Desain Sistem', 'Dalam Proses', 'Pengembangan', '2024-09-05', '0000-00-00', 3),
-(3, 3, 2, 'Uji Coba Prototipe', 'Menunggu', 'Pengujian', '2024-09-10', '0000-00-00', 7),
-(4, 4, 3, 'Implementasi Fitur', 'Selesai', 'Pengembangan', '2024-09-15', '0000-00-00', 4),
-(5, 5, 4, 'Dokumentasi', 'Dalam Proses', 'Dokumentasi', '2024-09-20', '0000-00-00', 2),
-(6, 6, 5, 'Review Kode', 'Aktif', 'Pengembangan', '2024-09-25', '0000-00-00', 6),
-(7, 7, 6, 'Integrasi Sistem', 'Selesai', 'Integrasi', '2024-09-28', '0000-00-00', 8),
-(8, 8, 7, 'Pemeliharaan Sistem', 'Aktif', 'Pemeliharaan', '2024-10-01', '0000-00-00', 5),
-(9, 9, 8, 'Evaluasi Proyek', 'Menunggu', 'Analisis', '2024-10-03', '0000-00-00', 3),
-(10, 10, 9, 'Pengiriman Laporan', 'Selesai', 'Dokumentasi', '2024-10-04', '0000-00-00', 4),
-(13, 5, 5, 'tifa cantik jelita', 'Selesai', 'Analisis', '2004-09-09', '0000-00-00', 4);
+INSERT INTO `pekerjaan` (`ID_PEKERJAAN`, `ID_GRAFIK`, `ID_PROYEK`, `NAMA`, `STATUS`, `KATEGORI`, `TANGGAL`, `date_end`) VALUES
+(1, 1, 1, 'Pengumpulan Data', 'Selesai', 'Analisis', '2024-09-01', '2024-11-30'),
+(2, 2, 1, 'Desain Sistem', 'Dalam Proses', 'Pengembangan', '2024-09-05', '0000-00-00'),
+(3, 3, 2, 'Uji Coba Prototipe', 'Dalam Proses', 'Pengujian', '2024-09-10', '0000-00-00'),
+(4, 4, 3, 'Implementasi Fitur', 'Selesai', 'Pengembangan', '2024-09-15', '0000-00-00'),
+(5, 5, 4, 'Dokumentasi', 'Dalam Proses', 'Dokumentasi', '2024-09-20', '0000-00-00'),
+(6, 6, 5, 'Review Kode', '', 'Pengembangan', '2024-09-25', '0000-00-00'),
+(7, 7, 6, 'Integrasi Sistem', 'Selesai', 'Integrasi', '2024-09-28', '0000-00-00'),
+(8, 8, 7, 'Pemeliharaan Sistem', 'Dalam Proses', 'Pemeliharaan', '2024-10-01', '0000-00-00'),
+(9, 9, 8, 'Evaluasi Proyek', 'Selesai', 'Analisis', '2024-10-03', '0000-00-00'),
+(10, 10, 9, 'Pengiriman Laporan', 'Selesai', 'Dokumentasi', '2024-10-04', '0000-00-00');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `personel`
+-- Table structure for table `personel`
 --
 
 CREATE TABLE `personel` (
@@ -319,7 +327,7 @@ CREATE TABLE `personel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `personel`
+-- Dumping data for table `personel`
 --
 
 INSERT INTO `personel` (`ID_PERSONEL`, `NAMA`, `STATUS`, `JUMLAH_PEKERJA`) VALUES
@@ -337,37 +345,37 @@ INSERT INTO `personel` (`ID_PERSONEL`, `NAMA`, `STATUS`, `JUMLAH_PEKERJA`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `proyek`
+-- Table structure for table `proyek`
 --
 
 CREATE TABLE `proyek` (
   `ID_PROYEK` int(11) NOT NULL,
   `NAMA` varchar(255) NOT NULL,
-  `STATUS` enum('aktif','menunggu','dalam proses','selesai') NOT NULL,
+  `STATUS` enum('dalam proses','selesai') NOT NULL,
   `JUMLAH_PEKERJA` int(11) NOT NULL,
   `TANGGAL_MULAI` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `proyek`
+-- Dumping data for table `proyek`
 --
 
 INSERT INTO `proyek` (`ID_PROYEK`, `NAMA`, `STATUS`, `JUMLAH_PEKERJA`, `TANGGAL_MULAI`) VALUES
-(1, 'Proyek Alpha', 'aktif', 15, '2024-09-01'),
+(1, 'Proyek Alpha', '', 15, '2024-09-01'),
 (2, 'Proyek Beta', 'selesai', 10, '2024-08-15'),
 (3, 'Proyek Gamma', 'dalam proses', 8, '2024-09-10'),
-(4, 'Proyek Delta', 'menunggu', 12, '2024-09-20'),
-(5, 'Proyek Epsilon', 'aktif', 14, '2024-09-25'),
+(4, 'Proyek Delta', '', 12, '2024-09-20'),
+(5, 'Proyek Epsilon', '', 14, '2024-09-25'),
 (6, 'Proyek Zeta', 'selesai', 9, '2024-07-30'),
 (7, 'Proyek Eta', 'dalam proses', 11, '2024-09-28'),
-(8, 'Proyek Theta', 'menunggu', 13, '2024-10-01'),
-(9, 'Proyek Iota', 'aktif', 16, '2024-08-05'),
+(8, 'Proyek Theta', '', 13, '2024-10-01'),
+(9, 'Proyek Iota', '', 16, '2024-08-05'),
 (10, 'Proyek Kappa', 'selesai', 7, '2024-06-12');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `revisi_gambar`
+-- Table structure for table `revisi_gambar`
 --
 
 CREATE TABLE `revisi_gambar` (
@@ -378,7 +386,7 @@ CREATE TABLE `revisi_gambar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `revisi_gambar`
+-- Dumping data for table `revisi_gambar`
 --
 
 INSERT INTO `revisi_gambar` (`ID_REVISI`, `ID_PEKERJAAN`, `DESKRIPSI`, `TANGGAL`) VALUES
@@ -396,7 +404,7 @@ INSERT INTO `revisi_gambar` (`ID_REVISI`, `ID_PEKERJAAN`, `DESKRIPSI`, `TANGGAL`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sessions`
+-- Table structure for table `sessions`
 --
 
 CREATE TABLE `sessions` (
@@ -409,11 +417,13 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `sessions`
+-- Dumping data for table `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
 ('035mgxn0KUcJNDh7DQzc2ohrpDQCuj1XwJQ1rd3J', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoibFhCOHJwN0xxeHBhenNzcjdkS2dQUm1RaENVN0hzOVVDd0RyMmZabCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1729649125),
+('4stJ00Fi7LiYIq2EeUoPfQXJkJhX3I4PboizqAlB', 6, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMjRkUjhoZ3lCSWVWZzZWYVg1ekR4Zk0wbFp4UVhmb0JIcGl5UzRoUiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdGFuZGFyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjY7fQ==', 1730352339),
+('7Pian8YrD1ZUO8b8t3N1GSHnxwTfU549k5cjzo6V', 5, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT2JOcE1sWTdkY21vdDBWRFBmWHpiY0RTS2JHTlIwRHppTXByMXVRRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC93b3JrbG9hZF9hbmFseXNpcyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjU7fQ==', 1730342102),
 ('LGWA0VLrklf2ZPJtykEyOYzKCv4Qq5K862afGyXn', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiTFNTNVdnOFZidUJ1MEx6cDJYNFlLZEtSMFV6MjdmMklRMHVpbUlXcSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wZWtlcmphYW4iO31zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3Mjk1ODAyNjQ7fX0=', 1729584149),
 ('PqTe9C5Azmb47O2QF6RFpanBteOVLfK2FfrRs53d', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiMmRSQVU0QTZGV3A4bU9Md3ZQZHFIcUZtVEFDRG0yMjhlZXFwemJaViI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjMxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3Mjk2NDkwODk7fX0=', 1729650448),
 ('qYhYhehYfH5xaxRdOf0Ggx56hvIzisrRwsH3Pv6g', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMEtwRE9PRmozNTVUemxLT3lPd0RjRzhKUkRQSVg2a09kSGxmSEZDRCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTcyODYxOTcwMTt9fQ==', 1728633538);
@@ -421,7 +431,38 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tools`
+-- Table structure for table `standard`
+--
+
+CREATE TABLE `standard` (
+  `ID_GRAFIK` int(11) NOT NULL,
+  `STANDARD` float NOT NULL,
+  `TANGGAL_MULAI` date NOT NULL,
+  `TANGGAL_SELESAI` date DEFAULT NULL,
+  `STATUS` enum('Aktif','Tidak Aktif') NOT NULL DEFAULT 'Aktif'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `standard`
+--
+
+INSERT INTO `standard` (`ID_GRAFIK`, `STANDARD`, `TANGGAL_MULAI`, `TANGGAL_SELESAI`, `STATUS`) VALUES
+(1, 5, '2024-01-01', '2024-01-31', 'Tidak Aktif'),
+(2, 5, '2024-02-01', '2024-02-29', 'Aktif'),
+(3, 6, '2024-03-01', '2024-03-31', 'Aktif'),
+(4, 6, '2024-04-01', '2024-04-30', 'Aktif'),
+(5, 6, '2024-05-01', '2024-05-31', 'Aktif'),
+(6, 7, '2024-06-01', '2024-06-30', 'Aktif'),
+(7, 5, '2024-07-01', '2024-07-31', 'Aktif'),
+(8, 7, '2024-08-01', '2024-08-31', 'Aktif'),
+(9, 5, '2024-09-01', '2024-09-30', 'Aktif'),
+(10, 6, '2024-10-01', '2024-10-31', 'Aktif'),
+(12, 5, '2024-11-01', '2024-11-30', 'Aktif');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tools`
 --
 
 CREATE TABLE `tools` (
@@ -432,7 +473,7 @@ CREATE TABLE `tools` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `tools`
+-- Dumping data for table `tools`
 --
 
 INSERT INTO `tools` (`ID_TOOLS`, `NAMA`, `STATUS`, `TANGGAL`) VALUES
@@ -451,7 +492,7 @@ INSERT INTO `tools` (`ID_TOOLS`, `NAMA`, `STATUS`, `TANGGAL`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -467,69 +508,40 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `last_login`) VALUES
-(1, 'tifa', 'tfaamalina01@gmail.com', NULL, '$2y$12$yxdfb7Y/N2f9meSFYb1scO2tIvd4BhHpeEI1nMyZ9UbaszwLePcSC', NULL, '2024-10-08 18:59:39', '2024-10-08 18:59:39', NULL),
 (2, 'admin', 'admin@admin.com', '2024-10-21 23:45:14', '$2y$12$zNoV2EweHmBX53b/3pURcuKyAE4BDOtPIYeZI23ELWj81tREhqG3K', 'EflIGz3otqljyZ7iKUsHKMO76PSICrwnFtQphHqBL7lOjsCDKPyvrMlP20Or', '2024-10-21 23:45:14', '2024-10-21 23:45:14', NULL),
 (3, 'user', 'user@user.com', '2024-10-21 23:45:14', '$2y$12$V66eluuh7O4NhEo/YaYy3.AjXN0G.ag6tSSegVZ16R1CQ5q6ghYF6', 'JLCsOM5YRz', '2024-10-21 23:45:15', '2024-10-21 23:45:15', NULL),
-(4, 'Test User', 'test@example.com', '2024-10-21 23:47:52', '$2y$12$iLwMyfQAzzu0V.f8aunNOewJvY0xz6iMWn.9Wvcn7nsvGbUIuj79q', 'VKTQB6jy9T', '2024-10-21 23:47:53', '2024-10-21 23:47:53', NULL);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `workload_analysis`
---
-
-CREATE TABLE `workload_analysis` (
-  `ID_GRAFIK` int(11) NOT NULL,
-  `STANDARD` float NOT NULL,
-  `TANGGAL` date NOT NULL,
-  `JUMLAH_PEKERJAAN` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `workload_analysis`
---
-
-INSERT INTO `workload_analysis` (`ID_GRAFIK`, `STANDARD`, `TANGGAL`, `JUMLAH_PEKERJAAN`) VALUES
-(1, 1, '2024-09-25', 8),
-(2, 1, '2024-09-26', 10),
-(3, 2, '2024-09-27', 6),
-(4, 1, '2024-09-28', 12),
-(5, 3, '2024-09-29', 9),
-(6, 3, '2024-09-30', 13),
-(7, 5, '2024-10-01', 14),
-(8, 7, '2024-10-02', 11),
-(9, 5, '2024-10-03', 8),
-(10, 6, '2024-10-04', 9);
+(4, 'Test User', 'test@example.com', '2024-10-21 23:47:52', '$2y$12$iLwMyfQAzzu0V.f8aunNOewJvY0xz6iMWn.9Wvcn7nsvGbUIuj79q', 'VKTQB6jy9T', '2024-10-21 23:47:53', '2024-10-21 23:47:53', NULL),
+(6, 'Tifa Amalina', 'tifa01@gmail.com', NULL, '$2y$12$e0eKHLUMGQhTZ6ROUF43M.29Vk78qQa4Y/cvU.miuJr5W/fgD7w7q', NULL, '2024-10-30 22:10:43', '2024-10-30 22:10:43', NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `aktivitas`
+-- Indexes for table `aktivitas`
 --
 ALTER TABLE `aktivitas`
   ADD PRIMARY KEY (`ID_AKTIVITAS`),
   ADD KEY `DIIKUTI_FK` (`ID_PEKERJAAN`);
 
 --
--- Indeks untuk tabel `cache`
+-- Indexes for table `cache`
 --
 ALTER TABLE `cache`
   ADD PRIMARY KEY (`key`);
 
 --
--- Indeks untuk tabel `cache_locks`
+-- Indexes for table `cache_locks`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
--- Indeks untuk tabel `dikerjakan`
+-- Indexes for table `dikerjakan`
 --
 ALTER TABLE `dikerjakan`
   ADD PRIMARY KEY (`ID_PERSONEL`,`ID_PEKERJAAN`),
@@ -537,27 +549,27 @@ ALTER TABLE `dikerjakan`
   ADD KEY `DIKERJAKAN2_FK` (`ID_PEKERJAAN`);
 
 --
--- Indeks untuk tabel `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indeks untuk tabel `jobs`
+-- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_index` (`queue`);
 
 --
--- Indeks untuk tabel `job_batches`
+-- Indexes for table `job_batches`
 --
 ALTER TABLE `job_batches`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `menggunakan`
+-- Indexes for table `menggunakan`
 --
 ALTER TABLE `menggunakan`
   ADD PRIMARY KEY (`ID_PEKERJAAN`,`ID_TOOLS`),
@@ -565,59 +577,59 @@ ALTER TABLE `menggunakan`
   ADD KEY `MENGGUNAKAN2_FK` (`ID_TOOLS`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `notifications`
+-- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `notifikasi`
+-- Indexes for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
   ADD PRIMARY KEY (`ID_NOTIFIKASI`),
   ADD KEY `MENGHASILKAN_FK` (`ID_PROYEK`);
 
 --
--- Indeks untuk tabel `password_reset_tokens`
+-- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indeks untuk tabel `pekerjaan`
+-- Indexes for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
   ADD PRIMARY KEY (`ID_PEKERJAAN`),
-  ADD KEY `MEMILIKI_FK` (`ID_PROYEK`),
-  ADD KEY `MENUNJUKKAN_FK` (`ID_GRAFIK`);
+  ADD KEY `ID_PROYEK` (`ID_PROYEK`),
+  ADD KEY `ID_GRAFIK` (`ID_GRAFIK`);
 
 --
--- Indeks untuk tabel `personel`
+-- Indexes for table `personel`
 --
 ALTER TABLE `personel`
   ADD PRIMARY KEY (`ID_PERSONEL`);
 
 --
--- Indeks untuk tabel `proyek`
+-- Indexes for table `proyek`
 --
 ALTER TABLE `proyek`
   ADD PRIMARY KEY (`ID_PROYEK`);
 
 --
--- Indeks untuk tabel `revisi_gambar`
+-- Indexes for table `revisi_gambar`
 --
 ALTER TABLE `revisi_gambar`
   ADD PRIMARY KEY (`ID_REVISI`),
   ADD KEY `MELIBATKAN_FK` (`ID_PEKERJAAN`);
 
 --
--- Indeks untuk tabel `sessions`
+-- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`id`),
@@ -625,115 +637,122 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
--- Indeks untuk tabel `tools`
+-- Indexes for table `standard`
+--
+ALTER TABLE `standard`
+  ADD PRIMARY KEY (`ID_GRAFIK`);
+
+--
+-- Indexes for table `tools`
 --
 ALTER TABLE `tools`
   ADD PRIMARY KEY (`ID_TOOLS`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- Indeks untuk tabel `workload_analysis`
---
-ALTER TABLE `workload_analysis`
-  ADD PRIMARY KEY (`ID_GRAFIK`);
-
---
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `aktivitas`
+-- AUTO_INCREMENT for table `aktivitas`
 --
 ALTER TABLE `aktivitas`
   MODIFY `ID_AKTIVITAS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `jobs`
+-- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT untuk tabel `notifications`
+-- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `notifikasi`
+-- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
   MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `pekerjaan`
+-- AUTO_INCREMENT for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
   MODIFY `ID_PEKERJAAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT untuk tabel `personel`
+-- AUTO_INCREMENT for table `personel`
 --
 ALTER TABLE `personel`
   MODIFY `ID_PERSONEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `proyek`
+-- AUTO_INCREMENT for table `proyek`
 --
 ALTER TABLE `proyek`
   MODIFY `ID_PROYEK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT untuk tabel `revisi_gambar`
+-- AUTO_INCREMENT for table `revisi_gambar`
 --
 ALTER TABLE `revisi_gambar`
   MODIFY `ID_REVISI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `tools`
+-- AUTO_INCREMENT for table `standard`
+--
+ALTER TABLE `standard`
+  MODIFY `ID_GRAFIK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `tools`
 --
 ALTER TABLE `tools`
   MODIFY `ID_TOOLS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `workload_analysis`
---
-ALTER TABLE `workload_analysis`
-  MODIFY `ID_GRAFIK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `aktivitas`
+-- Constraints for table `aktivitas`
 --
 ALTER TABLE `aktivitas`
   ADD CONSTRAINT `FK_DIIKUTI` FOREIGN KEY (`ID_PEKERJAAN`) REFERENCES `pekerjaan` (`ID_PEKERJAAN`);
+
+--
+-- Constraints for table `pekerjaan`
+--
+ALTER TABLE `pekerjaan`
+  ADD CONSTRAINT `ID_GRAFIK` FOREIGN KEY (`ID_GRAFIK`) REFERENCES `standard` (`ID_GRAFIK`),
+  ADD CONSTRAINT `ID_PROYEK` FOREIGN KEY (`ID_PROYEK`) REFERENCES `proyek` (`ID_PROYEK`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
