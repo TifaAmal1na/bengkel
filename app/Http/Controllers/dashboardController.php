@@ -24,7 +24,7 @@ class dashboardController extends Controller
     {
         // Mengambil jumlah data dari masing-masing model
         $aktifProyek = Proyek::where('status', 'Aktif')->count();
-        $aktifPersonel = Personel::where('status', 'Aktif')->count();
+        $pekerjaansemua = Pekerjaan::count();
         $kalibrarionTools = Tools::where('status', 'Perlu Kalibrasi')->count();
         $user = User::count();
         $aktifTools = Tools::where('status', 'Aktif')->count();
@@ -83,7 +83,7 @@ class dashboardController extends Controller
             'toolsChart' => $toolsChart->build(),
             'workloadChart' => $workloadChart->build(),
             'aktifProyek' => $aktifProyek,
-            'aktifPersonel' => $aktifPersonel,
+            'pekerjaansemua' => $pekerjaansemua,
             'kalibrarionTools' => $kalibrarionTools,
             'user' => $user,
             'aktifTools' => $aktifTools,

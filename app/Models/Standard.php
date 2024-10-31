@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Workload extends Model
+class Standard extends Model
 {
     use HasFactory;
 
-    protected $table = 'workload_analysis'; // Table name
+    protected $table = 'standard'; // Table name
     protected $primaryKey = 'ID_GRAFIK';    // Primary key
     public $timestamps = false;  // Disable timestamps as they do not exist in the table
     protected $fillable = [
         'STANDARD',
-        'TANGGAL',
-        'JUMLAH_PEKERJAAN',
+        'TANGGAL_MULAI',
+        'TANGGAL_SELESAI',
+        'STATUS'
     ];
 
     // Relasi dengan model Proyek (one-to-many)

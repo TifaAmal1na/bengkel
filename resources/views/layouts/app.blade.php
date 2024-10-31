@@ -114,9 +114,9 @@
                     <span>Tools</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('workload_analysis.index') }}">
+                <a class="nav-link" href="{{ route('standard.index') }}">
                     <i class="fas fa-industry"></i>
-                    <span>Workload Analysis</span></a>
+                    <span>Standard</span></a>
             </li>
 
             <!-- Responsive Toggle Button -->

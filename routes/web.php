@@ -8,7 +8,7 @@ use App\Http\Controllers\personelController;
 use App\Http\Controllers\proyekController;
 use App\Http\Controllers\revisiGambarController;
 use App\Http\Controllers\toolsController;
-use App\Http\Controllers\workloadAnalysisController;
+use App\Http\Controllers\StandardController;
 use App\Http\Controllers\dashboardController;
 use Illuminate\Support\Facades\Route;
 // Auth
@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('proyek', ProyekController::class);
     Route::resource('revisi_gambar', RevisiGambarController::class);
     Route::resource('tools', ToolsController::class);
-    Route::resource('workload_analysis', WorkloadAnalysisController::class);
+    Route::resource('standard', StandardController::class);
 });
 
 // Authentication routes
@@ -51,9 +51,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Logout route
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
-//workload route
-Route::resource('workload_analysis', WorkloadAnalysisController::class)
-    ->parameters(['workload_analysis' => 'workload_analysis']);
+//standard route
+Route::resource('standard', StandardController::class)
+    ->parameters(['standard' => 'standard']);
 
 Route::get('/gauge', [GaugeController::class, 'index'])->name('gauge');
     
