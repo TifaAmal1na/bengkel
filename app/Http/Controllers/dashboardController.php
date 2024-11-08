@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proyek;
-use App\Models\Workload;
+use App\Models\Standard; // Replace Workload with Standard model
 use App\Models\Pekerjaan;
 use App\Models\Tools;
 use App\Models\User;
@@ -29,13 +29,13 @@ class dashboardController extends Controller
         $user = User::count();
         $aktifTools = Tools::where('status', 'Aktif')->count();
         $totalPekerjaanAktif = DB::table('pekerjaan')
-            ->leftJoin('workload_analysis', 'workload_analysis.tanggal', '=', 'pekerjaan.tanggal')
+            ->leftJoin('standard', 'standard.TANGGAL_MULAI', '=', 'pekerjaan.tanggal') // Update table name to standard
             ->where('pekerjaan.status', 'Aktif')
             ->count('pekerjaan.id_pekerjaan');
 
         // Notifikasi
         $notifications = DB::table('notifikasi')
-            ->orderBy('TANGGAL', 'DESC')
+            ->orderBy('TANGGAL_MULAI', 'DESC')
             ->limit(3)
             ->get();
 
@@ -55,9 +55,9 @@ class dashboardController extends Controller
         $totalPekerjaan = Pekerjaan::count();
         $completedPekerjaan = Pekerjaan::where('STATUS', 'Selesai')->count();
         
-        $latestWorkload = Workload::orderBy('TANGGAL', 'desc')->first();
-        $workloadStandard = $latestWorkload->STANDARD ?? 0; // Default to 0 if no workload found
-        $workloadCount = $latestWorkload->JUMLAH_PEKERJAAN ?? 0; // Default to 0 if no workload found
+        $latestStandard = Standard::orderBy('TANGGAL', 'desc')->first(); // Replace Workload with Standard
+        $workloadStandard = $latestStandard->STANDARD ?? 0; // Default to 0 if no standard found
+        $workloadCount = $latestStandard->JUMLAH_PEKERJAAN ?? 0; // Default to 0 if no standard found
 
         $completionPercentage = ($totalPekerjaan > 0) ? ($completedPekerjaan / $totalPekerjaan) * 100 : 0;
         $healthStatus = 'Critical';

@@ -27,8 +27,7 @@ Route::get('/', function () {
     return redirect('/login'); // Redirect to login if not authenticated
 });
 
-// Default route, no login required for dashboard
-Route::get('/', [dashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Routes that require authentication
 Route::middleware('auth')->group(function () {
@@ -56,8 +55,6 @@ Route::resource('standard', StandardController::class)
     ->parameters(['standard' => 'standard']);
 
 Route::get('/gauge', [GaugeController::class, 'index'])->name('gauge');
-    
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 use App\Http\Controllers\ProfileController;
 

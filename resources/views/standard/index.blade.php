@@ -35,20 +35,23 @@
                                     <tr>
                                         <td>{{ $standard->ID_GRAFIK }}</td>
                                         <td>{{ $standard->STANDARD }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($standard->TANGGAL_MULAI)->format('d-m-Y') }}</td> <!-- Menggunakan Carbon untuk memformat tanggal -->
-                                        <td>{{ \Carbon\Carbon::parse($standard->TANGGAL_SELESAI)->format('d-m-Y') }}</td> <!-- Menggunakan Carbon untuk memformat tanggal -->
-                                        <td>{{ $standard->STATUS }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($standard->TANGGAL_MULAI)->format('d-m-Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($standard->TANGGAL_SELESAI)->format('d-m-Y') }}</td>
                                         <td>
-                                        <a href="{{ route('standard.edit', ['standard' => $standard->ID_GRAFIK]) }}" class="btn btn-primary">Edit</a>
-                                        <form action="{{ route('standard.destroy', ['standard' => $standard->ID_GRAFIK]) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus standard ini?');">Delete</button>
-                                        </form>
-                                        
-                                        <!-- Button Detail hilang File masih ada -->
-                                        <!-- <a href="{{ route('standard.show', ['standard' => $standard->ID_GRAFIK]) }}" class="btn btn-warning">Detail</a> -->
-
+                                            @if($standard->STATUS === 'Aktif')
+                                                <span class="badge bg-success" style="width: 15px; height: 15px; border-radius: 50%; display: inline-block;"></span>
+                                            @else
+                                                <span class="badge bg-danger" style="width: 15px; height: 15px; border-radius: 50%; display: inline-block;"></span>
+                                            @endif
+                                            {{ $standard->STATUS }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('standard.edit', ['standard' => $standard->ID_GRAFIK]) }}" class="btn btn-primary">Edit</a>
+                                            <form action="{{ route('standard.destroy', ['standard' => $standard->ID_GRAFIK]) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus standard ini?');">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
