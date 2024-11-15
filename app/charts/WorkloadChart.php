@@ -2,7 +2,7 @@
 
 namespace App\Charts;
 
-use App\Models\Workload;
+use App\Models\Standard;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 Class WorkloadChart{
@@ -15,7 +15,7 @@ Class WorkloadChart{
     public function build()
     {
         // Mengambil data workload dari database
-        $data = Workload::orderBy('TANGGAL')->get();
+        $data = Standard::orderBy('TANGGAL')->get();
 
         // Ekstrak tanggal dan jumlah pekerjaan aktif
         $labels = $data->pluck('TANGGAL')->toArray();

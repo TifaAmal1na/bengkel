@@ -15,11 +15,11 @@
 
                         <div class="form-group">
                             <label for="ID_PROYEK">Proyek:</label>
-                            <select name="ID_PROYEK" class="form-control" required>
-                                <option value="" disabled selected>Pilih Proyek</option>
-                                @foreach($proyekList as $proyek)
-                                    <option value="{{ $proyek->ID_PROYEK }}" {{ old('ID_PROYEK', $pekerjaan->ID_PROYEK) == $proyek->ID_PROYEK ? 'selected' : '' }}>
-                                        {{ $proyek->NAMA }}
+                            <select name="ID_GRAFIK" class="form-control">
+                                @foreach($workloadList as $standard)
+                                    <option value="{{ $standard->ID_GRAFIK }}" 
+                                        {{ $pekerjaan->ID_GRAFIK == $standard->ID_GRAFIK ? 'selected' : '' }}>
+                                        {{ $standard->STANDARD }}
                                     </option>
                                 @endforeach
                             </select>

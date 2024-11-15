@@ -73,10 +73,10 @@ class aktifitasController extends Controller
             'DESKRIPSI' => 'required|string',
             'TANGGAL' => 'required|date',
             'TANGGAL_SELESAI' => 'required|date',
-            //'STATUS' => 'required|string|max:50',
+            'STATUS' => 'required|string|max:50',
             'STATUS' => 'required|string|in:Selesai,Dalam Proses,Aktif,Menunggu',
         ]);
-
+        
         $aktivitas = Aktivitas::findOrFail($id);
         $aktivitas->update($request->all());
 

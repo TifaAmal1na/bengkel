@@ -28,6 +28,8 @@
                                     <th>Nama Proyek</th>
                                     <th>Status</th>
                                     <th>Kategori</th>
+                                    <th>Tanggal Mulai Standard</th>
+                                    <th>Tanggal Selesai Standard</th>
                                     <th>Tanggal Mulai</th>
                                     <th>Tanggal Selesai</th>
                                     <th>Aksi</th>
@@ -42,11 +44,13 @@
                                         <td>{{ $p->proyek->NAMA ?? 'Tidak Ada Proyek' }}</td>
                                         <td>{{ $p->STATUS }}</td>
                                         <td>{{ $p->KATEGORI }}</td>
-                                        <td>{{ $p->TANGGAL_MULAI }}</td>
-                                        <td>{{ $p->TANGGAL_SELESAI }}</td>
+                                        <td>{{ $p->grafik->TANGGAL_MULAI ?? '-' }}</td>
+                                        <td>{{ $p->grafik->TANGGAL_SELESAI ?? '-' }}</td>
+                                        <td>{{ $p->TANGGAL }}</td>
+                                        <td>{{ $p->date_end }}</td>
                                         <td>
                                             <div class="d-flex">
-                                            <a class="btn btn-primary mr-1" href="{{ route('pekerjaan.edit', $p->ID_PEKERJAAN) }}">Edit</a>
+                                                <a class="btn btn-primary mr-1" href="{{ route('pekerjaan.edit', $p->ID_PEKERJAAN) }}">Edit</a>
                                                 <form action="{{ route('pekerjaan.destroy', $p->ID_PEKERJAAN) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -57,6 +61,7 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+
                         </table>
                     </div>
                 </div>

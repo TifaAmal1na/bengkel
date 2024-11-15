@@ -3,7 +3,7 @@
 namespace App\Charts;
 
 use ArielMejiaDev\LarapexCharts\LarapexChart;
-use App\Models\Workload;
+use App\Models\Standard;
 use App\Models\Pekerjaan;
 
 class PekerjaanChart
@@ -18,7 +18,7 @@ class PekerjaanChart
     public function build()
 {
     // Mengambil data target dari tabel Workload
-    $workloads = Workload::orderBy('TANGGAL', 'asc')->get();
+    $workloads = Standard::orderBy('TANGGAL', 'asc')->get();
     $targets = $workloads->pluck('STANDARD')->toArray();
 
     // Memastikan $dates adalah array, bukan Collection

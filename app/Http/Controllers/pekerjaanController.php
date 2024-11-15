@@ -15,10 +15,8 @@ class pekerjaanController extends Controller
      */
     public function index()
     {
-        $pekerjaan = Pekerjaan::with(['proyek', 'grafik'])->get();
-        $workloadList = Standard::all();
-
-        return view('pekerjaan.index', compact('pekerjaan', 'workloadList'));
+        $pekerjaan = Pekerjaan::with('grafik')->get();
+        return view('pekerjaan.index', compact('pekerjaan'));
     }
 
     /**
@@ -27,7 +25,7 @@ class pekerjaanController extends Controller
     public function create()
     {
         $proyekList = Proyek::all();
-        $grafikList = Standard::all();
+        $grafikList = Standard::pluck('TANGGAL_MULAI', 'ID_GRAFIK');
         return view('pekerjaan.create', compact('proyekList', 'grafikList'));
     }
 
@@ -74,9 +72,11 @@ class pekerjaanController extends Controller
     {
         $pekerjaan = Pekerjaan::findOrFail($id);
         $proyekList = Proyek::all();
-        $workloadList = Standard::all();
+        $workloadList = Standard::all(); // Fetch the standards for the workload list
+
         return view('pekerjaan.edit', compact('pekerjaan', 'proyekList', 'workloadList'));
     }
+
 
     /**
      * Update the specified resource in storage.
