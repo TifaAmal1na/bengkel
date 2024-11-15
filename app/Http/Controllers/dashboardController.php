@@ -29,15 +29,15 @@ class dashboardController extends Controller
         $user = User::count();
         $aktifTools = Tools::where('status', 'Aktif')->count();
         $totalPekerjaanAktif = DB::table('pekerjaan')
-            // ->leftJoin('standard', 'standard.TANGGAL_MULAI', '=', 'pekerjaan.tanggal') // Update table name to standard
+            ->leftJoin('standard', 'standard.TANGGAL_MULAI', '=', 'pekerjaan.tanggal') // Update table name to standard
             ->where('pekerjaan.status', 'Aktif')
             ->count('pekerjaan.id_pekerjaan');
 
         // Notifikasi
-        // $notifications = DB::table('notifikasi')
-        //     ->orderBy('TANGGAL', 'DESC')
-        //     ->limit(3)
-        //     ->get();
+        $notifications = DB::table('notifikasi')
+            ->orderBy('TANGGAL', 'DESC')
+            ->limit(3)
+            ->get();
 
         // Revisi Gambar
         $latestRevisions = Revisi::with('pekerjaan')
@@ -89,7 +89,7 @@ class dashboardController extends Controller
             'aktifTools' => $aktifTools,
             'totalPekerjaanAktif' => $totalPekerjaanAktif,
             'pekerjaanChart' => $pekerjaanChart->build(),
-            // 'notifications' => $notifications,
+            'notifications' => $notifications,
             'latestRevisions' => $latestRevisions,
             'latestActivities' => $latestActivities,
             'completionPercentage' => $completionPercentage,
