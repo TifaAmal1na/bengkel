@@ -10,7 +10,7 @@ use App\Models\Tools;
 use App\Models\User;
 use App\Models\Personel;
 use App\Models\Revisi;
-use App\Models\Aktivitas; 
+use App\Models\Aktivitas;
 use App\Charts\ProyekChart;
 use App\Charts\PersonelChart;
 use App\Charts\ToolsChart;
@@ -29,17 +29,17 @@ class dashboardController extends Controller
         $user = User::count();
         $aktifTools = Tools::where('status', 'Aktif')->count();
         $totalPekerjaanAktif = DB::table('pekerjaan')
-            ->leftJoin('standard', 'standard.TANGGAL_MULAI', '=', 'pekerjaan.tanggal') // Update table name to standard
+            // ->leftJoin('standard', 'standard.TANGGAL_MULAI', '=', 'pekerjaan.tanggal') // Update table name to standard
             ->where('pekerjaan.status', 'Aktif')
             ->count('pekerjaan.id_pekerjaan');
 
         // Notifikasi
-        $notifications = DB::table('notifikasi')
-            ->orderBy('TANGGAL_MULAI', 'DESC')
-            ->limit(3)
-            ->get();
+        // $notifications = DB::table('notifikasi')
+        //     ->orderBy('TANGGAL', 'DESC')
+        //     ->limit(3)
+        //     ->get();
 
-        // Revisi Gambar 
+        // Revisi Gambar
         $latestRevisions = Revisi::with('pekerjaan')
             ->orderBy('TANGGAL', 'DESC')
             ->limit(3)
@@ -54,7 +54,7 @@ class dashboardController extends Controller
         // Gauge data for health status
         $totalPekerjaan = Pekerjaan::count();
         $completedPekerjaan = Pekerjaan::where('STATUS', 'Selesai')->count();
-        
+
         $latestStandard = Standard::orderBy('TANGGAL', 'desc')->first(); // Replace Workload with Standard
         $workloadStandard = $latestStandard->STANDARD ?? 0; // Default to 0 if no standard found
         $workloadCount = $latestStandard->JUMLAH_PEKERJAAN ?? 0; // Default to 0 if no standard found
@@ -89,7 +89,7 @@ class dashboardController extends Controller
             'aktifTools' => $aktifTools,
             'totalPekerjaanAktif' => $totalPekerjaanAktif,
             'pekerjaanChart' => $pekerjaanChart->build(),
-            'notifications' => $notifications,
+            // 'notifications' => $notifications,
             'latestRevisions' => $latestRevisions,
             'latestActivities' => $latestActivities,
             'completionPercentage' => $completionPercentage,

@@ -12,15 +12,15 @@ class Notifikasi extends Model
     // Disable timestamps
     public $timestamps = false;
 
-    protected $table = 'notifikasi'; 
+    protected $table = 'notifikasi';
 
-    protected $primaryKey = 'ID_NOTIFIKASI'; 
+    protected $primaryKey = 'ID_NOTIFIKASI';
 
     protected $fillable = [
         'ID_PROYEK',
         'JUDUL',
         'DESKRIPSI',
-        'TANGGAL',
+        'TANGGAL_MULAI',
         'PRIORITAS'
     ];
 
