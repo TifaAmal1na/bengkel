@@ -32,7 +32,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($data as $standard)
-                                    <tr>
+                                    <tr @if($standard->STATUS === 'Aktif') style="font-weight: bold; background-color: #f0f8ff;" @endif>
                                         <td>{{ $standard->ID_GRAFIK }}</td>
                                         <td>{{ $standard->STANDARD }}</td>
                                         <td>{{ \Carbon\Carbon::parse($standard->TANGGAL_MULAI)->format('d-m-Y') }}</td>
