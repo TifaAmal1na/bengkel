@@ -19,22 +19,21 @@ class StandardController extends Controller
     }
 
     // Method untuk menetapkan status berdasarkan tanggal terbaru
-private function updateStatus()
-{
-    // Dapatkan entry dengan tanggal mulai terbaru dan selesai terjauh
-    $latestStandard = Standard::orderBy('TANGGAL_MULAI', 'desc')
-        ->orderBy('TANGGAL_SELESAI', 'desc')
-        ->first();
+    private function updateStatus()
+    {
+        // Ambil entry dengan TANGGAL_MULAI terbaru
+        $latestStandard = Standard::orderBy('TANGGAL_MULAI', 'desc')->first();
 
-    // Nonaktifkan semua status
-    Standard::where('STATUS', 'Aktif')->update(['STATUS' => 'Tidak Aktif']);
+        // Nonaktifkan semua status
+        Standard::where('STATUS', 'Aktif')->update(['STATUS' => 'Tidak Aktif']);
 
-    // Aktifkan standard terbaru
-    if ($latestStandard) {
-        $latestStandard->STATUS = 'Aktif';
-        $latestStandard->save();
+        // Aktifkan standard terbaru jika ada
+        if ($latestStandard) {
+            $latestStandard->STATUS = 'Aktif';
+            $latestStandard->save();
+        }
     }
-}
+
 
 public function store(Request $request)
 {
@@ -118,7 +117,15 @@ public function standardChart()
     public function destroy($id)
     {
         $standard = Standard::findOrFail($id);
+
+        // Lepaskan semua referensi di tabel pekerjaan
+        $standard->pekerjaan()->update(['ID_GRAFIK' => null]);
+
+        // Hapus data standard
         $standard->delete();
+
+        // Perbarui status ke entri dengan TANGGAL_MULAI terbaru
+        $this->updateStatus();
 
         return redirect()->route('standard.index')->with('success', 'Standard Berhasil Dihapus');
     }
