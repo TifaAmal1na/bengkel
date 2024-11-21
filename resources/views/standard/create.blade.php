@@ -33,16 +33,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="status" class="form-label">Status:</label>
-                            <select class="form-control" name="status" id="status" required>
-                                <option value="" disabled selected>Pilih Status</option>
-                                <option value="Aktif">Aktif</option>
-                                <option value="Tidak Aktif">Tidak Aktif</option>
-                            </select>
-                        </div>
-                        
-
-                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             <a href="{{ route('standard.index') }}" class="btn btn-warning">Kembali</a>
                         </div>

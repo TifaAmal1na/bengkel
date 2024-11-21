@@ -34,13 +34,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="status" class="form-label">Status:</label>
-                            <select class="form-control" name="status" id="status" required>
-                                <option value="" disabled>Pilih Status</option>
-                                <option value="Aktif" {{ $standard->STATUS === 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="Tidak Aktif" {{ $standard->STATUS === 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
-                            </select>
+                            <input type="hidden" name="status" value="{{ $standard->STATUS }}">
                         </div>
+
+                        <div class="form-group">
+                            <label for="status" class="form-label">Status:</label>
+                            <p class="form-control">
+                                {{ $standard->STATUS }}
+                            </p>
+                            <small class="text-muted">
+                                Status akan diperbarui secara otomatis berdasarkan tanggal mulai terbaru.
+                            </small>
+                        </div>
+
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>

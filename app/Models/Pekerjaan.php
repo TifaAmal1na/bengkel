@@ -14,7 +14,7 @@ class Pekerjaan extends Model
     public $incrementing = false;
     protected $primaryKey = 'ID_PEKERJAAN'; // Primary key
 
-    public $timestamps = false; 
+    public $timestamps = false;
 
     protected $fillable = [
         'ID_GRAFIK',

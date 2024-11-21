@@ -18,24 +18,68 @@ class StandardController extends Controller
         return view('standard.create');
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'standard' => 'required|numeric',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'nullable|date',
-            'status' => 'required|in:Aktif,Tidak Aktif'
-        ]);
+    // Method untuk menetapkan status berdasarkan tanggal terbaru
+private function updateStatus()
+{
+    // Dapatkan entry dengan tanggal mulai terbaru dan selesai terjauh
+    $latestStandard = Standard::orderBy('TANGGAL_MULAI', 'desc')
+        ->orderBy('TANGGAL_SELESAI', 'desc')
+        ->first();
 
-        if ($request->status == 'Aktif') {
-            // Set all other entries to "Tidak Aktif"
-            Standard::where('STATUS', 'Aktif')->update(['STATUS' => 'Tidak Aktif']);
-        }
+    // Nonaktifkan semua status
+    Standard::where('STATUS', 'Aktif')->update(['STATUS' => 'Tidak Aktif']);
 
-        Standard::create($request->all());
-
-        return redirect()->route('standard.index')->with('success', 'Standard Berhasil Ditambahkan');
+    // Aktifkan standard terbaru
+    if ($latestStandard) {
+        $latestStandard->STATUS = 'Aktif';
+        $latestStandard->save();
     }
+}
+
+public function store(Request $request)
+{
+    $request->validate([
+        'standard' => 'required|numeric',
+        'tanggal_mulai' => 'required|date',
+        'tanggal_selesai' => 'nullable|date',
+    ]);
+
+    // Simpan data baru
+    $newStandard = Standard::create([
+        'STANDARD' => $request->standard,
+        'TANGGAL_MULAI' => $request->tanggal_mulai,
+        'TANGGAL_SELESAI' => $request->tanggal_selesai,
+        'STATUS' => 'Tidak Aktif', // Default sebagai Tidak Aktif
+    ]);
+
+    // Perbarui status Aktif berdasarkan tanggal
+    $this->updateStatus();
+
+    return redirect()->route('standard.index')->with('success', 'Standard Berhasil Ditambahkan');
+}
+
+    public function getActiveStandards()
+{
+    $activeStandards = Standard::where('status', 'Aktif')->get();
+    return response()->json($activeStandards); // For API or AJAX use
+}
+
+public function standardChart()
+{
+    $activeStandards = Standard::where('status', 'Aktif')->get();
+
+    // Format the data for the chart
+    $chartData = $activeStandards->map(function ($standard) {
+        return [
+            'start_date' => $standard->TANGGAL_MULAI,
+            'end_date' => $standard->TANGGAL_SELESAI,
+            'value' => $standard->STANDARD,
+        ];
+    });
+
+    return response()->json($chartData); // Return for the chart
+}
+
 
     public function show($id)
     {
@@ -49,33 +93,27 @@ class StandardController extends Controller
         return view('standard.edit', compact('standard'));
     }
 
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'standard' => 'required|numeric',
-        'tanggal_mulai' => 'required|date',
-        'tanggal_selesai' => 'nullable|date',
-        'status' => 'required|in:Aktif,Tidak Aktif'
-    ]);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'standard' => 'required|numeric',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'nullable|date',
+        ]);
 
-    $standard = Standard::findOrFail($id);
+        $standard = Standard::findOrFail($id);
 
-    if ($request->status == 'Aktif') {
-        // Set all other entries to "Tidak Aktif"
-        Standard::where('STATUS', 'Aktif')
-            ->where('ID_GRAFIK', '!=', $id)
-            ->update(['STATUS' => 'Tidak Aktif']);
+        $standard->update([
+            'STANDARD' => $request->standard,
+            'TANGGAL_MULAI' => $request->tanggal_mulai,
+            'TANGGAL_SELESAI' => $request->tanggal_selesai,
+        ]);
+
+        // Perbarui status Aktif berdasarkan tanggal
+        $this->updateStatus();
+
+        return redirect()->route('standard.index')->with('success', 'Standard Berhasil Diupdate');
     }
-
-    // Update current instance's status directly and save
-    $standard->STATUS = $request->status;
-    $standard->STANDARD = $request->standard;
-    $standard->TANGGAL_MULAI = $request->tanggal_mulai;
-    $standard->TANGGAL_SELESAI = $request->tanggal_selesai;
-    $standard->save();
-
-    return redirect()->route('standard.index')->with('success', 'Standard Berhasil Diupdate');
-}
 
     public function destroy($id)
     {

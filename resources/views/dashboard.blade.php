@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-       
+
     <div class="row">
         <!-- Gauge Section -->
         <div class="col-md-6">
@@ -122,7 +122,7 @@
                         {!! $workloadChart->container() !!}
                     </div>
                 </div>
-                
+
                 <!-- Proyek Chart -->
                 <div class="col-md-4">
                     <div class="chart-container"
@@ -152,7 +152,7 @@
                         {!! $pekerjaanChart->container() !!}
                     </div>
                 </div>
-                
+
                 <div class="row mt-4"> <!-- Tambahkan margin-top yang lebih besar -->
                     <!-- Latest Notifications Column -->
                     <div class="col-md-6 mb-4">
@@ -172,7 +172,7 @@
                             @endforeach
                         </ul>
                     </div>
-                
+
                     <!-- Latest Revisions Column -->
                     <div class="col-md-6 mb-4">
                         <h5>Latest Revisions</h5>
@@ -189,7 +189,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="row mt-5"> <!-- Tambahkan margin-top lagi di sini -->
                     <!-- Latest Activities Column -->
                     <div class="col-md-12">
@@ -219,7 +219,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Include Gauge Script -->
                 <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
                 <script>
