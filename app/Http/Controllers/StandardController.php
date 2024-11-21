@@ -9,9 +9,15 @@ class StandardController extends Controller
 {
     public function index()
     {
-        $data = Standard::all();
+        // Urutkan data: Status "Aktif" di atas, lalu berdasarkan TANGGAL_MULAI secara descending
+        $data = Standard::orderByRaw("FIELD(STATUS, 'Aktif') DESC")
+            ->orderBy('TANGGAL_MULAI', 'desc')
+            ->paginate(10); // Tambahkan pagination
+
+        // Kirim data ke view
         return view('standard.index', compact('data'));
     }
+
 
     public function create()
     {
@@ -21,8 +27,10 @@ class StandardController extends Controller
     // Method untuk menetapkan status berdasarkan tanggal terbaru
     private function updateStatus()
     {
-        // Ambil entry dengan TANGGAL_MULAI terbaru
-        $latestStandard = Standard::orderBy('TANGGAL_MULAI', 'desc')->first();
+        // Dapatkan entry dengan kombinasi TANGGAL_MULAI terbaru dan TANGGAL_SELESAI terjauh
+        $latestStandard = Standard::orderBy('TANGGAL_MULAI', 'desc')
+            ->orderBy('TANGGAL_SELESAI', 'desc')
+            ->first();
 
         // Nonaktifkan semua status
         Standard::where('STATUS', 'Aktif')->update(['STATUS' => 'Tidak Aktif']);
@@ -33,6 +41,7 @@ class StandardController extends Controller
             $latestStandard->save();
         }
     }
+
 
 
 public function store(Request $request)
@@ -97,22 +106,27 @@ public function standardChart()
         $request->validate([
             'standard' => 'required|numeric',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'nullable|date',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
         ]);
 
         $standard = Standard::findOrFail($id);
 
-        $standard->update([
+        // Periksa apakah ada perubahan pada data
+        $standard->fill([
             'STANDARD' => $request->standard,
             'TANGGAL_MULAI' => $request->tanggal_mulai,
             'TANGGAL_SELESAI' => $request->tanggal_selesai,
         ]);
 
-        // Perbarui status Aktif berdasarkan tanggal
-        $this->updateStatus();
+        // Jika data berubah, simpan dan perbarui status
+        if ($standard->isDirty()) {
+            $standard->save();
+            $this->updateStatus(); // Perbarui status jika ada perubahan
+        }
 
         return redirect()->route('standard.index')->with('success', 'Standard Berhasil Diupdate');
     }
+
 
     public function destroy($id)
     {
