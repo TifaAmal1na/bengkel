@@ -30,7 +30,7 @@ class dashboardController extends Controller
         $user = User::count();
         $aktifTools = Tools::where('status', 'Aktif')->count();
         $totalPekerjaanAktif = DB::table('pekerjaan')
-            ->leftJoin('standard', 'standard.TANGGAL_MULAI', '=', 'pekerjaan.tanggal') // Update table name to standard
+            ->leftJoin('standard', 'standard.TANGGAL_MULAI', '=', 'pekerjaan.TANGGAL_MULAI') // Update table name to standard
             ->where('pekerjaan.status', 'Aktif')
             ->count('pekerjaan.id_pekerjaan');
 
@@ -56,7 +56,7 @@ class dashboardController extends Controller
         $totalPekerjaan = Pekerjaan::count();
         $completedPekerjaan = Pekerjaan::where('STATUS', 'Selesai')->count();
 
-        $latestStandard = Standard::orderBy('TANGGAL', 'desc')->first(); // Replace Workload with Standard
+        $latestStandard = Standard::orderBy('TANGGAL_MULAI', 'desc')->first(); // Replace Workload with Standard
         $workloadStandard = $latestStandard->STANDARD ?? 0; // Default to 0 if no standard found
         $workloadCount = $latestStandard->JUMLAH_PEKERJAAN ?? 0; // Default to 0 if no standard found
 

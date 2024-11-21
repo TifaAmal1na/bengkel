@@ -40,8 +40,8 @@ class pekerjaanController extends Controller
             'NAMA' => 'required|string',
             'STATUS' => 'required|in:selesai,dalam proses',
             'KATEGORI' => 'required|string',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date',
+            'TANGGAL_MULAI' => 'required|date',
+            'TANGGAL_SELESAI' => 'required|date',
         ]);
     
         $pekerjaan = new Pekerjaan();

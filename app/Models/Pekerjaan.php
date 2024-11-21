@@ -22,8 +22,8 @@ class Pekerjaan extends Model
         'NAMA',
         'STATUS',
         'KATEGORI',
-        'TANGGAL', // Start date
-        'date_end' // End date
+        'TANGGAL_MULAI', // Start date
+        'TANGGAL_SELESAI' // End date
     ];
 
     // Relasi ke tabel proyek

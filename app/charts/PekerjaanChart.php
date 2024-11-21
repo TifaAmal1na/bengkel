@@ -18,16 +18,16 @@ class PekerjaanChart
     public function build()
 {
     // Mengambil data target dari tabel Workload
-    $workloads = Standard::orderBy('TANGGAL', 'asc')->get();
+    $workloads = Standard::orderBy('TANGGAL_MULAI', 'asc')->get();
     $targets = $workloads->pluck('STANDARD')->toArray();
 
     // Memastikan $dates adalah array, bukan Collection
-    $dates = $workloads->pluck('TANGGAL')->map(fn($date) => date('M d', strtotime($date)))->toArray();
+    $dates = $workloads->pluck('TANGGAL_MULAI')->map(fn($date) => date('M d', strtotime($date)))->toArray();
 
     // Mengambil data realisasi dari tabel Pekerjaan
-    $realisasi = Pekerjaan::whereIn('TANGGAL', $workloads->pluck('TANGGAL'))
-        ->orderBy('TANGGAL', 'asc')
-        ->pluck('JUMLAH')->toArray();
+    $realisasi = Pekerjaan::whereIn('TANGGAL_MULAI', $workloads->pluck('TANGGAL_MULAI'))
+        ->orderBy('TANGGAL_MULAI', 'asc')
+        ->pluck('id_pekerjaan')->toArray();
 
     return $this->chart->barChart()
         ->setTitle('Perbandingan Target dan Realisasi Pekerjaan')

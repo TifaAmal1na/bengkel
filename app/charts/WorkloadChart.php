@@ -15,10 +15,10 @@ Class WorkloadChart{
     public function build()
     {
         // Mengambil data workload dari database
-        $data = Standard::orderBy('TANGGAL')->get();
+        $data = Standard::orderBy('TANGGAL_MULAI')->get();
 
         // Ekstrak tanggal dan jumlah pekerjaan aktif
-        $labels = $data->pluck('TANGGAL')->toArray();
+        $labels = $data->pluck('TANGGAL_MULAI')->toArray();
         $activeJobs = $data->pluck('JUMLAH_PEKERJAAN')->toArray();
 
         // Membuat array standar dengan nilai 5 untuk setiap tanggal
