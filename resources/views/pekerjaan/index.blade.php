@@ -46,8 +46,8 @@
                                         <td>{{ $p->KATEGORI }}</td>
                                         <td>{{ $p->grafik->TANGGAL_MULAI ?? '-' }}</td>
                                         <td>{{ $p->grafik->TANGGAL_SELESAI ?? '-' }}</td>
-                                        <td>{{ $p->TANGGAL }}</td>
-                                        <td>{{ $p->date_end }}</td>
+                                        <td>{{ $p->TANGGAL_MULAI }}</td>
+                                        <td>{{ $p->TANGGAL_SELESAI }}</td>
                                         <td>
                                             <div class="d-flex">
                                                 <a class="btn btn-primary mr-1" href="{{ route('pekerjaan.edit', $p->ID_PEKERJAAN) }}">Edit</a>

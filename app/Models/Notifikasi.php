@@ -20,7 +20,7 @@ class Notifikasi extends Model
         'ID_PROYEK',
         'JUDUL',
         'DESKRIPSI',
-        'TANGGAL_MULAI',
+        'TANGGAL',
         'PRIORITAS'
     ];
 
