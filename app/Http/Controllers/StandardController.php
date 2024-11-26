@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Standard;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class StandardController extends Controller
 {
@@ -27,44 +29,48 @@ class StandardController extends Controller
     // Method untuk menetapkan status berdasarkan tanggal terbaru
     private function updateStatus()
     {
-        // Dapatkan entry dengan kombinasi TANGGAL_MULAI terbaru dan TANGGAL_SELESAI terjauh
-        $latestStandard = Standard::orderBy('TANGGAL_MULAI', 'desc')
-            ->orderBy('TANGGAL_SELESAI', 'desc')
+        $now = Carbon::now(); // Mendapatkan waktu sekarang
+
+        // Ambil entri dengan TANGGAL_MULAI yang lebih baru dan TANGGAL_SELESAI masih berlaku atau NULL
+        $latestStandard = Standard::whereDate('TANGGAL_MULAI', '<=', $now)
+            ->where(function ($query) use ($now) {
+                $query->whereNull('TANGGAL_SELESAI') // Jika TANGGAL_SELESAI kosong
+                      ->orWhereDate('TANGGAL_SELESAI', '>=', $now); // Jika TANGGAL_SELESAI masih berlaku
+            })
+            ->orderBy('TANGGAL_MULAI', 'desc') // Urutkan berdasarkan TANGGAL_MULAI yang lebih terbaru
             ->first();
 
-        // Nonaktifkan semua status
+        // Nonaktifkan semua entri yang statusnya "Aktif"
         Standard::where('STATUS', 'Aktif')->update(['STATUS' => 'Tidak Aktif']);
 
-        // Aktifkan standard terbaru jika ada
+        // Jika entri valid ditemukan, tandai sebagai "Aktif"
         if ($latestStandard) {
             $latestStandard->STATUS = 'Aktif';
-            $latestStandard->save();
+            $latestStandard->save(); // Simpan perubahan status
         }
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'standard' => 'required|numeric',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai', // Tanggal selesai tidak boleh lebih kecil dari Tanggal Mulai
+        ]);
 
+        // Simpan data baru
+        $newStandard = Standard::create([
+            'STANDARD' => $request->standard,
+            'TANGGAL_MULAI' => $request->tanggal_mulai,
+            'TANGGAL_SELESAI' => $request->tanggal_selesai,
+            'STATUS' => 'Tidak Aktif', // Default sebagai Tidak Aktif
+        ]);
 
-public function store(Request $request)
-{
-    $request->validate([
-        'standard' => 'required|numeric',
-        'tanggal_mulai' => 'required|date',
-        'tanggal_selesai' => 'nullable|date',
-    ]);
+        // Perbarui status Aktif berdasarkan tanggal
+        $this->updateStatus();
 
-    // Simpan data baru
-    $newStandard = Standard::create([
-        'STANDARD' => $request->standard,
-        'TANGGAL_MULAI' => $request->tanggal_mulai,
-        'TANGGAL_SELESAI' => $request->tanggal_selesai,
-        'STATUS' => 'Tidak Aktif', // Default sebagai Tidak Aktif
-    ]);
-
-    // Perbarui status Aktif berdasarkan tanggal
-    $this->updateStatus();
-
-    return redirect()->route('standard.index')->with('success', 'Standard Berhasil Ditambahkan');
-}
+        return redirect()->route('standard.index')->with('success', 'Standard Berhasil Ditambahkan');
+    }
 
     public function getActiveStandards()
 {
@@ -103,12 +109,14 @@ public function standardChart()
 
     public function update(Request $request, $id)
     {
+        // Validasi input
         $request->validate([
             'standard' => 'required|numeric',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai', // Tanggal selesai harus lebih besar atau sama dengan tanggal mulai
         ]);
 
+        // Ambil data Standard berdasarkan ID
         $standard = Standard::findOrFail($id);
 
         // Periksa apakah ada perubahan pada data
@@ -118,13 +126,16 @@ public function standardChart()
             'TANGGAL_SELESAI' => $request->tanggal_selesai,
         ]);
 
-        // Jika data berubah, simpan dan perbarui status
+        // Jika ada perubahan, simpan data dan update status
         if ($standard->isDirty()) {
+            // Panggil fungsi updateStatus() untuk update status Aktif
+            $this->updateStatus();
+
+            // Simpan perubahan data Standard
             $standard->save();
-            $this->updateStatus(); // Perbarui status jika ada perubahan
         }
 
-        return redirect()->route('standard.index')->with('success', 'Standard Berhasil Diupdate');
+        return redirect()->route('standard.index')->with('success', 'Standard berhasil diupdate');
     }
 
 

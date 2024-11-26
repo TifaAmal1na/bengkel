@@ -27,11 +27,17 @@
                             <label for="tanggal_mulai" class="form-label">Tanggal Mulai:</label>
                             <input type="date" class="form-control" name="tanggal_mulai" id="tanggal_mulai" value="{{ $standard->TANGGAL_MULAI }}" required>
                         </div>
-
                         <div class="form-group">
                             <label for="tanggal_selesai" class="form-label">Tanggal Selesai:</label>
-                            <input type="date" class="form-control" name="tanggal_selesai" id="tanggal_selesai" value="{{ $standard->TANGGAL_SELESAI }}" required>
+                            <input type="date" class="form-control" name="tanggal_selesai" id="tanggal_selesai" value="{{ old('tanggal_selesai', $standard->TANGGAL_SELESAI) }}" required>
+                            @if ($errors->has('tanggal_selesai'))
+                                <div class="alert alert-danger">
+                                    <strong>{{ $errors->first('tanggal_selesai') }}</strong>
+                                </div>
+                            @endif
                         </div>
+
+
 
                         <div class="form-group">
                             <input type="hidden" name="status" value="{{ $standard->STATUS }}">
@@ -46,7 +52,6 @@
                                 Status akan diperbarui secara otomatis berdasarkan tanggal mulai terbaru.
                             </small>
                         </div>
-
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
