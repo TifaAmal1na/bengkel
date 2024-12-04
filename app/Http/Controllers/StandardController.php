@@ -67,22 +67,33 @@ public function updateStatus()
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'standard' => 'required|numeric',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
-        ]);
-
         $standard = Standard::findOrFail($id);
-        $standard->update([
-            'STANDARD' => $request->standard,
-            'TANGGAL_MULAI' => $request->tanggal_mulai,
-            'TANGGAL_SELESAI' => $request->tanggal_selesai,
+
+        $request->validate([
+            'tanggal_mulai' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) use ($standard) {
+                    // Ambil Standard aktif
+                    $activeStandard = Standard::where('STATUS', 'Aktif')->first();
+
+                    if ($activeStandard && $value < $activeStandard->TANGGAL_MULAI) {
+                        $fail('Tanggal yang Anda masukkan tidak boleh lebih kecil dari Tanggal Mulai Standard aktif sebelumnya.');
+                    }
+                },
+            ],
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        ], [
+            'tanggal_mulai.required' => 'Tanggal Mulai harus diisi.',
+            'tanggal_selesai.required' => 'Tanggal Selesai harus diisi.',
+            'tanggal_selesai.after_or_equal' => 'Tanggal Selesai harus setelah atau sama dengan Tanggal Mulai.',
         ]);
 
-        $this->updateStatus(); // Perbarui status setelah pembaruan
-        return redirect()->route('standard.index')->with('success', 'Standard Berhasil Diperbarui');
+        $standard->update($request->all());
+
+        return redirect()->route('standard.index')->with('success', 'Standard berhasil diperbarui!');
     }
+
 
     public function destroy($id)
     {
