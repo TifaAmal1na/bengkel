@@ -5,100 +5,58 @@ namespace App\Http\Controllers;
 use App\Models\Standard;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
 
 class StandardController extends Controller
 {
     public function index()
     {
-        // Urutkan data: Status "Aktif" di atas, lalu berdasarkan TANGGAL_MULAI secara descending
         $data = Standard::orderByRaw("FIELD(STATUS, 'Aktif') DESC")
             ->orderBy('TANGGAL_MULAI', 'desc')
-            ->paginate(10); // Tambahkan pagination
-
-        // Kirim data ke view
+            ->paginate(10); // Pagination untuk halaman index
         return view('standard.index', compact('data'));
     }
-
 
     public function create()
     {
         return view('standard.create');
     }
 
-    // Method untuk menetapkan status berdasarkan tanggal terbaru
-    private function updateStatus()
-    {
-        $now = Carbon::now(); // Mendapatkan waktu sekarang
+    // Fungsi untuk memperbarui status "Aktif" berdasarkan tanggal
+public function updateStatus()
+{
+    // Nonaktifkan semua entri terlebih dahulu
+    Standard::query()->update(['STATUS' => 'Tidak Aktif']);
 
-        // Ambil entri dengan TANGGAL_MULAI yang lebih baru dan TANGGAL_SELESAI masih berlaku atau NULL
-        $latestStandard = Standard::whereDate('TANGGAL_MULAI', '<=', $now)
-            ->where(function ($query) use ($now) {
-                $query->whereNull('TANGGAL_SELESAI') // Jika TANGGAL_SELESAI kosong
-                      ->orWhereDate('TANGGAL_SELESAI', '>=', $now); // Jika TANGGAL_SELESAI masih berlaku
-            })
-            ->orderBy('TANGGAL_MULAI', 'desc') // Urutkan berdasarkan TANGGAL_MULAI yang lebih terbaru
-            ->first();
+    // Pilih entri terbaru berdasarkan Tahun -> Bulan -> Tanggal
+    $latestStandard = Standard::orderByRaw('YEAR(TANGGAL_MULAI) DESC')
+        ->orderByRaw('MONTH(TANGGAL_MULAI) DESC')
+        ->orderByRaw('DAY(TANGGAL_MULAI) DESC')
+        ->first();
 
-        // Nonaktifkan semua entri yang statusnya "Aktif"
-        Standard::where('STATUS', 'Aktif')->update(['STATUS' => 'Tidak Aktif']);
-
-        // Jika entri valid ditemukan, tandai sebagai "Aktif"
-        if ($latestStandard) {
-            $latestStandard->STATUS = 'Aktif';
-            $latestStandard->save(); // Simpan perubahan status
-        }
+    // Tetapkan entri terbaru sebagai "Aktif"
+    if ($latestStandard) {
+        $latestStandard->update(['STATUS' => 'Aktif']);
     }
+}
+
 
     public function store(Request $request)
     {
         $request->validate([
             'standard' => 'required|numeric',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai', // Tanggal selesai tidak boleh lebih kecil dari Tanggal Mulai
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
         ]);
 
-        // Simpan data baru
-        $newStandard = Standard::create([
+        Standard::create([
             'STANDARD' => $request->standard,
             'TANGGAL_MULAI' => $request->tanggal_mulai,
             'TANGGAL_SELESAI' => $request->tanggal_selesai,
-            'STATUS' => 'Tidak Aktif', // Default sebagai Tidak Aktif
+            'STATUS' => 'Tidak Aktif',
         ]);
 
-        // Perbarui status Aktif berdasarkan tanggal
-        $this->updateStatus();
-
+        $this->updateStatus(); // Perbarui status setelah menyimpan data baru
         return redirect()->route('standard.index')->with('success', 'Standard Berhasil Ditambahkan');
-    }
-
-    public function getActiveStandards()
-{
-    $activeStandards = Standard::where('status', 'Aktif')->get();
-    return response()->json($activeStandards); // For API or AJAX use
-}
-
-public function standardChart()
-{
-    $activeStandards = Standard::where('status', 'Aktif')->get();
-
-    // Format the data for the chart
-    $chartData = $activeStandards->map(function ($standard) {
-        return [
-            'start_date' => $standard->TANGGAL_MULAI,
-            'end_date' => $standard->TANGGAL_SELESAI,
-            'value' => $standard->STANDARD,
-        ];
-    });
-
-    return response()->json($chartData); // Return for the chart
-}
-
-
-    public function show($id)
-    {
-        $standard = Standard::findOrFail($id);
-        return view('standard.show', compact('standard'));
     }
 
     public function edit($id)
@@ -109,49 +67,52 @@ public function standardChart()
 
     public function update(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
             'standard' => 'required|numeric',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai', // Tanggal selesai harus lebih besar atau sama dengan tanggal mulai
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
         ]);
 
-        // Ambil data Standard berdasarkan ID
         $standard = Standard::findOrFail($id);
-
-        // Periksa apakah ada perubahan pada data
-        $standard->fill([
+        $standard->update([
             'STANDARD' => $request->standard,
             'TANGGAL_MULAI' => $request->tanggal_mulai,
             'TANGGAL_SELESAI' => $request->tanggal_selesai,
         ]);
 
-        // Jika ada perubahan, simpan data dan update status
-        if ($standard->isDirty()) {
-            // Panggil fungsi updateStatus() untuk update status Aktif
-            $this->updateStatus();
-
-            // Simpan perubahan data Standard
-            $standard->save();
-        }
-
-        return redirect()->route('standard.index')->with('success', 'Standard berhasil diupdate');
+        $this->updateStatus(); // Perbarui status setelah pembaruan
+        return redirect()->route('standard.index')->with('success', 'Standard Berhasil Diperbarui');
     }
-
 
     public function destroy($id)
     {
         $standard = Standard::findOrFail($id);
-
-        // Lepaskan semua referensi di tabel pekerjaan
-        $standard->pekerjaan()->update(['ID_GRAFIK' => null]);
-
-        // Hapus data standard
+        $standard->pekerjaan()->update(['ID_GRAFIK' => null]); // Lepaskan hubungan pekerjaan
         $standard->delete();
 
-        // Perbarui status ke entri dengan TANGGAL_MULAI terbaru
-        $this->updateStatus();
-
+        $this->updateStatus(); // Perbarui status setelah penghapusan
         return redirect()->route('standard.index')->with('success', 'Standard Berhasil Dihapus');
+    }
+
+    // Mendapatkan data standard yang aktif
+    public function getActiveStandards()
+    {
+        $activeStandards = Standard::where('STATUS', 'Aktif')->get();
+        return response()->json($activeStandards);
+    }
+
+    // Data untuk grafik
+    public function standardChart()
+    {
+        $activeStandards = Standard::where('STATUS', 'Aktif')->get();
+        $chartData = $activeStandards->map(function ($standard) {
+            return [
+                'start_date' => $standard->TANGGAL_MULAI,
+                'end_date' => $standard->TANGGAL_SELESAI,
+                'value' => $standard->STANDARD,
+            ];
+        });
+
+        return response()->json($chartData);
     }
 }
