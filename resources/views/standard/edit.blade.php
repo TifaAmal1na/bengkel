@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <!-- Card for Form -->
         <div class="col-md-8">
-            <div class="card">
+            <div class="card mt-5">
                 <div class="card-header py-3">
                     <div class="m-0 font-weight-bold text-primary">Edit Standard</div>
                 </div>
@@ -24,22 +24,22 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label for="standard" class="form-label">Standard:</label>
                             <input type="number" class="form-control" name="standard" id="standard" value="{{ $standard->STANDARD }}" required>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label for="tanggal_mulai" class="form-label">Tanggal Mulai:</label>
                             <input type="date" class="form-control" name="tanggal_mulai" id="tanggal_mulai" value="{{ $standard->TANGGAL_MULAI }}" required>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label for="tanggal_selesai" class="form-label">Tanggal Selesai:</label>
                             <input type="date" class="form-control" name="tanggal_selesai" id="tanggal_selesai" value="{{ old('tanggal_selesai', $standard->TANGGAL_SELESAI) }}" required>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mt-4">
                             <button type="submit" class="btn btn-primary">Update</button>
                             <a href="{{ route('standard.index') }}" class="btn btn-warning">Kembali</a>
                         </div>
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 mt-4">
+        <div class="col-md-4 mt-5">
             @if (isset($latestActiveStandard) && $latestActiveStandard)
             <div class="alert alert-info">
                 <strong>Standard Aktif Terbaru</strong>
