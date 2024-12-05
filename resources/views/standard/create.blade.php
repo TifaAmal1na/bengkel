@@ -42,7 +42,6 @@
             </div>
         </div>
 
-        <!-- Visualisasi Standard Aktif Terbaru di Samping Kanan -->
         <div class="col-md-4 mt-4">
             @if (isset($latestActiveStandard) && $latestActiveStandard)
             <div class="alert alert-info">
