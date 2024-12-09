@@ -2,11 +2,13 @@
 
 namespace App\Charts;
 
-use App\Models\Workload;
+use App\Models\Pekerjaan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
-Class WorkloadChart{
+class WorkloadChart
+{
     protected $chart;
+
     public function __construct(LarapexChart $chart)
     {
         $this->chart = $chart;
@@ -14,26 +16,40 @@ Class WorkloadChart{
 
     public function build()
     {
-        // Mengambil data workload dari database
-        $data = Workload::orderBy('TANGGAL')->get();
+        // Mengambil jumlah pekerjaan aktif per bulan
+        $workloadData = Pekerjaan::selectRaw("
+                DATE_FORMAT(TANGGAL_MULAI, '%Y-%m') AS bulan,
+                COUNT(*) AS jumlah_aktif
+            ")
+            ->where('STATUS', '<>', 'Tidak Aktif')
+            ->groupBy('bulan')
+            ->orderBy('bulan')
+            ->get();
 
-        // Ekstrak tanggal dan jumlah pekerjaan aktif
-        $labels = $data->pluck('TANGGAL')->toArray();
-        $activeJobs = $data->pluck('JUMLAH_PEKERJAAN')->toArray();
+        // Mengambil data dari tabel Standard
+        $standardData = Pekerjaan::selectRaw("
+                DATE_FORMAT(TANGGAL_MULAI, '%Y-%m') AS bulan,
+                COUNT(*) AS jumlah_standard
+            ")
+            ->whereNotNull('TANGGAL_MULAI')
+            ->whereNotNull('TANGGAL_SELESAI')
+            ->groupBy('bulan')
+            ->orderBy('bulan')
+            ->get();
 
-        // Membuat array standar dengan nilai 5 untuk setiap tanggal
-        $standard = array_fill(0, count($labels), 5);
+        // Memisahkan data untuk chart
+        $labels = $workloadData->pluck('bulan')->toArray();
+        $activeJobs = $workloadData->pluck('jumlah_aktif')->toArray();
+        $standards = $standardData->pluck('jumlah_standard')->toArray();
 
+        // Membuat chart
         return $this->chart->lineChart()
-            ->setTitle('Workload Chart')
-            ->setSubtitle('Jumlah Pekerjaan Aktif per Hari')
-            ->addData('Standard', $standard)
-            ->addData('Aktif', $activeJobs)
-            ->setLabels($labels)
-            ->setColors(['#FF5733', '#33FF57']) // Warna garis
-            ->setMarkers(['#FF5733', '#33FF57']); // Warna marker
-            // ->setYAxisFormat('0'); // Format Y axis sebagai integer
+            ->setTitle('Workload Analysis')
+            ->setSubtitle('Analisis Pekerjaan per Bulan')
+            ->addData('Pekerjaan Aktif', $activeJobs)
+            ->addData('Standard', $standards)
+            ->setXAxis($labels)
+            ->setColors(['#28a745', '#dc3545']); // Hijau untuk pekerjaan, merah untuk standar
     }
 }
-
 ?>
