@@ -22,6 +22,7 @@ class dashboardController extends Controller
 {
     public function index(ProyekChart $proyekChart, PersonelChart $personelChart, ToolsChart $toolsChart, WorkloadChart $workloadChart, PekerjaanChart $pekerjaanChart)
     {
+
         // Mengambil jumlah data dari masing-masing model
         $aktifProyek = Proyek::where('status', 'Aktif')->count();
         $pekerjaansemua = Pekerjaan::count();

@@ -5,8 +5,10 @@ namespace App\Charts;
 use App\Models\Standard;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
-Class WorkloadChart{
+class WorkloadChart
+{
     protected $chart;
+
     public function __construct(LarapexChart $chart)
     {
         $this->chart = $chart;
@@ -14,26 +16,33 @@ Class WorkloadChart{
 
     public function build()
     {
-        // Mengambil data workload dari database
-        $data = Standard::orderBy('TANGGAL_MULAI')->get();
+        // Mengambil data dari tabel Standard (TANGGAL_MULAI dan TANGGAL_SELESAI)
+        $standardData = Standard::selectRaw("
+                DATE_FORMAT(TANGGAL_MULAI, '%Y-%m') AS bulan,
+                DATE_FORMAT(TANGGAL_SELESAI, '%Y-%m') AS bulan_selesai,
+                STANDARD
+            ")
+            ->whereNotNull('TANGGAL_MULAI')
+            ->whereNotNull('TANGGAL_SELESAI')
+            ->orderBy('TANGGAL_MULAI')
+            ->get();
 
         // Ekstrak tanggal dan jumlah pekerjaan aktif
-        $labels = $data->pluck('TANGGAL_MULAI')->toArray();
+        $labels = $data->pluck('TANGGAL')->toArray();
         $activeJobs = $data->pluck('JUMLAH_PEKERJAAN')->toArray();
 
-        // Membuat array standar dengan nilai 5 untuk setiap tanggal
-        $standard = array_fill(0, count($labels), 5);
+        // Menyesuaikan warna dan nilai berdasarkan standar
+        $adjustedStandards = array_map(function ($standard) {
+            return $standard > 5 ? 5 : $standard; // Menurunkan standar jika lebih dari 5
+        }, $standards);
 
+        // Membuat chart dengan data garis merah
         return $this->chart->lineChart()
-            ->setTitle('Workload Chart')
-            ->setSubtitle('Jumlah Pekerjaan Aktif per Hari')
-            ->addData('Standard', $standard)
-            ->addData('Aktif', $activeJobs)
-            ->setLabels($labels)
-            ->setColors(['#FF5733', '#33FF57']) // Warna garis
-            ->setMarkers(['#FF5733', '#33FF57']); // Warna marker
-            // ->setYAxisFormat('0'); // Format Y axis sebagai integer
+            ->setTitle('Workload Analysis')
+            ->setSubtitle('Analisis Pekerjaan per Bulan')
+            ->addData('Standard', $adjustedStandards)
+            ->setXAxis($labels)
+            ->setColors(['#dc3545']); // Merah untuk standar
     }
 }
-
 ?>

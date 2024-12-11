@@ -9,9 +9,9 @@ class Standard extends Model
 {
     use HasFactory;
 
-    protected $table = 'standard';
-    protected $primaryKey = 'ID_GRAFIK';
-    public $timestamps = false;
+    protected $table = 'standard'; // Nama tabel
+    protected $primaryKey = 'ID_GRAFIK'; // Primary key adalah ID_GRAFIK
+    public $timestamps = false; // Tidak ada kolom created_at dan updated_at
 
     protected $fillable = [
         'STANDARD',
@@ -37,6 +37,6 @@ class Standard extends Model
 
     public function getRouteKeyName()
     {
-        return 'ID_GRAFIK';
+        return 'ID_GRAFIK'; // Gunakan ID_GRAFIK untuk routing
     }
 }

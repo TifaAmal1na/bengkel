@@ -19,20 +19,20 @@
                     @endif
 
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> 
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Standard</th>
                                     <th>Tanggal Mulai</th>
                                     <th>Tanggal Selesai</th>
-                                    <th>Status</th> 
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data as $standard)
-                                    <tr>
+                                    <tr @if($standard->STATUS === 'Aktif') style="font-weight: bold; background-color: #f0f8ff;" @endif>
                                         <td>{{ $standard->ID_GRAFIK }}</td>
                                         <td>{{ $standard->STANDARD }}</td>
                                         <td>{{ \Carbon\Carbon::parse($standard->TANGGAL_MULAI)->format('d-m-Y') }}</td>
@@ -58,7 +58,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
