@@ -45,24 +45,45 @@ public function updateStatus()
     }
 }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'standard' => 'required|numeric',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'standard' => 'required|numeric',
+        'tanggal_mulai' => 'required|date',
+        'tanggal_selesai' => [
+            'required',
+            'date',
+            'after_or_equal:tanggal_mulai',
+            function ($attribute, $value, $fail) use ($request) {
+                // Periksa konflik rentang tanggal
+                $conflictingStandard = Standard::where(function ($query) use ($value, $request) {
+                    $query->whereBetween('TANGGAL_MULAI', [$request->tanggal_mulai, $value])
+                          ->orWhereBetween('TANGGAL_SELESAI', [$request->tanggal_mulai, $value])
+                          ->orWhere(function ($query) use ($request, $value) {
+                              $query->where('TANGGAL_MULAI', '<=', $request->tanggal_mulai)
+                                    ->where('TANGGAL_SELESAI', '>=', $value);
+                          });
+                })->first();
 
-        Standard::create([
-            'STANDARD' => $request->standard,
-            'TANGGAL_MULAI' => $request->tanggal_mulai,
-            'TANGGAL_SELESAI' => $request->tanggal_selesai,
-            'STATUS' => 'Tidak Aktif',
-        ]);
+                if ($conflictingStandard) {
+                    $fail("Tanggal Selesai bertentangan dengan rentang tanggal Standard lainnya (ID: {$conflictingStandard->ID_GRAFIK}).");
+                }
+            },
+        ],
+    ]);
 
-        $this->updateStatus(); // Perbarui status setelah menyimpan data baru
-        return redirect()->route('standard.index')->with('success', 'Standard Berhasil Ditambahkan');
-    }
+    Standard::create([
+        'STANDARD' => $request->standard,
+        'TANGGAL_MULAI' => $request->tanggal_mulai,
+        'TANGGAL_SELESAI' => $request->tanggal_selesai,
+        'STATUS' => 'Tidak Aktif',
+    ]);
+
+    $this->updateStatus(); // Perbarui status setelah menyimpan data baru
+    return redirect()->route('standard.index')->with('success', 'Standard Berhasil Ditambahkan');
+}
+
+
 
     public function edit($id)
     {
@@ -80,43 +101,45 @@ public function updateStatus()
 
 
     public function update(Request $request, $id)
-{
-    $standard = Standard::findOrFail($id);
+    {
+        $standard = Standard::findOrFail($id);
 
-    // Validasi input
-    $request->validate([
-        'tanggal_mulai' => [
-            'required',
-            'date',
-            function ($attribute, $value, $fail) use ($id) {
-                // Cari Standard lainnya yang memiliki tanggal_mulai lebih besar dari tanggal input
-                $latestStandard = Standard::where('ID_GRAFIK', '!=', $id)
-                    ->where('TANGGAL_MULAI', '>=', $value)
-                    ->orderBy('TANGGAL_MULAI', 'asc')
-                    ->first();
+        $request->validate([
+            'standard' => 'required|numeric',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => [
+                'required',
+                'date',
+                'after_or_equal:tanggal_mulai',
+                function ($attribute, $value, $fail) use ($request, $id) {
+                    // Periksa konflik rentang tanggal, kecuali untuk entri ini sendiri
+                    $conflictingStandard = Standard::where('ID_GRAFIK', '!=', $id)
+                        ->where(function ($query) use ($value, $request) {
+                            $query->whereBetween('TANGGAL_MULAI', [$request->tanggal_mulai, $value])
+                                  ->orWhereBetween('TANGGAL_SELESAI', [$request->tanggal_mulai, $value])
+                                  ->orWhere(function ($query) use ($request, $value) {
+                                      $query->where('TANGGAL_MULAI', '<=', $request->tanggal_mulai)
+                                            ->where('TANGGAL_SELESAI', '>=', $value);
+                                  });
+                        })->first();
 
-                // Validasi: Jika ada Standard lain dengan tanggal_mulai lebih baru, tolak input
-                if ($latestStandard) {
-                    $fail('Tanggal Mulai tidak boleh lebih kecil dari Standard lain dengan tanggal mulai: ' . $latestStandard->TANGGAL_MULAI);
-                }
-            },
-        ],
-        'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-    ]);
+                    if ($conflictingStandard) {
+                        $fail("Tanggal Selesai bertentangan dengan rentang tanggal Standard lainnya (ID: {$conflictingStandard->ID_GRAFIK}).");
+                    }
+                },
+            ],
+        ]);
 
-    // Update data
-    $standard->STANDARD = $request->input('standard');
-    $standard->TANGGAL_MULAI = $request->input('tanggal_mulai');
-    $standard->TANGGAL_SELESAI = $request->input('tanggal_selesai');
+        // Update data
+        $standard->update([
+            'STANDARD' => $request->standard,
+            'TANGGAL_MULAI' => $request->tanggal_mulai,
+            'TANGGAL_SELESAI' => $request->tanggal_selesai,
+        ]);
 
-    // Cek apakah status perlu diperbarui
-    $standard->STATUS = $request->has('status') ? $request->input('status') : $standard->STATUS;
+        return redirect()->route('standard.index')->with('success', 'Standard berhasil diperbarui!');
+    }
 
-    // Simpan perubahan
-    $standard->save();
-
-    return redirect()->route('standard.index')->with('success', 'Standard berhasil diperbarui!');
-}
 
 
     // public function update(Request $request, $id)

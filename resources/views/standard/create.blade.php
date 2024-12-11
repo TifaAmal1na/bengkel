@@ -31,6 +31,9 @@
                         <div class="form-group mt-3">
                             <label for="tanggal_selesai" class="form-label">Tanggal Selesai:</label>
                             <input type="date" class="form-control" name="tanggal_selesai" id="tanggal_selesai" required>
+                            @if ($errors->has('tanggal_selesai'))
+                                <span class="text-danger">{{ $errors->first('tanggal_selesai') }}</span>
+                            @endif
                         </div>
 
                         <div class="form-group mt-4">
