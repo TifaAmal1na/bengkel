@@ -27,9 +27,9 @@ class WorkloadChart
             ->orderBy('TANGGAL_MULAI')
             ->get();
 
-        // Ekstrak tanggal dan jumlah pekerjaan aktif
-        $labels = $data->pluck('TANGGAL')->toArray();
-        $activeJobs = $data->pluck('JUMLAH_PEKERJAAN')->toArray();
+        // Menyiapkan data untuk chart
+        $labels = $standardData->pluck('bulan')->toArray();
+        $standards = $standardData->pluck('STANDARD')->toArray();
 
         // Menyesuaikan warna dan nilai berdasarkan standar
         $adjustedStandards = array_map(function ($standard) {
