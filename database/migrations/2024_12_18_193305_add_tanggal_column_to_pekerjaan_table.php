@@ -12,18 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pekerjaan', function (Blueprint $table) {
-            // Mengubah kolom STATUS menjadi nullable
-            $table->enum('STATUS', ['Selesai', 'Dalam Proses', 'Aktif', 'Menunggu'])->nullable()->change();
+            //
         });
     }
-
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('pekerjaan');
+        Schema::table('pekerjaan', function (Blueprint $table) {
+            //
+        });
     }
 };

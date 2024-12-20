@@ -17,13 +17,7 @@ class Pekerjaan extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'ID_GRAFIK',
-        'ID_PROYEK',
-        'NAMA',
-        'STATUS',
-        'KATEGORI',
-        'TANGGAL_MULAI', // Start date
-        'TANGGAL_SELESAI' // End date
+        'NAMA', 'KATEGORI', 'TANGGAL', 'STATUS'
     ];
 
     // Relasi ke tabel proyek

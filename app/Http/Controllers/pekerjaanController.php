@@ -15,8 +15,8 @@ class pekerjaanController extends Controller
      */
     public function index()
     {
-        $pekerjaan = Pekerjaan::with('grafik')->get();
-        return view('pekerjaan.index', compact('pekerjaan'));
+        $pekerjaan = Pekerjaan::all(); // Retrieve all pekerjaan records from the database
+        return view('pekerjaan.index', compact('pekerjaan')); // Pass data to the view
     }
 
     /**
@@ -24,39 +24,36 @@ class pekerjaanController extends Controller
      */
     public function create()
     {
-        $proyekList = Proyek::all();
-        $grafikList = Standard::pluck('TANGGAL_MULAI', 'ID_GRAFIK');
-        return view('pekerjaan.create', compact('proyekList', 'grafikList'));
+        // Pass the list of 'proyek' to the view
+        $proyek = Proyek::all();
+        return view('pekerjaan.create', compact('proyek'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'ID_PROYEK' => 'required',
-            'ID_GRAFIK' => 'required',
-            'NAMA' => 'required|string',
-            'STATUS' => 'required|in:selesai,dalam proses',
-            'KATEGORI' => 'required|string',
-            'TANGGAL_MULAI' => 'required|date',
-            'TANGGAL_SELESAI' => 'required|date',
-        ]);
-    
-        $pekerjaan = new Pekerjaan();
-        $pekerjaan->ID_PROYEK = $request->ID_PROYEK;
-        $pekerjaan->ID_GRAFIK = $request->ID_GRAFIK;
-        $pekerjaan->NAMA = $request->NAMA;
-        $pekerjaan->STATUS = $request->STATUS;
-        $pekerjaan->KATEGORI = $request->KATEGORI;
-        $pekerjaan->TANGGAL_MULAI = $request->tanggal_mulai;
-        $pekerjaan->TANGGAL_SELESAI = $request->tanggal_selesai;
-        $pekerjaan->save();
-    
-        return redirect()->route('pekerjaan.index')->with('success', 'Data pekerjaan berhasil disimpan');
-    }    
 
+public function store(Request $request)
+{
+    // Validate the incoming request
+    $request->validate([
+        'NAMA' => 'required|string',
+        'KATEGORI' => 'required|string',
+        'TANGGAL' => 'required|date',
+    ]);
+
+    // Create a new Pekerjaan record
+    Pekerjaan::create([
+        'NAMA' => $request->NAMA,
+        'KATEGORI' => $request->KATEGORI,
+        'TANGGAL' => $request->TANGGAL,
+        'TANGGAL_MULAI' => now(),  // Set to current date if not provided
+        'STATUS' => 'Dalam Proses', // Set default status
+    ]);
+
+    // Redirect back to the index page with a success message
+    return redirect()->route('pekerjaan.index')->with('success', 'Pekerjaan added successfully.');
+}
     /**
      * Display the specified resource.
      */
@@ -96,7 +93,7 @@ class pekerjaanController extends Controller
 
         $pekerjaan = Pekerjaan::findOrFail($id);
         $pekerjaan->update($request->all());
-        
+
         return redirect()->route('pekerjaan.index')->with('success', 'Pekerjaan berhasil diupdate');
     }
 
@@ -106,13 +103,30 @@ class pekerjaanController extends Controller
     public function destroy(string $id)
     {
         $pekerjaan = Pekerjaan::findOrFail($id);
-        
+
         // Delete related records in aktivitas table
         Aktivitas::where('ID_PEKERJAAN', $id)->delete();
 
         // Now delete pekerjaan
         $pekerjaan->delete();
-        
+
         return redirect()->route('pekerjaan.index')->with('success', 'Pekerjaan berhasil dihapus');
+    }
+
+    public function finish(Request $request, $id)
+    {
+        $pekerjaan = Pekerjaan::findOrFail($id);
+
+        // Validasi input
+        $request->validate([
+            'tanggal_selesai' => 'required|date',
+        ]);
+
+        // Update pekerjaan
+        $pekerjaan->TANGGAL_SELESAI = $request->tanggal_selesai;
+        $pekerjaan->STATUS = 'Selesai';
+        $pekerjaan->save();
+
+        return redirect()->route('pekerjaan.index')->with('success', 'Pekerjaan berhasil diselesaikan.');
     }
 }

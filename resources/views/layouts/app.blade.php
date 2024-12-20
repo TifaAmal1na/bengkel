@@ -236,6 +236,16 @@
         </div>
     </div>
 
+@section('scripts')
+<script>
+    function showFinishModal(id) {
+        const form = document.getElementById('finishForm');
+        form.action = `/pekerjaan/${id}/finish`;
+        new bootstrap.Modal(document.getElementById('finishModal')).show();
+    }
+</script>
+@endsection
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
