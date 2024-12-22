@@ -2,99 +2,89 @@
 
 @section('content')
 
-    <div class="row">
-        <!-- Gauge Section -->
-        <div class="col-md-6">
-            <div class="chart-container"
-                style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; height: 260px; width: 100%;">
-                <div id="myChart" style="height: 100%; width: 100%; min-height: 150px;"></div>
-            </div>
+<div class="row">
+    <!-- Gauge Section -->
+    <div class="col-md-6">
+        <div class="chart-container"
+            style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; height: 260px; width: 100%;">
+            <div id="myChart" style="height: 100%; width: 100%; min-height: 150px;"></div>
         </div>
-        <!-- User Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">User</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $user }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
 
-        <!-- Project Active Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Project Active</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $aktifProyek }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-tasks fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Person Active Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">All Work</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pekerjaansemua }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tools Need Calibration Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Tools Need Calibration
+    <!-- Project Active and All Work Section -->
+    <div class="col-md-6">
+        <div class="row">
+            <!-- Project Active Card Example -->
+            <div class="col-xl-6 col-md-6 mb-4 h-100">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Project Active</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $aktifProyek }}</div>
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $kalibrarionTools }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-tools fa-2x text-gray-300"></i>
+                            <div class="col-auto">
+                                <i class="fas fa-tasks fa-2x text-gray-300"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Tools Active Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tools Active</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $aktifTools }}</div>
+            <!-- All Work Card Example -->
+            <div class="col-xl-6 col-md-6 mb-4 h-100">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">All Work</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pekerjaansemua }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user fa-2x text-gray-300"></i>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-tools fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools Need Calibration Card Example -->
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Tools Need Calibration</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $kalibrarionTools }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-tools fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools Active Card Example -->
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tools Active</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $aktifTools }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-tools fa-2x text-gray-300"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
 
         <!-- Charts Section -->
         <div class="container">
@@ -102,7 +92,7 @@
                 <!-- Workload Chart -->
                 <div class="col-md-4">
                     <div class="chart-container"
-                        style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; height: 520px; width: 100%;">
+                        style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; margin-top: 20px;">
                         {!! $workloadChart->container() !!}
                     </div>
                 </div>
@@ -110,7 +100,7 @@
                 <!-- Proyek Chart -->
                 <div class="col-md-4">
                     <div class="chart-container"
-                        style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0;">
+                        style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; margin-top: 20px;">
                         {!! $proyekChart->container() !!}
                     </div>
                 </div>
@@ -118,7 +108,7 @@
                 <!-- Personel Chart -->
                 <div class="col-md-4">
                     <div class="chart-container"
-                        style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; height: 520px; width: 100%;">
+                        style="border: 3px solid; border-radius: 10px; box-shadow: 0 4px 8px rgba(100, 143, 236, 0.2); padding: 0; margin-top: 20px; height: 520px; width: 100%;">
                         {!! $personelChart->container() !!}
                     </div>
                 </div>
