@@ -44,9 +44,9 @@
                                         <td>{{ $p->TANGGAL_SELESAI ?? '-' }}</td>
                                         <td>
                                             <div class="d-flex">
-                                                <button class="btn btn-success mr-1" onclick="showFinishModal({{ $p->ID_PEKERJAAN }})" {{ $p->STATUS === 'Selesai' ? 'disabled' : '' }}>Finish</button>
+                                                <button class="btn btn-success mr-1" data-toggle="modal" data-target="#finishModal{{ $p->ID_PEKERJAAN }}" {{ $p->STATUS === 'Selesai' ? 'disabled' : '' }}>Finish</button>
                                                 <a class="btn btn-primary mr-1" href="{{ route('pekerjaan.edit', $p->ID_PEKERJAAN) }}">Edit</a>
-                                                <form action="{{ route('pekerjaan.destroy', $p->ID_PEKERJAAN) }}" method="POST">
+                                                <form action="{{ route('pekerjaan.destroy', $p->ID_PEKERJAAN) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -54,6 +54,29 @@
                                             </div>
                                         </td>
                                     </tr>
+
+                                    <!-- Finish Modal -->
+                                    <div class="modal fade" id="finishModal{{ $p->ID_PEKERJAAN }}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form method="POST" action="{{ route('pekerjaan.finish', $p->ID_PEKERJAAN) }}">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Set Tanggal Selesai</h5>
+                                                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <label for="tanggal_selesai">Tanggal Selesai:</label>
+                                                        <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control" required>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -63,40 +86,21 @@
         </div>
     </div>
 </div>
-
-<!-- Finish Modal -->
-<div class="modal fade" id="finishModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="finishForm" method="POST" action="">
-                @csrf
-                @method('PUT')
-                <div class="modal-header">
-                    <h5 class="modal-title">Set Tanggal Selesai</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <label for="tanggal_selesai">Tanggal Selesai:</label>
-                    <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control" required>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 @endsection
 
 @section('scripts')
 <script>
-    // Function to show the Finish modal
-    function showFinishModal(id) {
-        const form = document.getElementById('finishForm');
-        form.action = `/pekerjaan/${id}/finish`;
-        new bootstrap.Modal(document.getElementById('finishModal')).show();
-    }
+    // Automatically attach modal to corresponding button via Bootstrap
+    document.querySelectorAll('[data-toggle="modal"]').forEach(button => {
+        button.addEventListener('click', () => {
+            const targetModalId = button.getAttribute('data-target');
+            const modal = document.querySelector(targetModalId);
+            const pekerjaanId = button.dataset.pekerjaanId;
+            if (modal && pekerjaanId) {
+                const form = modal.querySelector('form');
+                form.action = `/pekerjaan/${pekerjaanId}/finish`;
+            }
+        });
+    });
 </script>
 @endsection

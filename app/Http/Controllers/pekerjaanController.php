@@ -117,7 +117,7 @@ public function store(Request $request)
     {
         $pekerjaan = Pekerjaan::findOrFail($id);
 
-        // Validasi input
+        // Validate input
         $request->validate([
             'tanggal_selesai' => 'required|date',
         ]);
@@ -129,4 +129,5 @@ public function store(Request $request)
 
         return redirect()->route('pekerjaan.index')->with('success', 'Pekerjaan berhasil diselesaikan.');
     }
+
 }

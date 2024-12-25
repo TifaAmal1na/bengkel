@@ -16,9 +16,7 @@ class Pekerjaan extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [
-        'NAMA', 'KATEGORI', 'TANGGAL', 'STATUS'
-    ];
+    protected $fillable = ['NAMA', 'KATEGORI', 'TANGGAL_MULAI', 'STATUS', 'TANGGAL_SELESAI'];
 
     // Relasi ke tabel proyek
     public function proyek()

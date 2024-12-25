@@ -66,7 +66,8 @@
 
     // Route::put('/pekerjaan/{id}/finish', [pekerjaanController::class, 'finish'])->name('pekerjaan.finish');
     Route::resource('pekerjaan', PekerjaanController::class);
-Route::put('pekerjaan/{id}/finish', [PekerjaanController::class, 'finish'])->name('pekerjaan.finish');
     // Route::get('/pekerjaan/create', [pekerjaanController::class, 'create'])->name('pekerjaan.create');
     // Route::post('/pekerjaan', [pekerjaanController::class, 'store'])->name('pekerjaan.store');
+
+    Route::post('/pekerjaan/{id}/finish', [PekerjaanController::class, 'finish'])->name('pekerjaan.finish');
 
